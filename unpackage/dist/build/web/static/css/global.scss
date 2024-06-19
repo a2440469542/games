@@ -1,0 +1,16 @@
+.secondaryBgColor {
+    background-color: #547320;
+}
+
+*{
+    box-sizing: border-box; 
+}
+
+.uni-drawer__content .uni-drawer--left .uni-drawer__content--visible {
+    width: 80% !important;
+}
+body{
+    max-width: 674px;
+    position: relative;
+    margin: 0 auto;
+}
