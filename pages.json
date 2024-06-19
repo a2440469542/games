@@ -63,18 +63,33 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
+		"backgroundColor" : "#547320",
+		"color" : "#FFFFFF",
+		"selectedColor" : "#f9f36d",
 		"list": [
 		  {
-			"pagePath": "pages/index/index"
+			"pagePath": "pages/index/index",
+			"text": "Lobby",
+			"iconPath": "/static/images/tabbar/home.png",
+			"selectedIconPath": "/static/images/tabbar/home-active.png"
 		  },
 		  {
-			"pagePath": "pages/group/index"
+			"pagePath": "pages/group/index",
+			"text": "Equipe",
+			"iconPath": "/static/images/tabbar/group.png",
+			"selectedIconPath": "/static/images/tabbar/group-active.png"
 		  },
 		  {
-			"pagePath": "pages/recharge/index"
+			"pagePath": "pages/recharge/index",
+			"text": "Recarregar",
+			"iconPath": "/static/images/tabbar/charge.png",
+			"selectedIconPath": "/static/images/tabbar/charge-active.png"
 		  },
 		  {
-			"pagePath": "pages/profile/index"
+			"pagePath": "pages/profile/index",
+			"text": "Perfil",
+			"iconPath": "/static/images/tabbar/profile.png",
+			"selectedIconPath": "/static/images/tabbar/profile-active.png"
 		  }
 		]
 	  },

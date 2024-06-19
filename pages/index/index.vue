@@ -100,6 +100,9 @@ export default {
 			this.inv_code = options.inv_code
 		}
 	},
+	onTabItemTap(e) {
+		console.log('tabbar', e)
+	},
 	methods: {
 		getUserInfo() {
 		    this.$api.user.getUserInfo().then(res => {

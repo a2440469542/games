@@ -63,7 +63,7 @@ export default {
     data() {
         return {
             isOpen: false,
-            typeIndex: uni.getStorageSync('rechargeFlag') || 0,
+            typeIndex: 0,
             chargeItemIndex: 0,
             chargeValue: "",
             withdrawValue: '',
@@ -75,13 +75,21 @@ export default {
         ...mapGetters(['isLogin', 'rechargeFlag'])
     },
     onShow() {
-        console.log(this.rechargeFlag)
+        console.log(uni.getStorageSync('rechargeFlag'))
+        uni.$on('rechargeFlag', (e)=>{
+            console.log(e)
+            this.typeIndex = e
+        })
     },
     onLoad(options) {
         console.log(options, this.rechargeFlag)
         this.loadRechargeList()
         this.getUserInfo()
     },
+    onTabItemTap(e) {
+		console.log('tabbar', e)
+        console.log(this.rechargeFlag)
+	},
     methods: {
         getUserInfo() {
 		    this.$api.user.getUserInfo().then(res => {

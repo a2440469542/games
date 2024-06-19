@@ -110,12 +110,12 @@ export default {
                 //     src: require('../../static/images/commission.png'),
                 //     isRight: true
                 // },
-                {
-                    id: 4,
-                    name: 'Notícias',
-                    src: require('../../static/images/notice.png'),
-                    isRight: true
-                },
+                // {
+                //     id: 4,
+                //     name: 'Notícias',
+                //     src: require('../../static/images/notice.png'),
+                //     isRight: true
+                // },
                 {
                     id: 6,
                     name: 'Servir',
@@ -150,6 +150,9 @@ export default {
     onLoad() {
         this.getUserInfo()
     },
+    onTabItemTap(e) {
+		console.log('tabbar', e)
+	},
     methods: {
         logout() {
             this.$api.user.logout().then(res => {
@@ -175,7 +178,7 @@ export default {
             })
         },
         toRecharge(type) {
-            uni.setStorageSync('rechargeFlag', type)
+            uni.$emit('rechargeFlag', type)
             uni.switchTab({
                 url: '/pages/recharge/index'
             });
