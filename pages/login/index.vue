@@ -30,7 +30,7 @@
                                 src="data:image/png;base64,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">
                             </image>
                         </view>
-                        <uv-input border="none" color="#ffd8ad" password="true" v-model="form.pwd" class="uni-input"
+                        <uv-input border="none" color="#ffd8ad" :password="true" v-model="form.pwd" class="uni-input"
                             placeholder-style="color: #ffd8ad" focus placeholder="Senha (4-16 leras e números)" />
 
                     </view>
@@ -150,7 +150,7 @@ export default {
     height: 100vh;
     box-sizing: border-box;
     overflow-y: scroll;
-    position: fixed;
+    position: absolute;
     top: 0;
     z-index: 999;
     background-color: #00000080;

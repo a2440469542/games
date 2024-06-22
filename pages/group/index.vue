@@ -1,7 +1,7 @@
 <template>
     <view class="group">
         <navgation-bar @openDrawer="openDrawer" :isLogin="isLogin" :is-open="isOpen"
-            :userInfo="userInfo"></navgation-bar>
+            :userInfo="userInfo" :channel="channelInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
         <scroll-view scroll-y class="group-content">
             <view class="content-box">
@@ -20,7 +20,7 @@
                             <view class="label">Convide amigos</view>
                             <view class="invite-url">
                                 <view class="code">{{ userInfo.uid }}</view>
-                                <view class="copy" @click="copy(userInfo.uid)">
+                                <view class="copy" @click="copy(userInfo.uid.toString())">
                                     <image src="../../static/images/copy.png"></image>
                                 </view>
                             </view>
@@ -189,24 +189,28 @@ export default {
                 // }
             ],
             dataList: [],
-            userInfo: uni.getStorageSync('userInfo'),
-            channelInfo: uni.getStorageSync('channelInfo'),
-            copyUrl: ""
+            userInfo: uni.getStorageSync('userInfo') || {},
+            channelInfo: uni.getStorageSync('channelInfo') || {},
+            copyUrl: "",
+            isLogin: false
         }
     },
-    computed: {
-        ...mapGetters(['isLogin'])
-    },
+    computed: {},
     onLoad() {
-        console.log(window.location.href);
+        //console.log(window.location.href);
         this.loadGroupTotal()
         this.loadingChargeList()
-        this.getUserInfo()
         this.copyUrl = `${this.channelInfo.url}#/?cid=${this.cid}&inv_code=${this.userInfo.uid}`
+    },
+    onShow() {
+        this.isLogin = uni.getStorageSync('isLogin')
+        if (this.isLogin) {
+            this.getUserInfo()
+        }
     },
     methods: {
         confirm(e) {
-            console.log('confirm', e);
+            //console.log('confirm', e);
             this.chargeObj.date = e.value[0].id
             this.currentLabel = e.value[0].label
             this.$refs.picker.close();
@@ -232,12 +236,12 @@ export default {
                         }
                     }
                 });
-                console.log(this.levelList)
+                //console.log(this.levelList)
             })
         },
         loadingChargeList() {
             this.$api.user.getChargeList(this.chargeObj).then(res => {
-                console.log(res)
+                //console.log(res)
                 this.dataList = res
             })
         },
@@ -250,8 +254,10 @@ export default {
             }
         },
         tabSwitch(index) {
+            this.chargeObj.type = index
             this.currentIndex = index
             this.loadGroupTotal()
+            this.loadingChargeList()
         },
         copy(text) {
             this.$copyToClipboard(text);

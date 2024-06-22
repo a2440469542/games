@@ -2,7 +2,9 @@
   <view class="navgation-bar secondaryBgColor">
     <view class="nav-left">
       <view :class="isOpen ? 'menu open' : 'menu'" @click="openDrawer"></view>
-      <view class="logo"></view>
+      <view class="logo">
+        <image mode="heightFix" src="channel.logo"></image>
+      </view>
     </view>
     <view class="nav-right" @click="toLogin">
       <view class="cou"></view>
@@ -12,6 +14,7 @@
   </view>
 </template>
 <script>
+
 export default {
   name: "NavgationBar",
   data() {
@@ -35,6 +38,15 @@ export default {
     userInfo: {
       type: Object,
       default: () => {}
+    },
+    channel: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  watch: {
+    channel(n, o){
+      // console.log("isLogin",n, o)
     }
   },
   methods: {
@@ -51,7 +63,7 @@ export default {
 <style scoped lang="scss">
 .navgation-bar {
   width: 100%;
-  height: 82rpx;
+  height: 92rpx;
   display: flex;
   position: relative;
   padding: 0 26rpx;
@@ -59,9 +71,9 @@ export default {
 
   .nav-left {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
-    width: 290rpx;
+    width: 50%;
 
     .menu {
       width: 46rpx;
@@ -78,23 +90,26 @@ export default {
 
     .logo {
       width: 208rpx;
-      height: 42rpx;
-      background-image: url("../../static/images/logo.png");
-      background-size: 100% 105%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      image {
+        height: 60rpx;
+      }
     }
   }
 
   .nav-right {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
-
+    width: 50%;
     .cou {
       width: 45rpx;
       height: 45rpx;
       background-image: url("../../static/images/country.png");
       background-size: 100% 105%;
-      margin-right: 10rpx;
+      margin-right: 20rpx;
     }
 
     .amount {

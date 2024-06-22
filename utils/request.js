@@ -33,7 +33,7 @@ function request(url, method = "GET", data = {}, header = {}) {
       header: header,
       success: (res) => {
         hideLoading();
-        console.log(res);
+        //console.log(res);
         let { code } = res.data;
         if (code === 0) {
           // 存入token
@@ -49,8 +49,6 @@ function request(url, method = "GET", data = {}, header = {}) {
           uni.removeStorageSync("userInfo");
           uni.removeStorageSync("isLogin");
           uni.removeStorageSync("channelInfo");
-          this.$store.dispatch('setIsLogin', false);
-          uni.$emit("login");
           uni.reLaunch({
             url: "/pages/index/index",
           });
@@ -59,7 +57,7 @@ function request(url, method = "GET", data = {}, header = {}) {
         } else {
           hideLoading();
           uni.showToast({
-            title: res.data.msg || "请求失败",
+            title: res.data.msg || "Falha na solicitação",
             duration: 2000,
           });
           reject(new Error("Request failed"));

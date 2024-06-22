@@ -1,6 +1,6 @@
 <template>
     <view class="recharge">
-        <navgation-bar @openDrawer="openDrawer" :isLogin="isLogin" :is-open="isOpen" :userInfo="userInfo"></navgation-bar>
+        <navgation-bar @openDrawer="openDrawer" :channel="channelInfo" :isLogin="isLogin" :is-open="isOpen" :userInfo="userInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
         <scroll-view scroll-y class="content">
             <view class="box">
@@ -68,27 +68,30 @@ export default {
             chargeValue: "",
             withdrawValue: '',
             amountList: [],
-            userInfo:{}
+            userInfo: uni.getStorageSync('userInfo') || {},
+            channelInfo: uni.getStorageSync('channelInfo') || {},
+            isLogin: false
         }
     },
-    computed: {
-        ...mapGetters(['isLogin', 'rechargeFlag'])
-    },
+    computed: {},
     onShow() {
-        console.log(uni.getStorageSync('rechargeFlag'))
+        // //console.log(uni.getStorageSync('rechargeFlag'))
+        this.isLogin = uni.getStorageSync('isLogin');
+        if(this.isLogin){
+            this.getUserInfo() 
+        }
         uni.$on('rechargeFlag', (e)=>{
-            console.log(e)
+            //console.log(e)
             this.typeIndex = e
         })
     },
     onLoad(options) {
-        console.log(options, this.rechargeFlag)
+        // //console.log(options, this.rechargeFlag)
         this.loadRechargeList()
-        this.getUserInfo()
     },
     onTabItemTap(e) {
-		console.log('tabbar', e)
-        console.log(this.rechargeFlag)
+		//console.log('tabbar', e)
+        //console.log(this.rechargeFlag)
 	},
     methods: {
         getUserInfo() {
@@ -143,7 +146,7 @@ export default {
                 return
             }
             this.$api.user.cash({ money: this.withdrawValue }).then(res => {
-                console.log(res)
+                //console.log(res)
                 if (res.code === 102) {
                     uni.navigateTo({
                         url: '/pages/bind/index'

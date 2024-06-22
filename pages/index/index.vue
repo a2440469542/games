@@ -1,6 +1,7 @@
 <template>
 	<view class="home-page">
-		<navgation-bar :userInfo="userInfo" @openDrawer="openDrawer" :is-login="isLogin" @toLogin="toLogin" :is-open="isOpen"></navgation-bar>
+		<navgation-bar :userInfo="userInfo" :channel="channelInfo" @openDrawer="openDrawer" :is-login="isLogin"
+			@toLogin="toLogin" :is-open="isOpen"></navgation-bar>
 		<left-menu ref="leftMenu" @toLogin="toLogin" @onDrawerChange="onDrawerChange"></left-menu>
 		<scroll-view scroll-y class="scroll-view" @scrolltolower="loadMore">
 			<view class="ad">
@@ -25,7 +26,10 @@
 			</view>
 			<view class="jackpot">
 				<view class="jackpot-content">
-					<text id="counter">{{ initialNum }}</text>
+					<!-- <text class="counter">{{ formattedNumber }}</text> -->
+					<text ref="counter">{{ formattedNumber }}</text>
+
+					<!-- <text id="counter">{{ initialNum }}</text> -->
 				</view>
 			</view>
 			<view class="game-title">
@@ -49,7 +53,8 @@
 					<view class="game-name">{{ item.name }}</view>
 				</view>
 			</view>
-			<uv-load-more loadingText="Carregando..." loadmoreText="Cargando" nomoreText="Sem mais jogos"  :status="status" />
+			<uv-load-more loadingText="Carregando..." loadmoreText="Cargando" nomoreText="Sem mais jogos"
+				:status="status" />
 			<view class="footer">
 			</view>
 		</scroll-view>
@@ -61,7 +66,7 @@
 <script>
 import leftMenu from '../../components/common/leftMenu.vue'
 import login from '../login/index.vue'
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 export default {
 	components: {
 		leftMenu,
@@ -70,6 +75,10 @@ export default {
 	data() {
 		return {
 			title: 'Hello',
+			randomNumber: 17000200.07, // 初始随机数
+			targetValue: null, // 目标值，初始化时未设定
+			incrementValue: 0, // 递增值
+			timer: null, // 定时器引用
 			autoplay: true,
 			indicatorDots: true,
 			indicatorColor: 'rgba(255, 255, 255, 1)',
@@ -84,74 +93,139 @@ export default {
 				keyword: '',
 				pid: ''
 			},
-			userInfo: uni.getStorageSync('userInfo'),
-			cid: uni.getStorageSync('channelInfo').cid,
-			channelInfo: {},
-			inv_code: ''
+			userInfo: uni.getStorageSync('userInfo') || {},
+			cid: uni.getStorageSync('channelInfo').cid || '',
+			channelInfo: uni.getStorageSync('channelInfo') || {},
+			inv_code: '',
+			isLogin: false,
+			bannerList:[],
+			currentPath: this.getBaseUrl() === 'http://localhost:8080/' ? 'https://test.rs6bot.com' : this.getBaseUrl()
 		}
 	},
 	computed: {
-		...mapGetters(['isLogin'])
+		// 格式化数字，添加千分位并保留两位小数
+		// 格式化数字
+		formattedNumber() {
+			return this.randomNumber.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+		},
 	},
+
 	onLoad(options) {
-		console.log(options, this.isLogin)
+		//console.log(options, window.location.href)
+		// 设置目标值为初始值加上一个100万到300万之间的随机数
+		this.targetValue = this.randomNumber + Math.random() * (3000000 - 1000000) + 1000000;
+		this.startGrowthTimer();
 		this.loadChannelInfo()
-		if(options.inv_code){
+		if (options.inv_code) {
 			this.inv_code = options.inv_code
 		}
 	},
-	onTabItemTap(e) {
-		console.log('tabbar', e)
+	onShow() {
+		this.isLogin = uni.getStorageSync('isLogin') || false
+		//console.log("isLogin", this.isLogin)
+		if (this.isLogin) {
+			this.getUserInfo()
+		}
 	},
 	methods: {
-		getUserInfo() {
-		    this.$api.user.getUserInfo().then(res => {
-		        this.userInfo = res
-		    })
+		// 开始增长定时器
+		startGrowthTimer() {
+			this.timer = setInterval(() => {
+				if (this.randomNumber >= this.targetValue) {
+					// 达到或超过目标值时停止定时器
+					clearInterval(this.timer);
+					// //console.log("已达到目标值");
+					return;
+				}
+				this.incrementRandomly();
+			}, 5000);
 		},
-		loadChannelInfo(){
-			this.$api.home.getChannel({url: 'http://test.rs6bot.com',}).then(res => {
-				console.log(res)
+		// 递增随机1-10数值
+		incrementRandomly() {
+			const randomIncrement = Math.random() * 10 + 1;
+			this.animateGrowth(randomIncrement);
+		},
+		// 数字增长动画逻辑
+		animateGrowth(increment) {
+			const endValue = Number(this.randomNumber) + Number(increment);
+			this.animate(this.randomNumber, endValue, 500);
+		},
+		animate(startNum, endNum, duration) {
+			let currentNum = parseFloat(startNum);
+			const step = (endNum - startNum) / (duration / 100); // 假设每60ms更新一次
+			const interval = setInterval(() => {
+				currentNum += step;
+				if (currentNum >= parseFloat(endNum)) {
+					clearInterval(interval);
+				} else {
+					// 格式化为保留两位小数的字符串，用于显示
+					const formattedNum = currentNum.toFixed(2);
+					this.randomNumber = formattedNum;
+				}
+			}, 100);
+		},
+
+		getBaseUrl() {
+			// 获取当前页面的完整URL
+			let fullUrl = window.location.href;
+			// 创建URL对象
+			let urlObject = new URL(fullUrl);
+			// 截取URL的origin（协议+域名+端口）和pathname（路径）
+			let baseUrl = urlObject.origin + urlObject.pathname;
+			return baseUrl;
+		},
+		getUserInfo() {
+			this.$api.user.getUserInfo().then(res => {
+				this.userInfo = res
+				// //console.log("userInfo", this.userInfo)
+			})
+		},
+		loadChannelInfo() {
+			this.$api.home.getChannel({ url: this.currentPath }).then(res => {
+				// //console.log(res)
 				this.channelInfo = res
-				uni.setNavigationBarTitle({title: res.title});
+				uni.setNavigationBarTitle({ title: res.title });
 				uni.setStorageSync('channelInfo', res)
 				this.loadBanner()
 				this.loadGame()
-				if (this.isLogin) {
-					this.getUserInfo()
-				}
 			})
 		},
 		loadBanner() {
 			this.$api.home.getAd().then(res => {
-				console.log(res)
+				//console.log(res)
 			})
 		},
 		loadGame() {
 			this.$api.home.getGameList(this.gameParam).then(res => {
-				console.log(res)
-				if(res.data.length < this.gameParam.limit){
+				//console.log(res)
+				if (res.data.length < this.gameParam.limit) {
 					this.status = 'nomore'
 				}
 				this.list = [...this.list, ...res.data]
 			})
 		},
 		toGame(item) {
-			this.$api.user.getGameUrl({ gid: item.gid }).then(res => {
-				console.log(res)
-				if (res.code === 0) {
-					this.$store.dispatch('setGamePath', res.url)                
-					uni.navigateTo({
-						url: `/pages/game/index`,
-					})
-				} else {
-					uni.showToast({
-						title: res.msg,
-						icon: 'none',
-						duration: 2000
-					})
-				}
-			})
+			if (this.isLogin) {
+				this.$api.user.getGameUrl({ gid: item.gid }).then(res => {
+					//console.log(res)
+					if (res.code === 0) {
+						this.$store.dispatch('setGamePath', res.url)
+						uni.navigateTo({
+							url: `/pages/game/index`,
+						})
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none',
+							duration: 2000
+						})
+					}
+				})
+			} else {
+				this.$refs.login.openLogin()
+				return
+			}
+
 		},
 		openDrawer() {
 			this.isOpen = !this.isOpen
@@ -165,12 +239,12 @@ export default {
 			if (!this.isLogin) this.$refs.login.openLogin()
 		},
 		finishLogin(res) {
-			console.log(res)
+			//console.log(res)
 		},
 		loadMore() {
 			this.gameParam.page++
-			console.log('loadMore', this.gameParam.page)
-			if(this.status === 'loadmore'){
+			//console.log('loadMore', this.gameParam.page)
+			if (this.status === 'loadmore') {
 				this.loadGame()
 			}
 		},
@@ -192,12 +266,14 @@ export default {
 	.scroll-view {
 		height: 0;
 		flex: 1;
+
 		.ad {
 			padding: 20rpx 24rpx;
+			height: 325rpx;
 
 			.swiper {
 				width: 100%;
-				height: 325rpx;
+				height: 100%;
 
 				.swiper-item {
 					display: block;
@@ -215,10 +291,11 @@ export default {
 
 		.jackpot {
 			padding: 0 22rpx;
+			height: 205rpx;
 
 			.jackpot-content {
-				height: 205rpx;
 				width: 100%;
+				height: 100%;
 				background-image: url('../../static/images/jackpot.png');
 				background-size: 100% 100%;
 				position: relative;
@@ -270,10 +347,13 @@ export default {
 			padding: 48rpx 36rpx;
 			gap: 20rpx;
 			box-sizing: border-box;
+
 			.list-item {
 				width: calc(25% - 20rpx);
+
 				.game-cover {
 					width: 100%;
+
 					image {
 						width: 100%;
 						height: 100%;
@@ -292,6 +372,7 @@ export default {
 				}
 			}
 		}
+
 		.footer {
 			margin-top: 40rpx;
 			width: 100%;

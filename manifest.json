@@ -74,7 +74,7 @@
 			"disableHostCheck" : true,
 			"proxy" : {
 				"/api" : {
-					"target" : "http://test.rs6bot.com",
+					"target" : "https://test.rs6bot.com",
 					"changeOrigin" : true,
 					"secure" : false
 				}

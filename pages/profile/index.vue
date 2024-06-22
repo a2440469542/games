@@ -1,7 +1,7 @@
 <template>
     <view class="profile">
         <navgation-bar @openDrawer="openDrawer" :isLogin="isLogin" :is-open="isOpen"
-            :userInfo="userInfo"></navgation-bar>
+            :userInfo="userInfo" :channel="channelInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
         <scroll-view scroll-y class="profile-content">
             <view class="content">
@@ -14,7 +14,7 @@
                         <view class="user-info">
                             <view class="invite-code">
                                 {{ userInfo.uid }}
-                                <image @click="$copyToClipboard(userInfo.uid)" src="../../static/images/copy.png">
+                                <image @click="$copyToClipboard(userInfo.uid.toString())" src="../../static/images/copy.png">
                                 </image>
                             </view>
                             <view class="user-id">{{ userInfo.user }}</view>
@@ -141,17 +141,23 @@ export default {
                     isRight: false
                 },
             ],
-            userInfo: uni.getStorageSync('userInfo')
+            userInfo: uni.getStorageSync('userInfo') || {},
+            channelInfo: uni.getStorageSync('channelInfo') || {},
+            isLogin: false
         }
     },
-    computed: {
-        ...mapGetters(['isLogin'])
-    },
+    computed: {},
     onLoad() {
         this.getUserInfo()
     },
+    onShow() {
+        this.isLogin = uni.getStorageSync('isLogin')
+        if (this.isLogin) {
+            this.getUserInfo()
+        }
+    },
     onTabItemTap(e) {
-		console.log('tabbar', e)
+		//console.log('tabbar', e)
 	},
     methods: {
         logout() {
@@ -161,6 +167,7 @@ export default {
                 uni.removeStorageSync('user')
                 uni.removeStorageSync('token')
                 uni.removeStorageSync('cid')
+                uni.removeStorageSync('channelInfo')
                 this.$refs.popup.close()
                 uni.reLaunch({
                     url: '/pages/index/index'
@@ -169,7 +176,7 @@ export default {
         },
         toPage(item) {
             if (!item.isRight) {
-                console.log('退出')
+                //console.log('退出')
                 this.$refs.popup.open();
                 return
             }
