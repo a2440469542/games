@@ -4,7 +4,11 @@ import Tabbar from './components/tabbar/index.vue'
 import SubNav from './components/navbar/subNav.vue'
 import Empty from './components/common/empty.vue'
 import './static/css/global.scss'
-
+import VConsole from 'vconsole';
+// 判断是否为生产环境，这里使用uniapp的环境变量进行判断
+if (process.env.NODE_ENV !== 'production') {
+  new VConsole(); // 非生产环境初始化vConsole
+}
 Vue.component('navgation-bar', NavgationBar)
 Vue.component('tab-bar', Tabbar)
 Vue.component('sub-nav', SubNav)

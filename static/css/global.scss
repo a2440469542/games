@@ -9,12 +9,15 @@
 .uni-drawer__content .uni-drawer--left .uni-drawer__content--visible {
     width: 80% !important;
 }
-html {
-    font-size: 16px;
-}
-body {
-    max-width: 750px;
+
+html, body {
+    max-width: 750px !important;
+    overflow: hidden;
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
+    font-size: 16px;
+}
+iframe {
+    left: 0 !important;
 }

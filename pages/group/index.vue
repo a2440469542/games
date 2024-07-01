@@ -10,7 +10,7 @@
                         <view class="group-info-item">
                             <view class="label">Link do convite</view>
                             <view class="invite-url">
-                                <view class="url">{{ channelInfo.url }}?cid={{ cid }}&inv_code={{ userInfo.uid }}</view>
+                                <view class="url">{{ channelInfo.url }}?cid={{ cid }}&inv_code={{ userInfo.inv_code }}</view>
                                 <view class="copy" @click="copy(copyUrl)">
                                     <image src="../../static/images/copy.png"></image>
                                 </view>
@@ -19,8 +19,8 @@
                         <view class="group-info-item">
                             <view class="label">Convide amigos</view>
                             <view class="invite-url">
-                                <view class="code">{{ userInfo.uid }}</view>
-                                <view class="copy" @click="copy(userInfo.uid.toString())">
+                                <view class="code">{{ userInfo.inv_code }}</view>
+                                <view class="copy" @click="copy(userInfo.inv_code.toString())">
                                     <image src="../../static/images/copy.png"></image>
                                 </view>
                             </view>
@@ -41,6 +41,25 @@
                         </view>
                     </view>
                 </view>
+                <view class="box-content" @click="toBox">
+                    <view class="box-info">
+                        <view class="box-title">Número efetivo de convidados: {{ invite }}</view>
+                        <view class="box-title">Recarga de subordinados: R${{ channelInfo.cz_money }}</view>
+                        <view class="box-title">Aposta subordinada: R${{ channelInfo.bet_money }}</view>
+                    </view>
+                    <view class="box-icon">
+                        <image src="../../static/images/reward-box.png"></image>
+                    </view>
+                </view>
+                <view class="get-content">
+                    <view class="box-info">
+                        <view class="box-title">Salário recebido：<text>R${{ wagesObj.money }}</text></view>
+                        <view class="box-title">Pode receber salário：<text>R${{ wagesObj.un_money }}</text></view>
+                    </view>
+                    <view class="get">
+                        <view class="get-btn" @click="receive">receber</view>
+                    </view>
+                </view>
                 <view class="level-tab">
                     <view :class="currentIndex === item.value ? 'level-tab-item active' : 'level-tab-item'"
                         v-for="(item, index) in tabList" :key="index" @click="tabSwitch(item.value)">{{ item.label }}
@@ -55,7 +74,10 @@
                 <view class="group-list">
                     <view class="group-list-header">
                         <view>Equipe</view>
-                        <view @click="onChangeType">{{ currentLabel }}</view>
+                        <view class="showSelectBtn" @click="onChangeType">
+                            {{ currentLabel }}
+                            <uv-icon name="arrow-down-fill" color="#678633"></uv-icon>
+                        </view>
                     </view>
                     <view class="list-label">
                         <view class="list-label-item">Data</view>
@@ -66,7 +88,7 @@
                     <view class="lists" v-if="dataList.length > 0">
                         <view class="list-item" v-for="(item, index) in dataList" :key="index">
                             <view class="list-item-item">{{ extractDate(item.date) }}</view>
-                            <view class="list-item-item">{{ item.uid }}</view>
+                            <view class="list-item-item">{{ item.inv_code }}</view>
                             <view class="list-item-item">{{ item.bet_money }}</view>
                             <view class="list-item-item">{{ item.cz_money }}</view>
                         </view>
@@ -94,6 +116,7 @@ export default {
             currentIndex: 1,
             currentLabel: 'Todos',
             cid: uni.getStorageSync('cid'),
+            invite: 0,
             chargeObj: {
                 type: 1,
                 date: 5
@@ -189,26 +212,46 @@ export default {
                 // }
             ],
             dataList: [],
-            userInfo: uni.getStorageSync('userInfo') || {},
-            channelInfo: uni.getStorageSync('channelInfo') || {},
+            // channelInfo: uni.getStorageSync('channelInfo') || {},
             copyUrl: "",
-            isLogin: false
+            wagesObj: {
+                money: 0,
+                un_money: 0
+            }
         }
     },
-    computed: {},
+    computed: {
+        ...mapGetters(['isLogin', 'userInfo', 'channelInfo'])
+    },
     onLoad() {
-        //console.log(window.location.href);
         this.loadGroupTotal()
         this.loadingChargeList()
-        this.copyUrl = `${this.channelInfo.url}#/?cid=${this.cid}&inv_code=${this.userInfo.uid}`
+        this.getWages()
+        this.copyUrl = `${this.channelInfo.url}#/?cid=${this.cid}&inv_code=${this.userInfo.inv_code}`
     },
     onShow() {
-        this.isLogin = uni.getStorageSync('isLogin')
+        console.log('团队onshow', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)
         if (this.isLogin) {
             this.getUserInfo()
         }
     },
     methods: {
+        getWages() {
+            this.$api.home.getWages().then(res => {
+                console.log(res)
+                this.wagesObj = res
+            }) 
+        },
+        receive(){
+            this.$api.home.getWagesApi().then(res => {
+                uni.showToast({
+                    title: "obter sucesso",
+                });
+            })
+        },
+        toBox() {
+          uni.navigateTo({ url: '/pages/rewards/index' })  
+        },
         confirm(e) {
             //console.log('confirm', e);
             this.chargeObj.date = e.value[0].id
@@ -218,7 +261,7 @@ export default {
         },
         getUserInfo() {
             this.$api.user.getUserInfo().then(res => {
-                this.userInfo = res
+                this.$store.dispatch('setUserinfo', res)
             })
         },
         cancel() {
@@ -230,6 +273,9 @@ export default {
         loadGroupTotal() {
             this.$api.user.getTeamData({ type: this.currentIndex }).then(res => {
                 this.levelList.forEach(element => {
+                    if(this.currentIndex === 1){
+                        this.invite = res.recharge
+                    }
                     for (let i in res) {
                         if (element.field === i) {
                             element.value = res[i]
@@ -274,12 +320,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+scroll-view ::v-deep ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+}
 .group {
     width: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
-    height: 100vh;
+    height: 100%;
+    position: absolute;
 
     .group-content {
         height: 0;
@@ -389,7 +443,65 @@ export default {
                     }
                 }
             }
-
+            .get-content {
+                background-color: #678633;
+                border-radius: 18rpx;
+                margin-top: 20rpx;
+                padding: 20rpx 24rpx;
+                .box-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 80%;
+                    .box-title {
+                        font-size: 24rpx;
+                        color: #fff;
+                        margin-bottom: 10rpx;
+                        font-weight: 600;
+                    }
+                }
+                .get {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    width: 100%;
+                    .get-btn {
+                        font-size: 28rpx;
+                        padding: 10rpx 20rpx;
+                        border: 1rpx solid #fff;
+                        border-radius: 14rpx;
+                        background-color: #fff3f1;
+                        color: #516d21;
+                    }
+                }
+            }
+            .box-content {
+                background-color: #678633;
+                border-radius: 18rpx;
+                margin-top: 20rpx;
+                padding: 20rpx 24rpx;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .box-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 80%;
+                    .box-title {
+                        font-size: 24rpx;
+                        color: #fff;
+                        margin-bottom: 10rpx;
+                    }
+                }
+                .box-icon {
+                    width: 20%;
+                    image {
+                        width: 100rpx;
+                        height: 100rpx;
+                    }
+                }
+            }
             .level-tab {
                 display: flex;
                 align-items: center;
@@ -456,6 +568,10 @@ export default {
                     font-size: 32rpx;
                     color: #678633;
                     padding: 24rpx;
+                    .showSelectBtn {
+                        display: flex;
+                        align-items: center;
+                    }
                 }
 
                 .list-label {

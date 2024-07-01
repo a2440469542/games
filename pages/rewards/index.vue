@@ -2,28 +2,33 @@
     <view class="rewards">
         <sub-nav :title="title"></sub-nav>
         <scroll-view scroll-y class="rewards-content">
-            <view class="rewards-item" v-for="(item, index) in rewardsList" :key="index">
+            <view v-if="rewardsList.length > 0" >
+                <view class="rewards-item" v-for="(item, index) in rewardsList" :key="index">
                 <view class="rewards-item-content">
                     <view class="treasure-icon"></view>
                     <view class="treasure-content">
                         <view class="treasure-desc">
-                            convidar 30 pessoas, <br>prêmioR$ {{ item.name }}
+                            Convite válido   {{ item.invite_num }} / {{ item.user_num }}
                             <view class="amount">R${{ item.money }}</view>
                         </view>
                         <view class="treasure-progress">
                             <uv-line-progress :percentage="(item.invite_num / item.user_num) * 100" activeColor="#FCEA7F"
                                 inactiveColor="#89ab50" height="14rpx" :showText="false"></uv-line-progress>
                         </view>
-                        <view class="treasure-percent">
-                            {{ item.invite_num }} / {{ item.user_num }}
-                        </view>
                     </view>
                     <view class="complated">
-                        <view class="cmp-btn" @click="getReward(item)">
+                        <view class="cmp-btn disabled" v-if="item.status == 1">
+                            completar
+                        </view>
+                        <view class="cmp-btn" @click="getReward(item)" v-else>
                             completar
                         </view>
                     </view>
                 </view>
+            </view>
+            </view>
+            <view v-else>
+                <empty></empty>
             </view>
         </scroll-view>
     </view>
@@ -31,8 +36,9 @@
 
 <script>
 import NavgationBar from '../../components/navbar/index.vue'
+import empty from '../../components/common/empty.vue';
 export default {
-    components: { NavgationBar },
+    components: { NavgationBar, empty },
     data() {
         return {
             title: 'Recompensas de convite',
@@ -144,6 +150,10 @@ export default {
                         color: #678633;
                         border-radius: 10rpx;
                         font-size: 24rpx;
+                    }
+                    .cmp-btn.disabled {
+                        background-color: #89ab50;
+                        color: #fff;
                     }
                 }
             }

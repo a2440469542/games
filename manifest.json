@@ -74,11 +74,18 @@
 			"disableHostCheck" : true,
 			"proxy" : {
 				"/api" : {
+                    // "target" : "https://api.zpgslots777.com",
 					"target" : "https://test.rs6bot.com",
 					"changeOrigin" : true,
 					"secure" : false
 				}
 			}
-		}
+		},
+        "dev": {
+            "NODE_ENV": "development"
+        },
+        "prod": {
+            "NODE_ENV": "production"
+        }
 	}
 }

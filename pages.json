@@ -1,27 +1,27 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "Famosa plataforma de jogos de azar no Brasil"
 			}
 		},
 		{
 			"path": "pages/group/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "Famosa plataforma de jogos de azar no Brasil"
 			}
 		},
 		{
 			"path": "pages/recharge/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "Famosa plataforma de jogos de azar no Brasil"
 			}
 		},
 		{
 			"path": "pages/profile/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "Famosa plataforma de jogos de azar no Brasil"
 			}
 		},
 		{
@@ -58,12 +58,10 @@
 	"globalStyle": {
 		"navigationStyle": "custom",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "Famosa plataforma de jogos de azar no Brasil",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"rpxCalcMaxDeviceWidth": 960,
-    	"rpxCalcBaseDeviceWidth": 375,
-    	"rpxCalcIncludeWidth": 1500 
+    	"rpxCalcBaseDeviceWidth": 750
 	},
 	"tabBar": {
 		"backgroundColor" : "#547320",

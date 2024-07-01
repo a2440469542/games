@@ -9,12 +9,12 @@
                     <view class="profile-item-top">
                         <view class="avatar">
                             <uv-avatar size="140rpx" shape="square"
-                                src="https://via.placeholder.com/200x200.png/2878ff"></uv-avatar>
+                                :src="channelInfo.logo"></uv-avatar>
                         </view>
                         <view class="user-info">
                             <view class="invite-code">
-                                {{ userInfo.uid }}
-                                <image @click="$copyToClipboard(userInfo.uid.toString())" src="../../static/images/copy.png">
+                                {{ userInfo.inv_code }}
+                                <image @click="$copyToClipboard(userInfo.inv_code.toString())" src="../../static/images/copy.png">
                                 </image>
                             </view>
                             <view class="user-id">{{ userInfo.user }}</view>
@@ -76,7 +76,7 @@
                 </view>
             </view>
         </uv-popup>
-		<tab-bar :current-index="3" @needLogin='toLogin' :isLogin="isLogin"></tab-bar>
+		<tab-bar :current-index="3" :isLogin="isLogin"></tab-bar>
     </view>
 </template>
 <script>
@@ -118,7 +118,8 @@ export default {
                 // },
                 {
                     id: 6,
-                    name: 'Servir',
+                    name: 'Suporte',
+                    path: '',
                     src: require('../../static/images/service.png'),
                     isRight: true
                 },
@@ -140,18 +141,21 @@ export default {
                     src: require('../../static/images/logout.png'),
                     isRight: false
                 },
-            ],
-            userInfo: uni.getStorageSync('userInfo') || {},
-            channelInfo: uni.getStorageSync('channelInfo') || {},
-            isLogin: false
+            ]
         }
     },
-    computed: {},
+    computed: {
+        ...mapGetters(['config', "isLogin", "userInfo", "channelInfo"]),
+    },
     onLoad() {
-        this.getUserInfo()
+        const list = this.list.map(element => {
+            if (element.name === 'Servir') {
+                element.path = this.config.service_path
+            }
+        })
     },
     onShow() {
-        this.isLogin = uni.getStorageSync('isLogin')
+        console.log('个人页面onshow', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)
         if (this.isLogin) {
             this.getUserInfo()
         }
@@ -164,10 +168,7 @@ export default {
             this.$api.user.logout().then(res => {
                 this.$store.dispatch('setIsLogin', false)
                 this.$store.dispatch('setUserinfo', {})
-                uni.removeStorageSync('user')
                 uni.removeStorageSync('token')
-                uni.removeStorageSync('cid')
-                uni.removeStorageSync('channelInfo')
                 this.$refs.popup.close()
                 uni.reLaunch({
                     url: '/pages/index/index'
@@ -178,6 +179,10 @@ export default {
             if (!item.isRight) {
                 //console.log('退出')
                 this.$refs.popup.open();
+                return
+            }
+            if (item.name === 'Servir') {
+                window.open('https://'+ item.path, '_blank');
                 return
             }
             uni.navigateTo({
@@ -192,7 +197,7 @@ export default {
         },
         getUserInfo() {
             this.$api.user.getUserInfo().then(res => {
-                this.userInfo = res
+                this.$store.dispatch('setUserinfo', res)
             })
         },
         openDrawer() {
@@ -212,12 +217,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+scroll-view ::v-deep ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+}
 .profile {
     width: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
-    height: 100vh;
+    height: 100%;
+    position: absolute;
 
     .logout-confirm {
         background-color: #678633;

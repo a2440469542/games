@@ -19,7 +19,7 @@ const BIND_BANK = '/api/Cash/bind_bank'
 const CASH = '/api/Cash/cash'
 const CASH_RECORD = '/api/Cash/log'
 const GETREWARD = '/api/User/receive_box'
-
+const CONFIG = '/api/Index/config'
 // 登陆
 function login (params) {
 	return request(LOGIN, 'POST', params).then(res => res)
@@ -105,6 +105,11 @@ function cashRecord (params) {
 	return request(CASH_RECORD, 'POST', params).then(res => res)
 }
 
+// 配置
+function getConfig (params) {
+	return request(CONFIG, 'POST', params).then(res => res)
+}
+
 export default {
 	login,
 	register,
@@ -122,5 +127,6 @@ export default {
 	userBank,
 	bindBank,
 	cash,
-	cashRecord
+	cashRecord,
+	getConfig
 }

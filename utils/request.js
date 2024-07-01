@@ -1,7 +1,7 @@
 // request.js
 import config from "../config/index.js";
-
 const BASE_URL = config.baseUrl; // 替换成你的API的基本URL
+import store from '@/store'; // 引入 Vuex store
 
 // 创建loading实例
 let globalLoading = null;
@@ -22,8 +22,8 @@ function hideLoading() {
 }
 function request(url, method = "GET", data = {}, header = {}) {
   showLoading();
-  header.cid = uni.getStorageSync('channelInfo').cid || '';
-  // header.cid = "1";
+  console.log('store.state.SystemStore.channelInfo', store.state.SystemStore.channelInfo.cid)
+  header.cid = store.state.SystemStore.channelInfo.cid || '';
   header.Authorization = uni.getStorageSync("token") || "";
   return new Promise((resolve, reject) => {
     let options = {
@@ -45,10 +45,9 @@ function request(url, method = "GET", data = {}, header = {}) {
           resolve(res.data.data);
         } else if (res.statusCode == 401) {
           uni.removeStorageSync("token");
-          uni.removeStorageSync("cid");
-          uni.removeStorageSync("userInfo");
-          uni.removeStorageSync("isLogin");
           uni.removeStorageSync("channelInfo");
+          store.dispatch('setIsLogin', false)
+          store.dispatch('setUserinfo', {})
           uni.reLaunch({
             url: "/pages/index/index",
           });

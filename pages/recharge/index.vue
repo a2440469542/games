@@ -43,6 +43,9 @@
                                     placeholder="Insira o valor" />
                             </view>
                         </view>
+                        <view class="tips">
+                            Requisitos de apostas restantes <text>R${{ userInfo.water }}</text>
+                        </view>
                         <view class="btns">
                             <view class="remove-btn" @click="withdraw">Retirar Agora</view>
                         </view>
@@ -50,7 +53,7 @@
                 </view>
             </view>
         </scroll-view>
-		<tab-bar :current-index="2" @needLogin='toLogin' :isLogin="isLogin"></tab-bar>
+		<tab-bar :current-index="2" :isLogin="isLogin"></tab-bar>
     </view>
 </template>
 <script>
@@ -67,27 +70,22 @@ export default {
             chargeItemIndex: 0,
             chargeValue: "",
             withdrawValue: '',
-            amountList: [],
-            userInfo: uni.getStorageSync('userInfo') || {},
-            channelInfo: uni.getStorageSync('channelInfo') || {},
-            isLogin: false
+            amountList: []
         }
     },
-    computed: {},
+    computed: {
+        ...mapGetters(['isLogin', 'userInfo', 'channelInfo'])
+    },
     onShow() {
-        // //console.log(uni.getStorageSync('rechargeFlag'))
-        this.isLogin = uni.getStorageSync('isLogin');
-        if(this.isLogin){
-            this.getUserInfo() 
-        }
-        uni.$on('rechargeFlag', (e)=>{
-            //console.log(e)
-            this.typeIndex = e
-        })
+        this.isOpen = false //从领取页面跳转后关闭侧边栏
+		console.log('充值页面onshow', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)
+        this.loadRechargeList()
+        if (this.isLogin) {
+            this.getUserInfo()
+        }        
     },
     onLoad(options) {
-        // //console.log(options, this.rechargeFlag)
-        this.loadRechargeList()
+        // this.loadRechargeList()
     },
     onTabItemTap(e) {
 		//console.log('tabbar', e)
@@ -96,7 +94,7 @@ export default {
     methods: {
         getUserInfo() {
 		    this.$api.user.getUserInfo().then(res => {
-		        this.userInfo = res
+                this.$store.dispatch('setUserinfo', res)
 		    })
 		},
         switchTypeTab(index) {
@@ -111,6 +109,7 @@ export default {
         async setRecharge() {
             const { chargeItemIndex, chargeValue } = this;
             const res = await this.$api.user.recharge({ rid: chargeItemIndex, money: chargeValue });
+            this.$store.dispatch('setPayPath', res.url)
             uni.navigateTo({
                 url: `/pages/webview/index?url=${res.url}`
             });
@@ -166,7 +165,8 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
-    height: 100vh;
+    position: absolute;
+    height: 100%;
 
     .content {
         height: 0;
@@ -324,7 +324,16 @@ export default {
                         margin-right: 40rpx;
                     }
                 }
-
+                .tips {
+                    font-size: 24rpx;
+                    color: #516d21;
+                    margin-top: 20rpx; 
+                    margin-left: 20rpx; 
+                    text {
+                        font-weight: 600;
+                        margin-left: 10rpx;
+                    }  
+                }
                 .btns {
                     margin-top: 40rpx;
 

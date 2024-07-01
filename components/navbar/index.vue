@@ -3,7 +3,7 @@
     <view class="nav-left">
       <view :class="isOpen ? 'menu open' : 'menu'" @click="openDrawer"></view>
       <view class="logo">
-        <image mode="heightFix" src="channel.logo"></image>
+        <image mode="heightFix" :src="channel.logo"></image>
       </view>
     </view>
     <view class="nav-right" @click="toLogin">
@@ -54,7 +54,13 @@ export default {
       this.$emit('openDrawer')
     },
     toLogin() {
-      this.$emit('toLogin')
+      if(this.isLogin) {
+        uni.switchTab({
+          url: '/pages/recharge/index'
+        })
+      } else {
+        this.$emit('toLogin')
+      }
     }
   }
 }

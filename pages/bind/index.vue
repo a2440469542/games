@@ -60,14 +60,14 @@
 export default {
     data() {
         return {
-            title: 'Vinculação de Cartão Bancário',
+            title: 'Vinculação de Saque',
             columns: [[
                 {
                     label: 'CPF',
                     value: 'CPF'
                 },
                 {
-                    label: 'PHONE',
+                    label: 'Telefone',
                     value: 'PHONE'
                 }
             ]],
@@ -101,9 +101,9 @@ export default {
         },
         submit() {
             this.$api.user.bindBank(this.bankParams).then(res => {
-                console.log(res)
+                this.getBankInfo()
                 uni.showToast({
-                    title: res.msg,
+                    title: 'Vinculação bem-sucedida',
                     icon: 'none',
                     duration: 2000
                 })

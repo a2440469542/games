@@ -18,7 +18,8 @@ export default {
     },
     methods: {
         back() {
-            uni.navigateBack()
+            // uni.navigateBack()
+            history.back();
         }
     }
 }

@@ -83,13 +83,19 @@ export default {
                 name: 'Todos', // 全部
                 value: ''
             }, {
-                name: 'sob revisão', //正在审查中
+                name: 'Revisão pendente', //待审核
                 value: '0'
             }, {
-                name: 'sucesso', // 成功
+                name: 'Auditoria Aprovada', //审核通过
+                value: '1'
+            },{
+                name: 'Retirada recusada', //拒绝提现
+                value: '-1'
+            },{
+                name: 'Retiradas Concluídas', // 提现成功
                 value: '2'
             }, {
-                name: 'A auditoria não passou', // 审核未通过
+                name: 'Auditoria Recusada', // 审核未通过
                 value: '-2'
             }]
         }
@@ -119,9 +125,9 @@ export default {
             })
         },
         getWithdrawalRecord() {
-            this.$api.user.cashRecord().then(res => {
+            this.$api.user.cashRecord(this.withdrawalRecordParam).then(res => {
                 console.log(res)
-                this.records = res
+                this.records = [...this.records, ...res.data]
             })
         },
 
@@ -142,6 +148,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+scroll-view ::v-deep ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+}
 .record {
     width: 100%;
     display: flex;

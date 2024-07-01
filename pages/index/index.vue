@@ -1,25 +1,15 @@
 <template>
 	<view class="home-page">
-		<navgation-bar :userInfo="userInfo" :channel="channelInfo" @openDrawer="openDrawer" :is-login="isLogin"
+		<navgation-bar :userInfo="userInfo" :channel="channelInfo" @openDrawer="openDrawer" :is-login="getIsLogin"
 			@toLogin="toLogin" :is-open="isOpen"></navgation-bar>
 		<left-menu ref="leftMenu" @toLogin="toLogin" @onDrawerChange="onDrawerChange"></left-menu>
 		<scroll-view scroll-y class="scroll-view" @scrolltolower="loadMore">
 			<view class="ad">
 				<swiper class="swiper" circular :indicator-color="indicatorColor"
 					:indicator-active-color="indicatorActiveColor" :indicator-dots="indicatorDots" :autoplay="autoplay">
-					<swiper-item>
+					<swiper-item v-for="(item, index) in bannerList" :key="index">
 						<view class="swiper-item">
-							<image src="../../static/images/bg.png"></image>
-						</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item">
-							<image src="../../static/images/bg.png"></image>
-						</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item">
-							<image src="../../static/images/bg.png"></image>
+							<image :src="item.img"></image>
 						</view>
 					</swiper-item>
 				</swiper>
@@ -38,7 +28,7 @@
 						<image src="../../static/images/pg-left.png"></image>
 					</view>
 					<view class="pg-text">
-						PG
+						SLOTS
 					</view>
 					<view class="title-img">
 						<image src="../../static/images/pg-right.png"></image>
@@ -48,15 +38,15 @@
 			<view class="game-list">
 				<view class="list-item" v-for="(item, index) in list" :key="index" @click="toGame(item)">
 					<view class="game-cover">
-						<image mode="widthFix" :src="item.img" alt="item.name"></image>
+						<image mode="widthFix" :src="item.img || '../../static/images/null.png'" alt="item.name"></image>
 					</view>
 					<view class="game-name">{{ item.name }}</view>
 				</view>
 			</view>
-			<uv-load-more loadingText="Carregando..." loadmoreText="Cargando" nomoreText="Sem mais jogos"
+			<uv-load-more loadingText="Carregando..." loadmoreText="Carregando" nomoreText=""
 				:status="status" />
-			<view class="footer">
-			</view>
+			<!-- <view class="footer">
+			</view> -->
 		</scroll-view>
 		<login ref="login" @login="finishLogin" :inv_code="inv_code"></login>
 		<tab-bar :current-index="0" @needLogin='toLogin' :isLogin="isLogin"></tab-bar>
@@ -64,6 +54,7 @@
 </template>
 
 <script>
+import { nextTick } from 'process';
 import leftMenu from '../../components/common/leftMenu.vue'
 import login from '../login/index.vue'
 import { mapGetters } from "vuex";
@@ -75,7 +66,7 @@ export default {
 	data() {
 		return {
 			title: 'Hello',
-			randomNumber: 17000200.07, // 初始随机数
+			randomNumber: 0, // 初始随机数
 			targetValue: null, // 目标值，初始化时未设定
 			incrementValue: 0, // 递增值
 			timer: null, // 定时器引用
@@ -93,16 +84,17 @@ export default {
 				keyword: '',
 				pid: ''
 			},
-			userInfo: uni.getStorageSync('userInfo') || {},
-			cid: uni.getStorageSync('channelInfo').cid || '',
-			channelInfo: uni.getStorageSync('channelInfo') || {},
 			inv_code: '',
-			isLogin: false,
-			bannerList:[],
-			currentPath: this.getBaseUrl() === 'http://localhost:8080/' ? 'https://test.rs6bot.com' : this.getBaseUrl()
+			bannerList: []		
 		}
 	},
 	computed: {
+		...mapGetters(["isLogin", "userInfo", "channelInfo"]),
+		getIsLogin: {
+			get() {
+				return this.isLogin;
+			},
+		},
 		// 格式化数字，添加千分位并保留两位小数
 		// 格式化数字
 		formattedNumber() {
@@ -111,23 +103,51 @@ export default {
 	},
 
 	onLoad(options) {
+		
 		//console.log(options, window.location.href)
-		// 设置目标值为初始值加上一个100万到300万之间的随机数
-		this.targetValue = this.randomNumber + Math.random() * (3000000 - 1000000) + 1000000;
-		this.startGrowthTimer();
-		this.loadChannelInfo()
 		if (options.inv_code) {
 			this.inv_code = options.inv_code
 		}
+		this.getChannelByUrl()
+		nextTick(() => {
+			if (this.isLogin === false) {
+				this.$refs.login.openLogin()
+			}
+		})
 	},
-	onShow() {
-		this.isLogin = uni.getStorageSync('isLogin') || false
-		//console.log("isLogin", this.isLogin)
+	onShow() {		
 		if (this.isLogin) {
 			this.getUserInfo()
 		}
 	},
 	methods: {
+		// 获取渠道
+		getChannelByUrl() {
+			const { origin, pathname } = location;
+			const baseUrl = origin + pathname;
+			const currentPath = baseUrl === 'http://localhost:8080/' ? 'https://test.rs6bot.com' : baseUrl.slice(0, -1);
+			this.$api.home.getChannel({ url: currentPath })
+				.then(res => {
+					this.$store.dispatch('setChannelInfo', res);
+					uni.setStorage({
+						key: 'cid',
+						data: res.cid,
+					});
+					this.loadBanner()
+					this.loadGame()
+					this.getJackPot()
+				});
+		},
+		// 获取总额
+		getJackPot() {
+			this.$api.home.getJackPot().then(res => {
+				console.log("ssss",res)
+				this.randomNumber = res;
+				// 设置目标值为初始值加上一个100万到300万之间的随机数
+				this.targetValue = this.randomNumber + Math.random() * (3000000 - 1000000) + 1000000;
+				this.startGrowthTimer();
+			})
+		},
 		// 开始增长定时器
 		startGrowthTimer() {
 			this.timer = setInterval(() => {
@@ -165,44 +185,20 @@ export default {
 			}, 100);
 		},
 
-		getBaseUrl() {
-			// 获取当前页面的完整URL
-			let fullUrl = window.location.href;
-			// 创建URL对象
-			let urlObject = new URL(fullUrl);
-			// 截取URL的origin（协议+域名+端口）和pathname（路径）
-			let baseUrl = urlObject.origin + urlObject.pathname;
-			return baseUrl;
-		},
 		getUserInfo() {
 			this.$api.user.getUserInfo().then(res => {
-				this.userInfo = res
-				// //console.log("userInfo", this.userInfo)
-			})
+				this.$store.dispatch('setUserinfo', res)			})
 		},
-		loadChannelInfo() {
-			this.$api.home.getChannel({ url: this.currentPath }).then(res => {
-				// //console.log(res)
-				this.channelInfo = res
-				uni.setNavigationBarTitle({ title: res.title });
-				uni.setStorageSync('channelInfo', res)
-				this.loadBanner()
-				this.loadGame()
-			})
+
+		async loadBanner() {
+			console.log('loadBanner')
+			this.bannerList = await this.$api.home.getAd();
 		},
-		loadBanner() {
-			this.$api.home.getAd().then(res => {
-				//console.log(res)
-			})
-		},
-		loadGame() {
-			this.$api.home.getGameList(this.gameParam).then(res => {
-				//console.log(res)
-				if (res.data.length < this.gameParam.limit) {
-					this.status = 'nomore'
-				}
-				this.list = [...this.list, ...res.data]
-			})
+		async loadGame() {
+			const res = await this.$api.home.getGameList(this.gameParam);
+			console.log('loadGame', res)
+			this.list = this.list.concat(res.data);
+			this.status = res.data.length < this.gameParam.limit ? 'nomore' : '';
 		},
 		toGame(item) {
 			if (this.isLogin) {
@@ -239,12 +235,18 @@ export default {
 			if (!this.isLogin) this.$refs.login.openLogin()
 		},
 		finishLogin(res) {
-			//console.log(res)
+			console.log("用户已经登陆", this.userInfo, this.$store.state.SystemStore.userInfo)
+			console.log('首页', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)
+			// this.$store.dispatch('setIsLogin', true)
+			// this.$store.dispatch('setUserinfo', res)
+
+			// this.isLogin = true
+			// this.userInfo = uni.getStorageSync('userInfo') || res
 		},
 		loadMore() {
 			this.gameParam.page++
-			//console.log('loadMore', this.gameParam.page)
-			if (this.status === 'loadmore') {
+			console.log('loadMore', this.gameParam.page)
+			if (this.status !== 'nomore') {
 				this.loadGame()
 			}
 		},
@@ -256,12 +258,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+scroll-view ::v-deep ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+}
 .home-page {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	background-color: rgba(247, 201, 111, 1);
-	height: 100vh;
+	position: absolute;
+	height: 100%;
 
 	.scroll-view {
 		height: 0;
@@ -378,7 +388,7 @@ export default {
 			width: 100%;
 			height: 756rpx;
 			background-image: url('../../static/images/footer_bg.png');
-			background-size: 100% 100%;
+			background-size: cover;
 			background-position: center center;
 			background-repeat: no-repeat;
 		}

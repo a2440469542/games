@@ -3,11 +3,12 @@
         <view class="back-to" @click="backTo">
             <image src="../../static/images/back.png" />
         </view>
-        <web-view :src="url"></web-view>
+        <web-view :src="payPath"></web-view>
     </view>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 export default {
     data() {
         return {
@@ -19,14 +20,20 @@ export default {
         console.log(options)
         this.url = encodeURI(options.url)
     },
+    computed: {
+        ...mapGetters(['payPath'])
+    },
     methods: {
         backTo() {
-            uni.navigateBack()
+            uni.reLaunch({ url: '/pages/recharge/index' })
         }
     }
 }
 </script>
 <style lang="scss" scoped>
+web-view {
+    left: 0 !important;
+}
 .webview {
     width: 100%;
 	display: flex;

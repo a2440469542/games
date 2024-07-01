@@ -1,7 +1,7 @@
 <template>
 	<view v-if="visibleSync" :class="{ 'uni-drawer--visible': showDrawer }" class="uni-drawer" @touchmove.stop.prevent="clear">
 		<view class="uni-drawer__mask" :class="{ 'uni-drawer__mask--visible': showDrawer && mask }" @tap="close('mask')" />
-		<view class="uni-drawer__content" :class="{'uni-drawer--right': rightMode,'uni-drawer--left': !rightMode, 'uni-drawer__content--visible': showDrawer}" :style="{width: 50 + 'vw'}">
+		<view class="uni-drawer__content" :class="{'uni-drawer--right': rightMode,'uni-drawer--left': !rightMode, 'uni-drawer__content--visible': showDrawer}" :style="{width: '60%'}">
 			<slot />
 		</view>
 		<!-- #ifdef H5 -->
@@ -108,7 +108,7 @@
 <style lang="scss" scoped>
 	$uni-mask: rgba($color: #000000, $alpha: 0.4) ;
 	// 抽屉宽度
-	$drawer-width: 220px;
+	$drawer-width: 60%;
 
 	.uni-drawer {
 		/* #ifndef APP-NVUE */
@@ -116,7 +116,7 @@
 		/* #endif */
 		/*absolute属性未被重写 带滚动的页面可以将uni-drawer顶起  。其他页面区域有使用到 未直接修改根容器*/
 		/*position: fixed !important;*/
-		position: fixed;
+		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
