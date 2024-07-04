@@ -173,7 +173,7 @@ export default {
     justify-content: center;
 
     .login-part {
-        width: 640rpx;
+        width: 85%;
         background-color: #678633;
         border-radius: 20rpx;
         padding: 0 28rpx 28rpx 28rpx;

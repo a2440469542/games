@@ -1,6 +1,7 @@
 <template>
     <view class="recharge">
-        <navgation-bar @openDrawer="openDrawer" :channel="channelInfo" :isLogin="isLogin" :is-open="isOpen" :userInfo="userInfo"></navgation-bar>
+        <navgation-bar @openDrawer="openDrawer" :channel="channelInfo" :isLogin="isLogin" :is-open="isOpen"
+            :userInfo="userInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
         <scroll-view scroll-y class="content">
             <view class="box">
@@ -28,7 +29,8 @@
                         <view class="recharge-amount">
                             <view class="recharge-amount-title">Por Favor, Insira o Valor da Recarga</view>
                             <view class="recharge-amount-value">
-                                <input v-model="chargeValue" placeholder-style="color: #ffd8ad" class="uni-input" placeholder="(Mínimo 10)"/>
+                                <input v-model="chargeValue" placeholder-style="color: #ffd8ad" class="uni-input"
+                                    placeholder="(Mínimo 10)" />
                             </view>
                         </view>
                         <view class="recharge-submit">
@@ -38,9 +40,9 @@
                     <view v-if="typeIndex === 1" class="remove">
                         <view class="info-input">
                             <view class="label">Valor</view>
-                            <view>
-                                <input v-model="withdrawValue" class="uni-input" placeholder-style="color: #fff" focus
-                                    placeholder="Insira o valor" />
+                            <view class="withdraw-amount-value">
+                                <input v-model="withdrawValue" class="uni-input withdraw-text"
+                                    placeholder-style="color: #fff" focus placeholder="Insira o valor" />
                             </view>
                         </view>
                         <view class="tips">
@@ -53,7 +55,7 @@
                 </view>
             </view>
         </scroll-view>
-		<tab-bar :current-index="2" :isLogin="isLogin"></tab-bar>
+        <tab-bar :current-index="2" :isLogin="isLogin"></tab-bar>
     </view>
 </template>
 <script>
@@ -70,7 +72,8 @@ export default {
             chargeItemIndex: 0,
             chargeValue: "",
             withdrawValue: '',
-            amountList: []
+            amountList: [],
+            withdrawFlag: false
         }
     },
     computed: {
@@ -78,29 +81,29 @@ export default {
     },
     onShow() {
         this.isOpen = false //从领取页面跳转后关闭侧边栏
-		console.log('充值页面onshow', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)
+        console.log('充值页面onshow', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)
         this.loadRechargeList()
         if (this.isLogin) {
             this.getUserInfo()
-        }        
+        }
     },
     onLoad(options) {
         // this.loadRechargeList()
     },
     onTabItemTap(e) {
-		//console.log('tabbar', e)
+        //console.log('tabbar', e)
         //console.log(this.rechargeFlag)
-	},
+    },
     methods: {
         getUserInfo() {
-		    this.$api.user.getUserInfo().then(res => {
+            this.$api.user.getUserInfo().then(res => {
                 this.$store.dispatch('setUserinfo', res)
-		    })
-		},
+            })
+        },
         switchTypeTab(index) {
             this.typeIndex = index
             this.chargeValue = 0,
-            this.withdrawValue = ''
+                this.withdrawValue = ''
         },
         async loadRechargeList() {
             const res = await this.$api.user.getRechargeList();
@@ -127,7 +130,7 @@ export default {
             this.chargeValue = item.money
         },
         submit() {
-            if(this.chargeValue < 10) {
+            if (this.chargeValue < 10) {
                 uni.showToast({
                     title: 'Mínimo de R$10',
                     icon: 'none'
@@ -136,143 +139,132 @@ export default {
             }
             this.setRecharge()
         },
-        withdraw() {
-            if(this.withdrawValue == '') {
+        async withdraw() {
+            if (this.withdrawValue === '') {
                 uni.showToast({
                     title: 'Mínimo de R$10',
                     icon: 'none'
                 })
                 return
             }
-            this.$api.user.cash({ money: this.withdrawValue }).then(res => {
-                //console.log(res)
-                if (res.code === 102) {
+            this.withdrawFlag = true
+            try {
+                await this.$api.user.cash({ money: this.withdrawValue })
+                this.getUserInfo()
+                this.withdrawValue = ''
+                uni.showToast({
+                    title: 'Retirada com sucesso'
+                })
+            } catch (error) {
+                if (error.code === 102) {
                     uni.navigateTo({
                         url: '/pages/bind/index'
                     })
                 }
-                uni.showToast({
-                    title: res.msg
-                })
-            })
+            }
         }
     }
 }
 </script>
 <style lang="scss" scoped>
 .recharge {
-    width: 100%;
+    // width: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
     position: absolute;
-    height: 100%;
-
+    max-width: 100%;
+	height: 100%;
+	aspect-ratio: 3 / 5;
     .content {
         height: 0;
         flex: 1;
+
         .box {
             padding: 24rpx 30rpx;
+
             .switch-tab {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 90rpx;
-            background-color: transparent;
-            border: 1rpx solid #678633;
-            border-radius: 14rpx;
-            padding: 10rpx;
-            box-sizing: border-box;
-
-            .tab-item {
-                width: 50%;
-                height: 100%;
                 display: flex;
-                justify-content: center;
+                justify-content: space-around;
                 align-items: center;
-                font-size: 36rpx;
-                color: #678633;
-                font-size: 600;
-                transition: .3s;
-            }
-
-            .tab-item.active {
-                background-color: #678633;
-                color: #fcea7f;
+                height: 90rpx;
+                background-color: transparent;
+                border: 1rpx solid #678633;
                 border-radius: 14rpx;
-                transition: .3s;
-            }
-        }
+                padding: 10rpx;
+                box-sizing: border-box;
 
-        .tab-content {
-            margin-top: 20rpx;
-
-            .charge {
-                .amount-list {
+                .tab-item {
+                    width: 50%;
+                    height: 100%;
                     display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
+                    justify-content: center;
                     align-items: center;
-                    box-sizing: border-box;
-                    gap: 10rpx;
-
-                    .amount-item {
-                        box-sizing: border-box;
-                        width: 32%;
-                        height: 122rpx;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 36rpx;
-                        color: #fff;
-                        font-size: 600;
-                        transition: .3s;
-                        background-color: #678633;
-                        border: 1rpx solid #fff;
-                        border-radius: 20rpx;
-                    }
-
-                    .amount-item.active {
-                        color: #4a661a;
-                        transition: .3s;
-                        background-color: #fcea7f;
-                        border: .1rpx solid #4A661A;
-                    }
+                    font-size: 36rpx;
+                    color: #678633;
+                    font-size: 600;
+                    transition: .3s;
                 }
 
-                .recharge-channels {
-                    display: flex;
-                    align-items: center;
-                    font-size: 28rpx;
-                    color: #fff;
-                    font-size: 600;
+                .tab-item.active {
                     background-color: #678633;
-                    border: 1rpx solid #fff;
-                    border-radius: 20rpx;
-                    height: 100rpx;
-                    padding: 24rpx;
-                    margin-top: 40rpx;
+                    color: #fcea7f;
+                    border-radius: 14rpx;
+                    transition: .3s;
+                }
+            }
 
-                    .channel {
-                        margin-left: 40rpx;
-                        font-weight: 600;
-                        font-size: 32rpx;
+            .tab-content {
+                margin-top: 20rpx;
+
+                .withdraw-amount-value {
+                    display: flex;
+                    align-items: center;
+                    color: #fff;
+                    font-size: 600;
+                    height: 98rpx;
+                    padding: 10rpx 24rpx;
+
+                    .withdraw-text {
+                        font-size: 36rpx;
                     }
                 }
 
-                .recharge-amount {
+                .charge {
+                    .amount-list {
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        box-sizing: border-box;
+                        gap: 10rpx;
 
-                    margin-top: 40rpx;
+                        .amount-item {
+                            box-sizing: border-box;
+                            width: 32%;
+                            height: 122rpx;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 36rpx;
+                            color: #fff;
+                            font-size: 600;
+                            transition: .3s;
+                            background-color: #678633;
+                            border: 1rpx solid #fff;
+                            border-radius: 20rpx;
+                        }
 
-                    .recharge-amount-title {
-                        font-size: 28rpx;
-                        color: #678633;
-                        line-height: 40rpx;
-                        margin-bottom: 24rpx;
+                        .amount-item.active {
+                            color: #4a661a;
+                            transition: .3s;
+                            background-color: #fcea7f;
+                            border: .1rpx solid #4A661A;
+                        }
                     }
 
-                    .recharge-amount-value {
+                    .recharge-channels {
                         display: flex;
                         align-items: center;
                         font-size: 28rpx;
@@ -281,79 +273,113 @@ export default {
                         background-color: #678633;
                         border: 1rpx solid #fff;
                         border-radius: 20rpx;
-                        height: 84rpx;
+                        height: 100rpx;
                         padding: 24rpx;
+                        margin-top: 40rpx;
+
+                        .channel {
+                            margin-left: 40rpx;
+                            font-weight: 600;
+                            font-size: 32rpx;
+                        }
+                    }
+
+                    .recharge-amount {
+
+                        margin-top: 40rpx;
+
+                        .recharge-amount-title {
+                            font-size: 28rpx;
+                            color: #678633;
+                            line-height: 40rpx;
+                            margin-bottom: 24rpx;
+                        }
+
+                        .recharge-amount-value {
+                            display: flex;
+                            align-items: center;
+                            font-size: 32rpx;
+                            color: #fff;
+                            font-size: 600;
+                            background-color: #678633;
+                            border: 1rpx solid #fff;
+                            border-radius: 20rpx;
+                            height: 108rpx;
+                            padding: 10rpx 24rpx;
+                        }
+                    }
+
+                    .recharge-submit {
+                        margin-top: 80rpx;
+                        padding: 0 10rpx;
+
+                        .charge-btn {
+                            width: 100%;
+                            height: 96rpx;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 36rpx;
+                            font-size: 600;
+                            background-color: #fff3f1;
+                            color: #516d21;
+                            border: 1rpx solid #fff;
+                            border-radius: 20rpx;
+                        }
                     }
                 }
 
-                .recharge-submit {
-                    margin-top: 80rpx;
-                    padding: 0 10rpx;
-
-                    .charge-btn {
-                        width: 100%;
-                        height: 96rpx;
+                .remove {
+                    .info-input {
                         display: flex;
-                        justify-content: center;
                         align-items: center;
-                        font-size: 36rpx;
+                        height: 182rpx;
+                        font-size: 28rpx;
+                        color: #fff;
                         font-size: 600;
-                        background-color: #fff3f1;
-                        color: #516d21;
+                        background-color: #547320;
                         border: 1rpx solid #fff;
                         border-radius: 20rpx;
+                        padding: 24rpx;
+                        margin-top: 40rpx;
+
+                        .label {
+                            margin-right: 40rpx;
+                        }
                     }
-                }
-            }
 
-            .remove {
-                .info-input {
-                    display: flex;
-                    align-items: center;
-                    height: 182rpx;
-                    font-size: 28rpx;
-                    color: #fff;
-                    font-size: 600;
-                    background-color: #547320;
-                    border: 1rpx solid #fff;
-                    border-radius: 20rpx;
-                    padding: 24rpx;
-                    margin-top: 40rpx;
-
-                    .label {
-                        margin-right: 40rpx;
-                    }
-                }
-                .tips {
-                    font-size: 24rpx;
-                    color: #516d21;
-                    margin-top: 20rpx; 
-                    margin-left: 20rpx; 
-                    text {
-                        font-weight: 600;
-                        margin-left: 10rpx;
-                    }  
-                }
-                .btns {
-                    margin-top: 40rpx;
-
-                    .remove-btn {
-                        height: 96rpx;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 36rpx;
-                        font-size: 600;
-                        background-color: #fff3f1;
+                    .tips {
+                        font-size: 24rpx;
                         color: #516d21;
-                        border: 1rpx solid #fff;
-                        border-radius: 20rpx;
+                        margin-top: 20rpx;
+                        margin-left: 20rpx;
+
+                        text {
+                            font-weight: 600;
+                            margin-left: 10rpx;
+                        }
+                    }
+
+                    .btns {
+                        margin-top: 40rpx;
+
+                        .remove-btn {
+                            height: 96rpx;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 36rpx;
+                            font-size: 600;
+                            background-color: #fff3f1;
+                            color: #516d21;
+                            border: 1rpx solid #fff;
+                            border-radius: 20rpx;
+                        }
                     }
                 }
             }
         }
-        }
-       
+
     }
 }
 </style>

@@ -109,8 +109,29 @@
 	$uni-mask: rgba($color: #000000, $alpha: 0.4) ;
 	// 抽屉宽度
 	$drawer-width: 60%;
-
-	.uni-drawer {
+	@media screen and (min-width: 680px) {
+		.uni-drawer {
+		/* #ifndef APP-NVUE */
+		display: block;
+		/* #endif */
+		/*absolute属性未被重写 带滚动的页面可以将uni-drawer顶起  。其他页面区域有使用到 未直接修改根容器*/
+		/*position: fixed !important;*/
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
+		z-index: 999999;
+		/* #ifdef H5 */
+		box-sizing: border-box;
+		height: calc(100vh - 82px);
+		margin-top: 83px;
+		/* #endif */
+	}
+	}
+	@media screen and (max-width: 680px) {
+		.uni-drawer {
 		/* #ifndef APP-NVUE */
 		display: block;
 		/* #endif */
@@ -129,6 +150,8 @@
 		margin-top: 83rpx;
 		/* #endif */
 	}
+	}
+	
 
 	.uni-drawer__content {
 		/* #ifndef APP-NVUE */

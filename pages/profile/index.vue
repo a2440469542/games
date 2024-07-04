@@ -225,13 +225,15 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     background: transparent;
 }
 .profile {
-    width: 100%;
+    // width: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
-    height: 100%;
+    // height: 100%;
     position: absolute;
-
+    max-width: 100%;
+	height: 100%;
+	aspect-ratio: 3 / 5;
     .logout-confirm {
         background-color: #678633;
 

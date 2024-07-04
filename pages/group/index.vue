@@ -27,7 +27,7 @@
                         </view>
                     </view>
                     <view class="line"></view>
-                    <view class="bottom">
+                    <!-- <view class="bottom">
                         <view class="social-label">
                             Partilha rápida
                         </view>
@@ -39,7 +39,7 @@
                                 <view class="app-name">{{ item.name }}</view>
                             </view>
                         </view>
-                    </view>
+                    </view> -->
                 </view>
                 <view class="box-content" @click="toBox">
                     <view class="box-info">
@@ -187,12 +187,12 @@ export default {
                 },
                 {
                     name: 'Número de pessoas recarregando',
-                    field: 'box_num',
+                    field: 'recharge',
                     value: 0
                 },
                 {
                     name: 'Depositantes válidos',
-                    field: 'recharge',
+                    field: 'box_num',
                     value: 0
                 },
                 {
@@ -243,7 +243,15 @@ export default {
             }) 
         },
         receive(){
+            if(this.wagesObj.un_money <= 0){
+                uni.showToast({
+                    title: "Sem dinheiro disponível",
+                    icon: 'none'
+                })
+                return
+            }
             this.$api.home.getWagesApi().then(res => {
+                this.getUserInfo()
                 uni.showToast({
                     title: "obter sucesso",
                 });
@@ -274,7 +282,7 @@ export default {
             this.$api.user.getTeamData({ type: this.currentIndex }).then(res => {
                 this.levelList.forEach(element => {
                     if(this.currentIndex === 1){
-                        this.invite = res.recharge
+                        this.invite = res.box_num
                     }
                     for (let i in res) {
                         if (element.field === i) {
@@ -282,14 +290,12 @@ export default {
                         }
                     }
                 });
-                //console.log(this.levelList)
+                console.log(this.levelList)
             })
         },
-        loadingChargeList() {
-            this.$api.user.getChargeList(this.chargeObj).then(res => {
-                //console.log(res)
-                this.dataList = res
-            })
+        async loadingChargeList() {
+            const res = await this.$api.user.getChargeList(this.chargeObj);
+            this.dataList = res;
         },
         openDrawer() {
             this.isOpen = !this.isOpen
@@ -328,13 +334,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     background: transparent;
 }
 .group {
-    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
-    height: 100%;
     position: absolute;
-
+    max-width: 100%;
+	height: 100%;
+	aspect-ratio: 3 / 5;
     .group-content {
         height: 0;
         flex: 1;

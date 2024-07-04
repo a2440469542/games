@@ -151,7 +151,43 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.left-menu {
+@media screen and (min-width: 680px) {
+    .left-menu {
+    height: 100%;
+    width: 100%;
+    padding: 20px 24px;
+
+    .setting-list {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px 24px;
+        background-color: #678633;
+        border-radius: 10px;
+
+        .setting-item {
+            width: 100%;
+            display: flex;
+
+            image {
+                width: 60px;
+                height: 60px;
+                margin-right: 24px;
+            }
+
+            .setting-name {
+                font-size: 24px;
+                color: #fff;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
+}
+@media screen and (max-width: 680px) {
+    .left-menu {
     height: 100%;
     width: 100%;
     padding: 20rpx 24rpx;
@@ -184,4 +220,6 @@ export default {
         }
     }
 }
+}
+
 </style>

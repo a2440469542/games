@@ -3,10 +3,16 @@ import store from '@/store/index.js'
 export default {
 	onLaunch: function () {
 		console.log('App Launch')
+		const windowResizeCallback = (res) => {
+		
+			// console.log('变化后的窗口宽度=' + res.size.windowWidth)
+			// console.log('变化后的窗口高度=' + res.size.windowHeight)
+		}
+		uni.onWindowResize(windowResizeCallback)
 		uni.getSystemInfo({
 			success: (res) => {
-				const windowHeight = res.windowHeight;
-				this.setPageHeight(windowHeight);
+				// const windowHeight = res.windowHeight;
+				// this.setPageHeight(windowHeight);
 			}
 		});
 		this.getConfig()

@@ -58,6 +58,7 @@ function request(url, method = "GET", data = {}, header = {}) {
           uni.showToast({
             title: res.data.msg || "Falha na solicitação",
             duration: 2000,
+            icon: "none",
           });
           reject(new Error("Request failed"));
         }

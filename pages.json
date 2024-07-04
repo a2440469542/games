@@ -61,7 +61,7 @@
 		"navigationBarTitleText": "Famosa plataforma de jogos de azar no Brasil",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-    	"rpxCalcBaseDeviceWidth": 750
+		"maxWidth": 680
 	},
 	"tabBar": {
 		"backgroundColor" : "#547320",
