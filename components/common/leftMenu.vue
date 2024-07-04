@@ -151,33 +151,32 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@media screen and (min-width: 680px) {
-    .left-menu {
+.left-menu {
     height: 100%;
     width: 100%;
-    padding: 20px 24px;
+    padding: 0.625rem 0.75rem;
 
     .setting-list {
         width: 100%;
         display: flex;
         align-items: center;
         flex-direction: column;
-        padding: 20px 24px;
+        padding: 0.625rem 0.75rem;
         background-color: #678633;
-        border-radius: 10px;
+        border-radius: 0.3125rem;
 
         .setting-item {
             width: 100%;
             display: flex;
 
-            image {
-                width: 60px;
-                height: 60px;
-                margin-right: 24px;
+            uni-image {
+                width: 1.875rem;
+                height: 1.875rem;
+                margin-right: 0.75rem;
             }
 
             .setting-name {
-                font-size: 24px;
+                font-size: 0.75rem;
                 color: #fff;
                 display: flex;
                 align-items: center;
@@ -185,41 +184,4 @@ export default {
         }
     }
 }
-}
-@media screen and (max-width: 680px) {
-    .left-menu {
-    height: 100%;
-    width: 100%;
-    padding: 20rpx 24rpx;
-
-    .setting-list {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        padding: 20rpx 24rpx;
-        background-color: #678633;
-        border-radius: 10rpx;
-
-        .setting-item {
-            width: 100%;
-            display: flex;
-
-            image {
-                width: 60rpx;
-                height: 60rpx;
-                margin-right: 24rpx;
-            }
-
-            .setting-name {
-                font-size: 24rpx;
-                color: #fff;
-                display: flex;
-                align-items: center;
-            }
-        }
-    }
-}
-}
-
 </style>

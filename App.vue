@@ -4,9 +4,10 @@ export default {
 	onLaunch: function () {
 		console.log('App Launch')
 		const windowResizeCallback = (res) => {
-		
-			// console.log('变化后的窗口宽度=' + res.size.windowWidth)
-			// console.log('变化后的窗口高度=' + res.size.windowHeight)
+			this.updateBodyStyles(res.size.windowHeight * 3 / 5)
+			const scale = (res.size.windowHeight * 3 / 5) / 480
+			const baseSize = 16
+			document.documentElement.style.fontSize = baseSize * Math.min(scale, 2) + 'px'
 		}
 		uni.onWindowResize(windowResizeCallback)
 		uni.getSystemInfo({
@@ -31,6 +32,11 @@ export default {
 		console.log('App Hide')
 	},
 	methods: {
+		// 通过传入高度按照比例实时改变页面的width
+		updateBodyStyles(width) {
+			document.documentElement.style.setProperty('--body-width', `${width}px`);
+			document.body.style.width = `${width}px`;
+		},
 		async getConfig() {
 			const config = await this.$api.user.getConfig();
 			store.dispatch('setConfig', config);

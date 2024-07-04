@@ -8,7 +8,7 @@
                 <view class="profile-item">
                     <view class="profile-item-top">
                         <view class="avatar">
-                            <uv-avatar size="140rpx" shape="square"
+                            <uv-avatar size="5rem" shape="square"
                                 :src="channelInfo.logo"></uv-avatar>
                         </view>
                         <view class="user-info">
@@ -225,37 +225,34 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     background: transparent;
 }
 .profile {
-    // width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
-    // height: 100%;
     position: absolute;
-    max-width: 100%;
 	height: 100%;
-	aspect-ratio: 3 / 5;
     .logout-confirm {
         background-color: #678633;
 
         .content-text {
-            font-size: 36rpx;
+            font-size: 1.125rem;
             color: #fff;
-            line-height: 196rpx;
+            line-height: 6.125rem;
             text-align: center;
-            margin-bottom: 24rpx;
-            padding: 24rpx;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
         }
 
         .bottom-btn {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 92rpx;
+            height: 2.875rem;
 
             .btn {
                 width: 50%;
                 height: 100%;
-                font-size: 36rpx;
+                font-size: 1.125rem;
                 color: #023217;
                 display: flex;
                 align-items: center;
@@ -277,23 +274,23 @@ scroll-view ::v-deep ::-webkit-scrollbar {
         flex: 1;
 
         .content {
-            padding: 40rpx 24rpx 90rpx 24rpx;
+            padding: 1.25rem 0.75rem 2.8125rem 0.75rem;
 
             .profile-item {
                 width: 100%;
                 background-color: #678633;
-                border-radius: 24rpx;
-                padding: 24rpx;
-                margin-bottom: 24rpx;
+                border-radius: 0.75rem;
+                padding: 0.75rem;
+                margin-bottom: 0.75rem;
 
                 .profile-item-menu {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    font-size: 32rpx;
+                    font-size: 1rem;
                     color: #fff;
-                    padding: 20rpx 28rpx;
-                    border-bottom: 1rpx solid #126939;
+                    padding: 0.625rem 0.875rem;
+                    border-bottom: 0.0625rem solid #126939;
                     width: 100%;
 
                     .left-part {
@@ -303,10 +300,10 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                         flex: 1;
 
                         .icon {
-                            width: 69rpx;
-                            height: 69rpx;
+                            width: 2.16rem;
+                            height: 2.16rem;
 
-                            image {
+                            uni-image {
                                 width: 100%;
                                 height: 100%;
                             }
@@ -315,7 +312,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                         .text {
                             width: 70%;
                             text-align: left;
-                            margin-left: 20rpx;
+                            margin-left: 0.625rem;
                         }
                     }
                 }
@@ -325,7 +322,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     justify-content: flex-start;
 
                     .avatar {
-                        width: 140rpx;
+                        width: 5rem;
                         display: flex;
                         align-items: center;
                         overflow: hidden;
@@ -335,41 +332,41 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
-                        margin-left: 30rpx;
+                        margin-left: 0.94rem;
 
                         .invite-code {
                             display: flex;
                             align-items: center;
                             justify-content: flex-start;
-                            font-size: 37rpx;
+                            font-size: 1.16rem;
                             color: #fff;
 
-                            image {
-                                width: 32rpx;
-                                height: 32rpx;
-                                margin-left: 24rpx;
+                            uni-image {
+                                width: 1rem;
+                                height: 1rem;
+                                margin-left: 0.75rem;
                             }
                         }
 
                         .user-id {
-                            font-size: 37rpx;
+                            font-size: 1.16rem;
                             color: #fff;
-                            margin-top: 10rpx;
+                            margin-top: 0.3125rem;
                         }
 
                         .user-money {
                             display: flex;
                             align-items: center;
                             justify-content: flex-start;
-                            font-size: 37rpx;
+                            font-size: 1.16rem;
                             color: #fff;
-                            padding-left: 8rpx;
-                            margin-top: 10rpx;
+                            padding-left: 0.25rem;
+                            margin-top: 0.3125rem;
 
-                            image {
-                                width: 44rpx;
-                                height: 44rpx;
-                                margin-right: 24rpx;
+                            uni-image {
+                                width: 1.375rem;
+                                height: 1.375rem;
+                                margin-right: 0.75rem;
                             }
                         }
                     }
@@ -379,7 +376,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    margin-top: 20rpx;
+                    margin-top: 0.625rem;
 
                     .profile-item-bottom-item {
                         display: flex;
@@ -388,19 +385,19 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                         flex-direction: column;
 
                         .icon {
-                            width: 65rpx;
-                            height: 65rpx;
+                            width: 2rem;
+                            height: 2rem;
 
-                            image {
+                            uni-image {
                                 width: 100%;
                                 height: 100%;
                             }
                         }
 
                         .text {
-                            font-size: 24rpx;
+                            font-size: 0.75rem;
                             color: #fff;
-                            margin-top: 20rpx;
+                            margin-top: 0.625rem;
                         }
                     }
                 }

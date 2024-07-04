@@ -68,13 +68,12 @@ export default {
 
 </script>
 <style scoped lang="scss">
-@media screen and (min-width: 680px) {
-  .navgation-bar {
+.navgation-bar {
   width: 100%;
-  height: 96px;
+  height: 3.5rem;
   display: flex;
   position: relative;
-  padding: 0 26rpx;
+  padding: .5rem .75rem;
   justify-content: space-between;
 
   .nav-left {
@@ -84,11 +83,11 @@ export default {
     width: 50%;
 
     .menu {
-      width: 46px;
-      height: 46px;
+      width: 2rem;
+      height: 2rem;
       background-image: url("../../static/images/menu.png");
       background-size: 100% 100%;
-      margin-right: 22px;
+      margin-right: .5rem;
       transition: transform 0.5s;    
     }
 
@@ -97,18 +96,18 @@ export default {
     }
 
     .logo {
-      width: calc(100% - 46px);
+      // width: calc(100% - 2rem);
       height: 100%;
       display: flex;
       align-items: center;
-      image {
-        height: 60px;
+      uni-image {
+        height: 2rem;
       }
       .logo-text {
-        max-width: 200px;
-        font-size: 36px;
+        max-width: 5rem;
+        font-size: 1.5rem;
         color: #f9f36d;
-        margin-left: 10px;
+        margin-left: 5px;
         font-weight: bold;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -122,103 +121,24 @@ export default {
     align-items: center;
     width: 50%;
     .cou {
-      width: 45px;
-      height: 45px;
+      width: 1.5rem;
+      height: 1.5rem;
       background-image: url("../../static/images/country.png");
       background-size: 100% 105%;
-      margin-right: 20px;
+      margin-right: 0.5rem;
     }
 
     .amount {
-      font-size: 28px;
-      padding: 5px 23px;
-      border: 1px solid #F8C15A;
-      border-radius: 16px;
-      font-size: 28px;
+      font-size: 1rem;
+      padding: .25rem .5rem;
+      border: .1rem solid #F8C15A;
+      border-radius: .5rem;
       color: #fbf68a;
     }
     .login-text {
-      font-size: 28px;
+      font-size: .75rem;
       color: #fff;
     }
   }
 }
-}
-@media screen and (max-width: 680px) {
-  .navgation-bar {
-  width: 100%;
-  height: 92rpx;
-  display: flex;
-  position: relative;
-  padding: 0 26rpx;
-  justify-content: space-between;
-
-  .nav-left {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 50%;
-
-    .menu {
-      width: 46rpx;
-      height: 46rpx;
-      background-image: url("../../static/images/menu.png");
-      background-size: 100% 100%;
-      margin-right: 22rpx;
-      transition: transform 0.5s;    
-    }
-
-    .menu.open {
-      transform: rotate(90deg);
-    }
-
-    .logo {
-      width: calc(100% - 46rpx);
-      height: 100%;
-      display: flex;
-      align-items: center;
-      image {
-        height: 60rpx;
-      }
-      .logo-text {
-        max-width: 200rpx;
-        font-size: 36rpx;
-        color: #f9f36d;
-        margin-left: 10rpx;
-        font-weight: bold;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-    }
-  }
-
-  .nav-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 50%;
-    .cou {
-      width: 45rpx;
-      height: 45rpx;
-      background-image: url("../../static/images/country.png");
-      background-size: 100% 105%;
-      margin-right: 20rpx;
-    }
-
-    .amount {
-      font-size: 28rpx;
-      padding: 5rpx 23rpx;
-      border: 1rpx solid #F8C15A;
-      border-radius: 16rpx;
-      font-size: 28rpx;
-      color: #fbf68a;
-    }
-    .login-text {
-      font-size: 28rpx;
-      color: #fff;
-    }
-  }
-}
-}
-
 </style>

@@ -83,14 +83,14 @@ export default {
     .rewards-content {
         height: 0;
         flex: 1;
-        padding: 40rpx 24rpx;
+        padding: 1.25rem 0.75rem;
 
         .rewards-item {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 24rpx;
+            margin-bottom: 0.75rem;
             background-image: url('../../static/images/rewards-bg.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -100,56 +100,56 @@ export default {
                 align-items: center;
                 justify-content: space-between;
                 width: 100%;
-                padding: 22rpx 8rpx 22rpx 24rpx;
+                padding: 0.69rem 0.25rem 0.69rem 0.75rem;
 
                 .treasure-content {
-                    font-size: 24rpx;
+                    font-size: 0.75rem;
                     flex: 1;
                     color: #fff;
 
                     .treasure-desc {
                         width: 100%;
                         position: relative;
-                        font-size: 24rpx;
-                        line-height: 30rpx;
-                        padding-bottom: 10rpx;
+                        font-size: 0.75rem;
+                        line-height: 0.94rem;
+                        padding-bottom: 0.3125rem;
 
                         .amount {
                             position: absolute;
                             right: 0;
                             bottom: 0;
                             color: #ffe2c1;
-                            font-size: 28rpx;
+                            font-size: 20.25rem;
                         }
                     }
                 }
 
                 .treasure-progress {
-                    padding-bottom: 10rpx;
+                    padding-bottom: 0.3125rem;
                 }
 
                 .treasure-icon {
-                    width: 140rpx;
-                    height: 130rpx;
+                    width: 11.25rem;
+                    height: 10.94rem;
                 }
 
                 .complated {
-                    width: 130rpx;
+                    width: 10.94rem;
                     height: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    margin-left: 20rpx;
+                    margin-left: 0.625rem;
 
                     .cmp-btn {
                         width: 100%;
-                        height: 74rpx;
-                        line-height: 74rpx;
+                        height: 2.3125rem;
+                        line-height: 2.3125rem;
                         text-align: center;
                         background-color: #ffe75f;
                         color: #678633;
-                        border-radius: 10rpx;
-                        font-size: 24rpx;
+                        border-radius: 0.3125rem;
+                        font-size: 0.75rem;
                     }
                     .cmp-btn.disabled {
                         background-color: #89ab50;

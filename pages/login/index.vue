@@ -6,6 +6,7 @@
                     <view class="login-title">
                         <view class="login-icon">
                             <image
+                                mode="widthFix"
                                 src="data:image/png;base64,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">
                             </image>
                         </view>
@@ -27,6 +28,7 @@
                     <view class="form-item">
                         <view class="area">
                             <image
+                            mode="widthFix"
                                 src="data:image/png;base64,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">
                             </image>
                         </view>
@@ -175,20 +177,20 @@ export default {
     .login-part {
         width: 85%;
         background-color: #678633;
-        border-radius: 20rpx;
-        padding: 0 28rpx 28rpx 28rpx;
+        border-radius: 1rem;
+        padding: 0 .75rem .75rem .75rem;
         position: relative;
 
         .login-close {
             position: absolute;
             z-index: 1000;
-            width: 65rpx;
-            height: 65rpx;
-            bottom: -120rpx;
+            width: 3rem;
+            height: 3rem;
+            bottom: -4rem;
             left: 50%;
             transform: translateX(-50%);
 
-            image {
+            uni-image {
                 width: 100%;
                 height: 100%;
             }
@@ -212,17 +214,18 @@ export default {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 48rpx;
+                    font-size: 1.5rem;
                     font-weight: 600;
                     color: #fff;
-                    margin-top: 30rpx;
+                    margin-top: 1rem;
 
                     .login-icon {
-                        width: 65rpx;
-                        height: 60rpx;
-                        margin-right: 10rpx;
-
-                        image {
+                        width: 1.5rem;
+                        // height: 2.5rem;
+                        margin-right: .5rem;
+                        display: flex;
+                        align-items: center;
+                        uni-image {
                             width: 100%;
                             height: 100%;
                         }
@@ -230,43 +233,43 @@ export default {
                 }
 
                 .line {
-                    width: 360rpx;
-                    height: 4rpx;
+                    width: 10rem;
+                    height: 0.2rem;
                     background-color: #fff;
-                    margin-top: 20rpx;
-                    border-radius: 4rpx;
+                    margin-top: 1rem;
+                    border-radius: .5rem;
                 }
             }
 
             .login-form {
                 width: 100%;
-                margin-top: 30rpx;
+                margin-top: 1.75rem;
 
                 .form-item {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    font-size: 28rpx;
+                    font-size: .75rem;
                     color: #fff;
-                    font-size: 600;
+                    font-weight: 600;
                     background-color: #678633;
-                    border: 1rpx solid #FFD8AD;
-                    border-radius: 20rpx;
-                    height: 100rpx;
-                    padding: 24rpx;
-                    margin-top: 20rpx;
+                    border: .01rem solid #FFD8AD;
+                    border-radius: .5rem;
+                    height: 2rem;
+                    padding: .75rem;
+                    margin-top: .5rem;
 
                     .area {
-                        width: 74rpx;
-
-                        image {
-                            width: 60rpx;
-                            height: 60rpx;
+                        width: 1.75rem;
+                        display: flex;
+                        align-items: center;
+                        uni-image {
+                            width: 1.25rem;
                         }
                     }
 
                     .uni-input {
-                        font-size: 28rpx;
+                        font-size: .75rem;
                         color: #fff;
                         flex: 1;
                     }
@@ -282,23 +285,23 @@ export default {
 
                 .login-btn {
                     width: 100%;
-                    height: 100rpx;
-                    line-height: 100rpx;
+                    height: 2rem;
+                    line-height: 2rem;
                     text-align: center;
-                    font-size: 34rpx;
+                    font-size: 1rem;
                     font-weight: 600;
-                    border-radius: 20rpx;
+                    border-radius: .5rem;
                     background-color: #fff3f1;
                     color: #516d21;
-                    margin-top: 40rpx;
+                    margin-top: 1rem;
                 }
 
                 .register-btn {
                     text-align: center;
-                    font-size: 34rpx;
+                    font-size: 1rem;
                     font-weight: 600;
                     color: #fcea7f;
-                    margin-top: 20rpx;
+                    margin-top: 1rem;
                 }
             }
         }

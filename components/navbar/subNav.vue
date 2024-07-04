@@ -30,29 +30,29 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 82rpx;
+    height: 2.5625rem;
 
     .left {
-        width: 80rpx;
-        height: 80rpx;
+        width: 2.5rem;
+        height: 2.5rem;
         display: flex;
         align-items: center;
         justify-content: center;
 
-        image {
-            width: 28rpx;
-            height: 46rpx;
+        uni-image {
+            width: 0.875rem;
+            height: 1.4375rem;
         }
     }
 
     .right {
-        width: 80rpx;
-        height: 80rpx;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     .sub-nav-title {
         flex: 1;
-        font-size: 36rpx;
+        font-size: 1.125rem;
         font-weight: 500;
         color: #FFFFFF;
         display: flex;

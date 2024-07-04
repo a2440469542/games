@@ -15,16 +15,27 @@
         width: 60% !important;
     }
 }
-
-
-html, body {
+:root {
+    --body-width: 100%;
+}
+html {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body {
     overflow: hidden;
+    max-width: 680px;
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
+    aspect-ratio: 3 / 5;
+    margin: 0;
+    width: var(--body-width);
+    transition: width 0.3s ease;
 }
+
 uni-app {
-    
 }
 uni-page {
     // max-width: 680px;

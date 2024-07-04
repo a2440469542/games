@@ -12,7 +12,7 @@
                             <view class="invite-url">
                                 <view class="url">{{ channelInfo.url }}?cid={{ cid }}&inv_code={{ userInfo.inv_code }}</view>
                                 <view class="copy" @click="copy(copyUrl)">
-                                    <image src="../../static/images/copy.png"></image>
+                                    <image mode="widthFix" src="../../static/images/copy.png"></image>
                                 </view>
                             </view>
                         </view>
@@ -21,7 +21,7 @@
                             <view class="invite-url">
                                 <view class="code">{{ userInfo.inv_code }}</view>
                                 <view class="copy" @click="copy(userInfo.inv_code.toString())">
-                                    <image src="../../static/images/copy.png"></image>
+                                    <image mode="widthFix" src="../../static/images/copy.png"></image>
                                 </view>
                             </view>
                         </view>
@@ -48,7 +48,7 @@
                         <view class="box-title">Aposta subordinada: R${{ channelInfo.bet_money }}</view>
                     </view>
                     <view class="box-icon">
-                        <image src="../../static/images/reward-box.png"></image>
+                        <image mode="widthFix" src="../../static/images/reward-box.png"></image>
                     </view>
                 </view>
                 <view class="get-content">
@@ -338,34 +338,34 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     flex-direction: column;
     background-color: rgba(247, 201, 111, 1);
     position: absolute;
-    max-width: 100%;
+    width: 100%;
 	height: 100%;
-	aspect-ratio: 3 / 5;
+	// aspect-ratio: 3 / 4;
     .group-content {
         height: 0;
         flex: 1;
 
         .content-box {
-            padding: 20rpx 24rpx;
+            padding: .5rem .75rem;
 
             .group-info {
                 background-color: #678633;
-                border-radius: 18rpx;
+                border-radius: .5rem;
 
                 .top {
                     width: 100%;
-                    padding: 28rpx 24rpx 0 24rpx;
+                    padding: .75rem .75rem 0 .75rem;
 
                     .group-info-item {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        margin-bottom: 24rpx;
+                        margin-bottom: .75rem;
 
                         .label {
-                            font-size: 24rpx;
+                            font-size: .75rem;
                             color: #fff;
-                            width: 209rpx;
+                            width: 40%;
                         }
 
                         .invite-url {
@@ -373,28 +373,29 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                             align-items: center;
                             justify-content: space-between;
                             color: #fff;
-                            border: 1rpx solid #fff;
-                            border-radius: 14rpx;
-                            padding: 16rpx 24rpx;
-                            width: 420rpx;
+                            border: .1rem solid #fff;
+                            border-radius: .5rem;
+                            padding: .25rem .75rem;
+                            width: 60%;
 
                             .url {
-                                font-size: 20rpx;
-                                width: 280rpx;
+                                font-size: .75rem;
+                                width: 80%;
                                 word-break: break-all;
                             }
 
                             .code {
-                                font-size: 32rpx;
+                                font-size: 1rem;
                             }
 
                             .copy {
-                                width: 46rpx;
-                                height: 46rpx;
-
-                                image {
-                                    width: 100%;
-                                    height: 100%;
+                                width: 20%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                uni-image {
+                                    width: 1.5rem;
                                 }
                             }
                         }
@@ -403,44 +404,44 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                 .line {
                     width: 100%;
-                    height: 1rpx;
+                    height: .1rem;
                     background-color: #fff;
                 }
 
                 .bottom {
-                    padding: 28rpx 24rpx 0 24rpx;
+                    padding: .75rem .75rem 0 .75rem;
 
                     .social-label {
-                        font-size: 28rpx;
+                        font-size: .75rem;
                         color: #fff;
                     }
 
                     .app-list {
-                        margin-top: 24rpx;
+                        margin-top: .75rem;
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
 
                         .app-item {
-                            width: 120rpx;
-                            height: 120rpx;
+                            width: 1.5rem;
+                            height: 1.5rem;
                             display: flex;
                             flex-direction: column;
                             align-items: center;
                             justify-content: center;
 
                             .app-icon {
-                                width: 70rpx;
-                                height: 70rpx;
+                                width: 1.5rem;
+                                height: 1.5rem;
 
-                                image {
+                                uni-image {
                                     width: 100%;
                                     height: 100%;
                                 }
                             }
 
                             .app-name {
-                                font-size: 20rpx;
+                                font-size: .75rem;
                                 color: #fff;
                                 text-align: center
                             }
@@ -451,18 +452,18 @@ scroll-view ::v-deep ::-webkit-scrollbar {
             }
             .get-content {
                 background-color: #678633;
-                border-radius: 18rpx;
-                margin-top: 20rpx;
-                padding: 20rpx 24rpx;
+                border-radius: .75rem;
+                margin-top: .5rem;
+                padding: .5rem .75rem;
                 .box-info {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     width: 80%;
                     .box-title {
-                        font-size: 24rpx;
+                        font-size: .75rem;
                         color: #fff;
-                        margin-bottom: 10rpx;
+                        margin-bottom: .5rem;
                         font-weight: 600;
                     }
                 }
@@ -472,10 +473,10 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     justify-content: flex-end;
                     width: 100%;
                     .get-btn {
-                        font-size: 28rpx;
-                        padding: 10rpx 20rpx;
-                        border: 1rpx solid #fff;
-                        border-radius: 14rpx;
+                        font-size: 1rem;
+                        padding: .25rem;
+                        border: .1rem solid #fff;
+                        border-radius: .5rem;
                         background-color: #fff3f1;
                         color: #516d21;
                     }
@@ -483,9 +484,9 @@ scroll-view ::v-deep ::-webkit-scrollbar {
             }
             .box-content {
                 background-color: #678633;
-                border-radius: 18rpx;
-                margin-top: 20rpx;
-                padding: 20rpx 24rpx;
+                border-radius: .5rem;
+                margin-top: .5rem;
+                padding: .5rem .75rem;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -495,16 +496,15 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     justify-content: center;
                     width: 80%;
                     .box-title {
-                        font-size: 24rpx;
+                        font-size: .75rem;
                         color: #fff;
-                        margin-bottom: 10rpx;
+                        margin-bottom: .5rem;
                     }
                 }
                 .box-icon {
                     width: 20%;
-                    image {
-                        width: 100rpx;
-                        height: 100rpx;
+                    uni-image {
+                        width: 100%;
                     }
                 }
             }
@@ -512,16 +512,16 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-top: 20rpx;
+                margin-top: .5rem;
 
                 .level-tab-item {
                     width: 30%;
-                    font-size: 28rpx;
+                    font-size: 1rem;
                     color: #fff;
                     text-align: center;
                     background-color: #678633;
-                    border-radius: 18rpx;
-                    padding: 16rpx 0;
+                    border-radius: .5rem;
+                    padding: 0.25rem 0;
                 }
 
                 .level-tab-item.active {
@@ -532,48 +532,48 @@ scroll-view ::v-deep ::-webkit-scrollbar {
             }
 
             .level-info {
-                margin-top: 20rpx;
+                margin-top: .5rem;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-around;
                 align-items: center;
                 background-color: #678633;
-                border-radius: 20rpx;
-                padding: 48rpx 24rpx;
-                gap: 28rpx;
+                border-radius: .5rem;
+                padding: 1rem .75rem;
+                gap: 0.75rem;
 
                 .level-item {
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
                     align-items: center;
-                    margin-bottom: 40rpx;
+                    margin-bottom: 1rem;
                     width: 30%;
 
                     .label {
-                        font-size: 20rpx;
+                        font-size: .75rem;
                         color: #fff;
                         text-align: center;
                     }
 
                     .value {
-                        font-size: 28rpx;
+                        font-size: .75rem;
                         color: #fff;
                     }
                 }
             }
 
             .group-list {
-                margin-top: 20rpx;
+                margin-top: .5rem;
 
                 .group-list-header {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    font-size: 32rpx;
+                    font-size: 1rem;
                     color: #678633;
-                    padding: 24rpx;
+                    padding: .75rem;
                     .showSelectBtn {
                         display: flex;
                         align-items: center;
@@ -581,9 +581,9 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 }
 
                 .list-label {
-                    font-size: 32rpx;
+                    font-size: 1rem;
                     color: #678633;
-                    padding: 24rpx;
+                    padding: .75rem;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -607,9 +607,9 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                 .lists {
                     .list-item {
-                        font-size: 32rpx;
+                        font-size: 1rem;
                         color: #678633;
-                        padding: 24rpx;
+                        padding: .75rem;
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
@@ -634,13 +634,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 }
 
                 .no-data {
-                    font-size: 48rpx;
+                    font-size: 1.25rem;
                     color: #678633;
-                    padding: 24rpx;
+                    padding: .75rem;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    height: 400rpx;
+                    height: 20rem;
                 }
             }
         }

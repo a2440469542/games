@@ -265,25 +265,21 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     -webkit-appearance: none;
     background: transparent;
 }
-@media screen and (max-width: 680px) {
-	
 .home-page {
-	// width: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	background-color: rgba(247, 201, 111, 1);
 	position: absolute;
-	//width: 100%;
-	max-width: 100%;
 	height: 100%;
-	aspect-ratio: 3 / 5;
+	// aspect-ratio: 3 / 5;
 
 	.scroll-view {
 		height: 0;
 		flex: 1;
 
 		.ad {
-			padding: 20rpx 24rpx;
+			padding: .5rem .75rem;
 			// height: 325rpx;
 			width: 100%;
 			aspect-ratio: 29 / 16;
@@ -297,7 +293,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					line-height: 100%;
 					text-align: center;
 
-					image {
+					uni-image {
 						width: 100%;
 						height: 100%;
 					}
@@ -306,7 +302,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 		}
 
 		.jackpot {
-			padding: 0 22rpx;
+			padding: 0 .75rem;
 			// height: 205rpx;
 			width: 100%;
 			aspect-ratio: 1003/292;
@@ -317,14 +313,14 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				background-image: url('../../static/images/jackpot.png');
 				background-size: 100% 100%;
 				position: relative;
-				text {
+				uni-text {
 					position: absolute;
-					bottom: 0;
+					bottom: .35rem;
 					left: 50%;
-					transform: translate(-50%, -50%);
+					transform: translate(-50%, 0);
 					color: rgba(255, 255, 255, 1);
-					font-size: 36rpx;
-					letter-spacing: 4rpx;
+					font-size: 1.75rem;
+					letter-spacing: .1rem;
 
 				}
 			}
@@ -337,10 +333,10 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				align-items: center;
 
 				.title-img {
-					height: 14rpx;
+					height: .5rem;
 					width: 40%;
 
-					image {
+					uni-image {
 						width: 100%;
 						height: 100%;
 					}
@@ -348,9 +344,9 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
 				.pg-text {
 					color: #678633;
-					font-size: 46rpx;
-					letter-spacing: 4rpx;
-					margin-top: 18rpx;
+					font-size: 2rem;
+					letter-spacing: .1rem;
+					margin-top: 1rem;
 				}
 			}
 		}
@@ -361,17 +357,17 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 			align-items: center;
 			flex-direction: row;
 			flex-wrap: wrap;
-			padding: 48rpx 36rpx;
-			gap: 20rpx;
+			padding: .5rem .75rem;
+			gap: .5rem;
 			box-sizing: border-box;
 
 			.list-item {
-				width: calc(25% - 20rpx);
+				width: calc(25% - .5rem);
 
 				.game-cover {
 					width: 100%;
 
-					image {
+					uni-image {
 						width: 100%;
 						height: 100%;
 					}
@@ -380,7 +376,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				.game-name {
 					color: rgba(255, 255, 255, 1);
 					text-align: center;
-					// font-size: 24rpx;
+					font-size: .75rem;
 					color: #546a1d;
 					white-space: nowrap;
 					overflow: hidden;
@@ -400,143 +396,5 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 			background-repeat: no-repeat;
 		}
 	}
-}
-}
-@media screen and (min-width: 680px) {
-	
-.home-page {
-	// width: 100%;
-	display: flex;
-	flex-direction: column;
-	background-color: rgba(247, 201, 111, 1);
-	position: absolute;
-	//width: 100%;
-	max-width: 100%;
-	height: 100%;
-	aspect-ratio: 3 / 5;
-
-	.scroll-view {
-		height: 0;
-		flex: 1;
-
-		.ad {
-			padding: 20rpx 24rpx;
-			// height: 325rpx;
-			width: 100%;
-			aspect-ratio: 29 / 16;
-			.swiper {
-				width: 100%;
-				height: 100%;
-
-				.swiper-item {
-					display: block;
-					height: 100%;
-					line-height: 100%;
-					text-align: center;
-
-					image {
-						width: 100%;
-						height: 100%;
-					}
-				}
-			}
-		}
-
-		.jackpot {
-			padding: 0 22rpx;
-			// height: 205rpx;
-			width: 100%;
-			aspect-ratio: 1003/292;
-
-			.jackpot-content {
-				width: 100%;
-				height: 100%;
-				background-image: url('../../static/images/jackpot.png');
-				background-size: 100% 100%;
-				position: relative;
-				text {
-					position: absolute;
-					bottom: 0;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					color: rgba(255, 255, 255, 1);
-					font-size: 36px;
-					letter-spacing: 4rpx;
-
-				}
-			}
-		}
-
-		.game-title {
-			.game-title-content {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-
-				.title-img {
-					height: 14rpx;
-					width: 40%;
-
-					image {
-						width: 100%;
-						height: 100%;
-					}
-				}
-
-				.pg-text {
-					color: #678633;
-					font-size: 46rpx;
-					letter-spacing: 4rpx;
-					margin-top: 18rpx;
-				}
-			}
-		}
-
-		.game-list {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			flex-direction: row;
-			flex-wrap: wrap;
-			padding: 48rpx 36rpx;
-			gap: 20rpx;
-			box-sizing: border-box;
-
-			.list-item {
-				width: calc(25% - 20rpx);
-
-				.game-cover {
-					width: 100%;
-
-					image {
-						width: 100%;
-						height: 100%;
-					}
-				}
-
-				.game-name {
-					color: rgba(255, 255, 255, 1);
-					text-align: center;
-					font-size: 24px;
-					color: #546a1d;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					margin-top: 10rpx;
-				}
-			}
-		}
-
-		.footer {
-			margin-top: 40rpx;
-			width: 100%;
-			height: 756rpx;
-			background-image: url('../../static/images/footer_bg.png');
-			background-size: cover;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
-	}
-}
 }
 </style>

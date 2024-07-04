@@ -164,32 +164,32 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
     .tabs {
         width: 100%;
-        margin-top: 20rpx;
+        margin-top: 0.625rem;
 
         .tab-list {
             width: 100%;
-            line-height: 60rpx;
-            padding: 10rpx 24rpx;
+            line-height: 1.875rem;
+            padding: 0.3125rem 0.75rem;
             box-sizing: border-box;
             white-space: nowrap;
 
             /* 保持文本不换行 */
             .tab-item {
                 display: inline-block;
-                font-size: 28rpx;
+                font-size: 0.875rem;
                 font-weight: 400;
                 color: #678633;
-                padding: 0 20rpx;
+                padding: 0 0.625rem;
                 text-align: center;
-                margin-right: 20rpx;
+                margin-right: 0.625rem;
             }
 
             .tab-item.active {
                 color: #013518;
                 background: #FCEA7F;
                 font-weight: 600;
-                border-radius: 30rpx;
-                padding: 0 20rpx;
+                border-radius: 0.9375rem;
+                padding: 0 0.625rem;
             }
         }
     }
@@ -199,22 +199,22 @@ scroll-view ::v-deep ::-webkit-scrollbar {
         flex: 1;
 
         .box {
-            padding: 20rpx;
+            padding: 0.625rem;
 
             .record-item {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 20rpx;
+                margin-bottom: 0.625rem;
 
                 .date {
-                    font-size: 28rpx;
+                    font-size: 0.875rem;
                     font-weight: 400;
                     color: #678633;
                 }
 
                 .amount {
-                    font-size: 48rpx;
+                    font-size: 1.5rem;
                     font-weight: 500;
                     color: #678633;
                 }

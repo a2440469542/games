@@ -63,14 +63,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@media screen and (min-width: 680px) {
     .tabbar {
         // position: absolute;
         width: 100%;
         left: 0;
         right: 0;
         bottom: 0;
-        height: 102px;
+        // height: 5rem;
         z-index: 99;
         display: flex;
         align-items: center;
@@ -80,15 +79,17 @@ export default {
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            width: 100%;
+            // width: 100%;
+            flex: 1;
             height: 100%;
             color: #fff;
-            image{
-                width: 55px;
-                height: 55px;
+            padding: .25rem .5rem;
+            uni-image{
+                width: 1.75rem;
+                height: 1.75rem;
             }
             .name {
-                font-size: 24px;
+                font-size: 1rem;
                 color: #fff;
             }
             .name.active {
@@ -96,40 +97,4 @@ export default {
             }
         }
     }
-}
-@media screen and (max-width: 680px) {
-    .tabbar {
-        // position: absolute;
-        width: 100%;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 102rpx;
-        z-index: 99;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        .tabbar-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            color: #fff;
-            image{
-                width: 55rpx;
-                height: 55rpx;
-            }
-            .name {
-                font-size: 24rpx;
-                color: #fff;
-            }
-            .name.active {
-                color: #f9f36d;
-            }
-        }
-    }
-}
-   
 </style>

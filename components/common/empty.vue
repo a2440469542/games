@@ -22,13 +22,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    image {
-        width: 280rpx;
+    uni-image {
+        width: 8.75rem;
     }
     .empty-text{
-        font-size: 48rpx;
+        font-size: 1.5rem;
         color: #fff;
-        margin-top: 20rpx;
+        margin-top: 0.625rem;
     }
 }
 </style>

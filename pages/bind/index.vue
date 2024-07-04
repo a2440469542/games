@@ -155,64 +155,64 @@ export default {
     height: 100vh;
 
     .bind-content {
-        padding: 40rpx 30rpx;
+        padding: 1.25rem 0.9325rem;
 
         .label-text {
             color: #678633;
-            font-size: 32rpx;
-            margin-bottom: 40rpx;
-            margin-left: 20rpx;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            margin-left: 0.625rem;
         }
 
         .form {
             background-color: #678633;
-            border-radius: 24rpx;
-            padding: 24rpx;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
 
             .form-item {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 20rpx;
-                height: 90rpx;
+                margin-bottom: 0.625rem;
+                height: 2.8125rem;
 
                 .label {
                     color: #fff;
-                    font-size: 28rpx;
-                    margin-right: 40rpx;
+                    font-size: 0.875rem;
+                    margin-right: 1.25rem;
                 }
 
                 .value {
                     display: flex;
                     align-items: center;
                     color: #fff;
-                    font-size: 32rpx;
+                    font-size: 1rem;
 
                     .code {
-                        width: 186rpx;
-                        margin-right: 8rpx;
+                        width: 5.8125rem;
+                        margin-right: 0.25rem;
                     }
 
                     .btn {
                         background-color: #fff;
                         color: #678633;
-                        border-radius: 24rpx;
-                        padding: 16rpx 12rpx;
-                        font-size: 32rpx;
+                        border-radius: 0.75rem;
+                        padding: 0.5rem 0.375rem;
+                        font-size: 1rem;
                     }
                 }
             }
         }
 
         .footer {
-            margin-top: 40rpx;
+            margin-top: 1.25rem;
 
             .btn {
                 background-color: #fff;
                 color: #678633;
-                border-radius: 18rpx;
-                padding: 18rpx 12rpx;
-                font-size: 32rpx;
+                border-radius: 0.25rem;
+                padding: 0.25rem 0.375rem;
+                font-size: 1rem;
                 text-align: center;
             }
         }
