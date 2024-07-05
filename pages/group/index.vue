@@ -252,6 +252,7 @@ export default {
             }
             this.$api.home.getWagesApi().then(res => {
                 this.getUserInfo()
+                this.getWages()
                 uni.showToast({
                     title: "obter sucesso",
                 });

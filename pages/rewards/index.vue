@@ -73,6 +73,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+scroll-view ::v-deep ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    background: transparent;
+}
 .rewards {
     width: 100%;
     display: flex;
@@ -119,7 +126,7 @@ export default {
                             right: 0;
                             bottom: 0;
                             color: #ffe2c1;
-                            font-size: 20.25rem;
+                            font-size: .75rem;
                         }
                     }
                 }
@@ -129,12 +136,12 @@ export default {
                 }
 
                 .treasure-icon {
-                    width: 11.25rem;
-                    height: 10.94rem;
+                    width: 5.25rem;
+                    height: 6rem;
                 }
 
                 .complated {
-                    width: 10.94rem;
+                    width: 5rem;
                     height: 100%;
                     display: flex;
                     align-items: center;
