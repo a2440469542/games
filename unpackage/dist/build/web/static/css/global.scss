@@ -30,21 +30,15 @@ body {
     margin: 0 auto;
     box-sizing: border-box;
     aspect-ratio: 3 / 5;
-    margin: 0;
     width: var(--body-width);
     transition: width 0.3s ease;
 }
 
-uni-app {
-}
-uni-page {
-    // max-width: 680px;
-    // aspect-ratio: 3 / 5 !important;
-}
 
 iframe {
     left: 0 !important;
 }
+
 uni-input {
     height: 108rpx !important;
     font-size: 36rpx !important;
