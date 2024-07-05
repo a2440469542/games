@@ -5,15 +5,17 @@
             <view v-if="rewardsList.length > 0" >
                 <view class="rewards-item" v-for="(item, index) in rewardsList" :key="index">
                 <view class="rewards-item-content">
-                    <view class="treasure-icon"></view>
+                    <view class="treasure-icon">
+                        <image src="./../../static/images/reward-box.png" mode="widthFix"></image>
+                    </view>
                     <view class="treasure-content">
                         <view class="treasure-desc">
                             Convite válido   {{ item.invite_num }} / {{ item.user_num }}
                             <view class="amount">R${{ item.money }}</view>
                         </view>
                         <view class="treasure-progress">
-                            <uv-line-progress :percentage="(item.invite_num / item.user_num) * 100" activeColor="#FCEA7F"
-                                inactiveColor="#89ab50" height="14rpx" :showText="false"></uv-line-progress>
+                            <uv-line-progress :percentage="(item.invite_num / item.user_num) * 100" activeColor="var(--progress-active-bar-color)"
+                                inactiveColor="var(--progress-bar-color)" width="100rpx" height="14rpx" :showText="false"></uv-line-progress>
                         </view>
                     </view>
                     <view class="complated">
@@ -103,9 +105,8 @@ scroll-view ::v-deep ::-webkit-scrollbar {
             align-items: center;
             justify-content: center;
             margin-bottom: 0.75rem;
-            background-image: url('../../static/images/rewards-bg.png');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+            background-color: var(--secondary-color);
+            border-radius: .5rem;
 
             .rewards-item-content {
                 display: flex;
@@ -143,6 +144,11 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 .treasure-icon {
                     width: 5.25rem;
                     height: 6rem;
+                    display: flex;
+                    align-items: center;
+                    uni-image {
+                        width: 4rem;
+                    }
                 }
 
                 .complated {

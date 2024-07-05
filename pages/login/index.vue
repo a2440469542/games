@@ -1,5 +1,5 @@
 <template>
-    <view class="login" v-if="isLogin">
+    <view class="login" :class="[currentTheme + '-theme']" v-if="isLogin">
         <view class="login-part">
             <view class="login-content">
                 <view class="login-header">
@@ -60,6 +60,7 @@
     </view>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
     props: {
         inv_code: {}
@@ -77,7 +78,9 @@ export default {
             isHidePwd: true
         }
     },
-
+    computed: {
+        ...mapGetters(["currentTheme"])
+    },
     methods: {
         onLogin() {
             let param = {
@@ -176,7 +179,7 @@ export default {
 
     .login-part {
         width: 85%;
-        background-color: #678633;
+        background-color: var(--secondary-color);
         border-radius: 1rem;
         padding: 0 .75rem .75rem .75rem;
         position: relative;
@@ -216,7 +219,7 @@ export default {
                     justify-content: center;
                     font-size: 1.5rem;
                     font-weight: 600;
-                    color: #fff;
+                    color: var(--text-color);
                     margin-top: 1rem;
 
                     .login-icon {
@@ -250,10 +253,10 @@ export default {
                     align-items: center;
                     justify-content: space-between;
                     font-size: .75rem;
-                    color: #fff;
+                    color: var(--text-color);
                     font-weight: 600;
-                    background-color: #678633;
-                    border: .01rem solid #FFD8AD;
+                    background-color: var(--primary-text-color);
+                    border: .01rem solid var(--input-border-color);
                     border-radius: .5rem;
                     height: 2rem;
                     padding: .75rem;
@@ -270,7 +273,7 @@ export default {
 
                     .uni-input {
                         font-size: .75rem;
-                        color: #fff;
+                        color: var(--text-color);
                         flex: 1;
                     }
                 }
