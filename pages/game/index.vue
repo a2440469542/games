@@ -48,19 +48,19 @@ export default {
     }
     .back-to {
         position: absolute;
-        top: 40rpx;
-        left: 40rpx;
+        top: 1.25rem;
+        left: 1.25rem;
         z-index: 1000;
-        width: 130rpx;
-        height: 90rpx;
+        width: 4.0625rem;
+        height: 2.8125rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 92rpx;
-        background-color: #0000004d;
-        image {
-            width: 37rpx;
-            height: 46rpx;
+        border-radius: 2.875rem;
+    background-color: #0000004d;
+        uni-image {
+            width: 1.156rem;
+            height: 1.4375rem;
         }
     }
 }
