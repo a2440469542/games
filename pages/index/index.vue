@@ -1,5 +1,5 @@
 <template>
-	<view class="home-page">
+	<view class="home-page" :class="[currentTheme + '-theme']">
 		<navgation-bar :userInfo="userInfo" :channel="channelInfo" @openDrawer="openDrawer" :is-login="getIsLogin"
 			@toLogin="toLogin" :is-open="isOpen"></navgation-bar>
 		<left-menu ref="leftMenu" @toLogin="toLogin" @onDrawerChange="onDrawerChange"></left-menu>
@@ -72,7 +72,7 @@ export default {
 			timer: null, // 定时器引用
 			autoplay: true,
 			indicatorDots: true,
-			indicatorColor: 'rgba(255, 255, 255, 1)',
+			indicatorColor: 'var(--text-color)',
 			indicatorActiveColor: 'rgba(0, 0, 0, 1)',
 			list: [],
 			isOpen: false,
@@ -89,7 +89,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(["isLogin", "userInfo", "channelInfo"]),
+		...mapGetters(["isLogin", "userInfo", "channelInfo", "currentTheme"]),
 		getIsLogin: {
 			get() {
 				return this.isLogin;
@@ -269,7 +269,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	background-color: rgba(247, 201, 111, 1);
+	background-color: var(--primary-color);
 	position: absolute;
 	height: 100%;
 	// aspect-ratio: 3 / 5;
@@ -318,7 +318,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					bottom: .35rem;
 					left: 50%;
 					transform: translate(-50%, 0);
-					color: rgba(255, 255, 255, 1);
+					color: var(--text-color);
 					font-size: 1.75rem;
 					letter-spacing: .1rem;
 
@@ -343,7 +343,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				}
 
 				.pg-text {
-					color: #678633;
+					color: var(--text-color);
 					font-size: 2rem;
 					letter-spacing: .1rem;
 					margin-top: 1rem;
@@ -374,10 +374,10 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				}
 
 				.game-name {
-					color: rgba(255, 255, 255, 1);
+					color: var(--text-color);
 					text-align: center;
 					font-size: .75rem;
-					color: #546a1d;
+					color: var(--primary-text-color);
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;

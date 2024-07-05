@@ -1,5 +1,5 @@
 <template>
-    <view class="sub-nav secondaryBgColor">
+    <view class="sub-nav" :class="[currentTheme + '-theme']">
         <view class="left" @click="back">
             <image src="../../static/images/back.png"></image>
         </view>
@@ -9,12 +9,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     props: {
         title: {
             type: String,
             default: ''
         }
+    },
+    computed: {
+        ...mapGetters(['currentTheme'])
     },
     methods: {
         back() {
@@ -31,7 +36,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 2.5625rem;
-
+    background-color: var(--secondary-color);
     .left {
         width: 2.5rem;
         height: 2.5rem;
@@ -54,7 +59,7 @@ export default {
         flex: 1;
         font-size: 1.125rem;
         font-weight: 500;
-        color: #FFFFFF;
+        color: var(--text-color);
         display: flex;
         align-items: center;
         justify-content: center;

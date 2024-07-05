@@ -6,7 +6,8 @@ const Store = {
     rechargeFlag: null,
     config: {},
     payPath: '',
-    channelInfo: {}
+    channelInfo: {},
+    currentTheme: 'green'
   },
   getters: {
     isLogin: state => {
@@ -29,6 +30,9 @@ const Store = {
     },
     channelInfo: state => {
       return state.channelInfo
+    },
+    currentTheme: state => {
+      return state.currentTheme
     }
   },
   mutations: {
@@ -55,7 +59,10 @@ const Store = {
     },
     SET_CHANNELINFO: (state, value) => {
       state.channelInfo = value
-    }
+    },
+    SET_Theme(state, theme) {
+      state.currentTheme = theme;
+    },
   },
   actions: {
     setIsLogin: ({commit}, obj) => commit('SET_IS_LOGIN', obj),
@@ -64,7 +71,8 @@ const Store = {
     setRechargeFlag: ({commit}, obj) => commit('SET_RECHARGEFLAG', obj),
     setConfig: ({commit}, obj) => commit('SET_CONFIG', obj),
     setPayPath: ({commit}, obj) => commit('SET_PAYPATH', obj),
-    setChannelInfo: ({commit}, obj) => commit('SET_CHANNELINFO', obj)
+    setChannelInfo: ({commit}, obj) => commit('SET_CHANNELINFO', obj),
+    setTheme: ({commit}, obj) => commit('SET_Theme', obj)
   }
 };
 

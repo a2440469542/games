@@ -1,5 +1,5 @@
 <template>
-    <view class="group">
+    <view class="group" :class="[currentTheme + '-theme']">
         <navgation-bar @openDrawer="openDrawer" :isLogin="isLogin" :is-open="isOpen"
             :userInfo="userInfo" :channel="channelInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
@@ -76,7 +76,7 @@
                         <view>Equipe</view>
                         <view class="showSelectBtn" @click="onChangeType">
                             {{ currentLabel }}
-                            <uv-icon name="arrow-down-fill" color="#678633"></uv-icon>
+                            <uv-icon name="arrow-down-fill" color="var(--primary-text-color)"></uv-icon>
                         </view>
                     </view>
                     <view class="list-label">
@@ -221,7 +221,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['isLogin', 'userInfo', 'channelInfo'])
+        ...mapGetters(['isLogin', 'userInfo', 'channelInfo', 'currentTheme'])
     },
     onLoad() {
         this.loadGroupTotal()
@@ -336,7 +336,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 .group {
     display: flex;
     flex-direction: column;
-    background-color: rgba(247, 201, 111, 1);
+    background-color: var(--primary-color);
     position: absolute;
     width: 100%;
 	height: 100%;
@@ -349,7 +349,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
             padding: .5rem .75rem;
 
             .group-info {
-                background-color: #678633;
+                background-color: var(--primary-text-color);
                 border-radius: .5rem;
 
                 .top {
@@ -364,7 +364,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                         .label {
                             font-size: .75rem;
-                            color: #fff;
+                            color: var(--text-color);
                             width: 40%;
                         }
 
@@ -372,8 +372,8 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
-                            color: #fff;
-                            border: .1rem solid #fff;
+                            color: var(--text-color);
+                            border: .1rem solid var(--text-color);
                             border-radius: .5rem;
                             padding: .25rem .75rem;
                             width: 60%;
@@ -405,7 +405,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 .line {
                     width: 100%;
                     height: .1rem;
-                    background-color: #fff;
+                    background-color: var(--text-color);
                 }
 
                 .bottom {
@@ -413,7 +413,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                     .social-label {
                         font-size: .75rem;
-                        color: #fff;
+                        color: var(--text-color);
                     }
 
                     .app-list {
@@ -442,7 +442,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                             .app-name {
                                 font-size: .75rem;
-                                color: #fff;
+                                color: var(--text-color);
                                 text-align: center
                             }
 
@@ -451,7 +451,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 }
             }
             .get-content {
-                background-color: #678633;
+                background-color: var(--primary-text-color);
                 border-radius: .75rem;
                 margin-top: .5rem;
                 padding: .5rem .75rem;
@@ -462,7 +462,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     width: 80%;
                     .box-title {
                         font-size: .75rem;
-                        color: #fff;
+                        color: var(--text-color);
                         margin-bottom: .5rem;
                         font-weight: 600;
                     }
@@ -475,15 +475,15 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     .get-btn {
                         font-size: 1rem;
                         padding: .25rem;
-                        border: .1rem solid #fff;
+                        border: .1rem solid var(--text-color);
                         border-radius: .5rem;
-                        background-color: #fff3f1;
-                        color: #516d21;
+                        background-color: var(--text-color);
+                        color: var(--primary-text-color);
                     }
                 }
             }
             .box-content {
-                background-color: #678633;
+                background-color: var(--primary-text-color);
                 border-radius: .5rem;
                 margin-top: .5rem;
                 padding: .5rem .75rem;
@@ -497,7 +497,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     width: 80%;
                     .box-title {
                         font-size: .75rem;
-                        color: #fff;
+                        color: var(--text-color);
                         margin-bottom: .5rem;
                     }
                 }
@@ -517,16 +517,16 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 .level-tab-item {
                     width: 30%;
                     font-size: 1rem;
-                    color: #fff;
+                    color: var(--text-color);
                     text-align: center;
-                    background-color: #678633;
+                    background-color: var(--primary-text-color);
                     border-radius: .5rem;
                     padding: 0.25rem 0;
                 }
 
                 .level-tab-item.active {
-                    background-color: #fcea7f;
-                    color: #064a25;
+                    background-color: var(--active-btn-color);
+                    color: var(--active-btn-text-color);
                     font-weight: 600;
                 }
             }
@@ -538,7 +538,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 flex-wrap: wrap;
                 justify-content: space-around;
                 align-items: center;
-                background-color: #678633;
+                background-color: var(--primary-text-color);
                 border-radius: .5rem;
                 padding: 1rem .75rem;
                 gap: 0.75rem;
@@ -553,13 +553,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                     .label {
                         font-size: .75rem;
-                        color: #fff;
+                        color: var(--text-color);
                         text-align: center;
                     }
 
                     .value {
                         font-size: .75rem;
-                        color: #fff;
+                        color: var(--text-color);
                     }
                 }
             }
@@ -572,7 +572,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     justify-content: space-between;
                     align-items: center;
                     font-size: 1rem;
-                    color: #678633;
+                    color: var(--primary-text-color);
                     padding: .75rem;
                     .showSelectBtn {
                         display: flex;
@@ -582,7 +582,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                 .list-label {
                     font-size: 1rem;
-                    color: #678633;
+                    color: var(--primary-text-color);
                     padding: .75rem;
                     display: flex;
                     justify-content: space-between;
@@ -608,7 +608,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 .lists {
                     .list-item {
                         font-size: 1rem;
-                        color: #678633;
+                        color: var(--primary-text-color);
                         padding: .75rem;
                         display: flex;
                         justify-content: space-between;
@@ -635,7 +635,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                 .no-data {
                     font-size: 1.25rem;
-                    color: #678633;
+                    color: var(--primary-text-color);
                     padding: .75rem;
                     display: flex;
                     justify-content: center;

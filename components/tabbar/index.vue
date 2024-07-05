@@ -1,5 +1,5 @@
 <template>
-    <view class="tabbar secondaryBgColor">
+    <view class="tabbar" :class="[currentTheme + '-theme']">
         <view class="tabbar-item" v-for="(item,index) in tabbar" :key="index" @click="navigateTo(item.path)">
             <image :src="currentIndex === index ? item.active : item.icon"></image>
             <text :class="currentIndex === index ? 'name active' : 'name'">{{item.name}}</text>
@@ -47,7 +47,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['isLogin', 'userInfo'])
+        ...mapGetters(['isLogin', 'userInfo', 'currentTheme'])
     },
     methods: {
         navigateTo(path) {
@@ -74,6 +74,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-around;
+        background-color: var(--secondary-color);
         .tabbar-item {
             display: flex;
             align-items: center;
@@ -82,7 +83,7 @@ export default {
             // width: 100%;
             flex: 1;
             height: 100%;
-            color: #fff;
+            color: var(--text-color);
             padding: .25rem .5rem;
             uni-image{
                 width: 1.75rem;
@@ -90,10 +91,10 @@ export default {
             }
             .name {
                 font-size: 1rem;
-                color: #fff;
+                color: var(--text-color);
             }
             .name.active {
-                color: #f9f36d;
+                color: var(--light-text-color);
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-  <view class="navgation-bar secondaryBgColor">
+  <view class="navgation-bar" :class="[currentTheme + '-theme']">
     <view class="nav-left">
       <view :class="isOpen ? 'menu open' : 'menu'" @click="openDrawer">
         <image mode="widthFix" src="../../static/images/menu.png"></image>
@@ -17,13 +17,14 @@
   </view>
 </template>
 <script>
-
+import { mapGetters } from "vuex";
 export default {
   name: "NavgationBar",
   data() {
     return {}
   },
   computed: {
+    ...mapGetters(["currentTheme"]),
     navStyle() {
       return {
       }
@@ -77,7 +78,7 @@ export default {
   position: relative;
   padding: .5rem .75rem;
   justify-content: space-between;
-
+  background-color: var(--secondary-color);
   .nav-left {
     display: flex;
     justify-content: flex-start;
@@ -114,7 +115,7 @@ export default {
       .logo-text {
         max-width: 5rem;
         font-size: 1.25rem;
-        color: #f9f36d;
+        color: var(--light-text-color);
         margin-left: 5px;
         font-weight: bold;
         text-overflow: ellipsis;
@@ -139,13 +140,13 @@ export default {
     .amount {
       font-size: 1rem;
       padding: .25rem .5rem;
-      border: .1rem solid #F8C15A;
+      border: .1rem solid var(--amount-border-color);
       border-radius: .5rem;
-      color: #fbf68a;
+      color: var(--amount-text-color);
     }
     .login-text {
       font-size: .75rem;
-      color: #fff;
+      color: var(--text-color);
     }
   }
 }

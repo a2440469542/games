@@ -1,5 +1,5 @@
 <template>
-    <view class="recharge">
+    <view class="recharge" :class="[currentTheme + '-theme']">
         <navgation-bar @openDrawer="openDrawer" :channel="channelInfo" :isLogin="isLogin" :is-open="isOpen"
             :userInfo="userInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
@@ -42,7 +42,7 @@
                             <view class="label">Valor</view>
                             <view class="withdraw-amount-value">
                                 <input v-model="withdrawValue" class="uni-input withdraw-text"
-                                    placeholder-style="color: #fff" focus placeholder="Insira o valor" />
+                                    placeholder-style="color: var(--text-color)" focus placeholder="Insira o valor" />
                             </view>
                         </view>
                         <view class="tips">
@@ -77,7 +77,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['isLogin', 'userInfo', 'channelInfo'])
+        ...mapGetters(['isLogin', 'userInfo', 'channelInfo', 'currentTheme'])
     },
     onShow() {
         this.isOpen = false //从领取页面跳转后关闭侧边栏
@@ -171,7 +171,7 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rgba(247, 201, 111, 1);
+    background-color: var(--primary-color);
     position: absolute;
 	height: 100%;
     .content {
@@ -187,7 +187,7 @@ export default {
                 align-items: center;
                 height: 2.8125rem;
                 background-color: transparent;
-                border: .1rem solid #678633;
+                border: .1rem solid var(--primary-text-color);
                 border-radius: .5rem;
                 padding: 0.05rem;
                 box-sizing: border-box;
@@ -199,14 +199,14 @@ export default {
                     justify-content: center;
                     align-items: center;
                     font-size: 1rem;
-                    color: #678633;
+                    color: var(--primary-text-color);
                     font-size: 600;
                     transition: .3s;
                 }
 
                 .tab-item.active {
-                    background-color: #678633;
-                    color: #fcea7f;
+                    background-color: var(--primary-text-color);
+                    color: var(--active-btn-color);
                     border-radius: .5rem;
                     transition: .3s;
                 }
@@ -218,7 +218,7 @@ export default {
                 .withdraw-amount-value {
                     display: flex;
                     align-items: center;
-                    color: #fff;
+                    color: var(--text-color);
                     font-size: 600;
                     height: 6rem;
                     padding: .5rem .75rem;
@@ -246,18 +246,18 @@ export default {
                             justify-content: center;
                             align-items: center;
                             font-size: 1.125rem;
-                            color: #fff;
+                            color: var(--text-color);
                             font-size: 600;
                             transition: .3s;
-                            background-color: #678633;
-                            border: .1rem solid #fff;
+                            background-color: var(--primary-text-color);
+                            border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
                         }
 
                         .amount-item.active {
                             color: #4a661a;
                             transition: .3s;
-                            background-color: #fcea7f;
+                            background-color: var(--active-btn-color);
                             border: 0.0625rem solid #4A661A;
                         }
                     }
@@ -266,10 +266,10 @@ export default {
                         display: flex;
                         align-items: center;
                         font-size: 0.875rem;
-                        color: #fff;
+                        color: var(--text-color);
                         font-size: 600;
-                        background-color: #678633;
-                        border: .1rem solid #fff;
+                        background-color: var(--primary-text-color);
+                        border: .1rem solid var(--text-color);
                         border-radius: 0.625rem;
                         height: 3.125rem;
                         padding: .75rem;
@@ -288,7 +288,7 @@ export default {
 
                         .recharge-amount-title {
                             font-size: 0.875rem;
-                            color: #678633;
+                            color: var(--primary-text-color);
                             line-height: 1.25rem;
                             margin-bottom: .75rem;
                         }
@@ -297,10 +297,10 @@ export default {
                             display: flex;
                             align-items: center;
                             font-size: 1rem;
-                            color: #fff;
+                            color: var(--text-color);
                             font-size: 600;
-                            background-color: #678633;
-                            border: .1rem solid #fff;
+                            background-color: var(--primary-text-color);
+                            border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
                             height: 3.375rem;
                             padding: 0.3125rem .75rem;
@@ -319,9 +319,9 @@ export default {
                             align-items: center;
                             font-size: 1.125rem;
                             font-weight: 600;
-                            background-color: #fff3f1;
+                            background-color: var(--text-color)3f1;
                             color: #516d21;
-                            border: .1rem solid #fff;
+                            border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
                         }
                     }
@@ -333,10 +333,10 @@ export default {
                         align-items: center;
                         height: 5.69rem;
                         font-size: 0.875rem;
-                        color: #fff;
+                        color: var(--text-color);
                         font-size: 600;
                         background-color: #547320;
-                        border: .1rem solid #fff;
+                        border: .1rem solid var(--text-color);
                         border-radius: 0.625rem;
                         padding: .75rem;
                         margin-top: 1.25rem;
@@ -368,9 +368,9 @@ export default {
                             align-items: center;
                             font-size: 1.125rem;
                             font-size: 600;
-                            background-color: #fff3f1;
+                            background-color: var(--text-color)3f1;
                             color: #516d21;
-                            border: .1rem solid #fff;
+                            border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
                         }
                     }
