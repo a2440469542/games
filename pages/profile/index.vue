@@ -1,5 +1,5 @@
 <template>
-    <view class="profile">
+    <view class="profile" :class="[currentTheme + '-theme']">
         <navgation-bar @openDrawer="openDrawer" :isLogin="isLogin" :is-open="isOpen"
             :userInfo="userInfo" :channel="channelInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
@@ -60,18 +60,17 @@
                             <view class="text">{{ item.name }}</view>
                         </view>
                         <view class="arrow" v-if="item.isRight">
-                            <uv-icon color="#ffffff" name="arrow-right"></uv-icon>
+                            <uv-icon color="var(--text-color)" name="arrow-right"></uv-icon>
                         </view>
                     </view>
                 </view>
             </view>
-
         </scroll-view>
         <uv-popup ref="popup" round="20" mode="center">
-            <view style="width: 600rpx;" class="logout-confirm">
+            <view style="width: 18.75rem;" class="logout-confirm">
                 <view class="content-text">Tem certeza que deseja sair?</view>
                 <view class="bottom-btn">
-                    <view class="btn cancel">Cancelar</view>
+                    <view class="btn cancel" @click="$refs.popup.close()">Cancelar</view>
                     <view class="btn confirm" @click="logout">Confirmar</view>
                 </view>
             </view>
@@ -145,7 +144,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['config', "isLogin", "userInfo", "channelInfo"]),
+        ...mapGetters(['config', "isLogin", "userInfo", "channelInfo", "currentTheme"]),
     },
     onLoad() {
         const list = this.list.map(element => {
@@ -228,15 +227,15 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rgba(247, 201, 111, 1);
+    background-color: var(--primary-color);
     position: absolute;
 	height: 100%;
     .logout-confirm {
-        background-color: #678633;
+        background-color: var(--primary-text-color);
 
         .content-text {
             font-size: 1.125rem;
-            color: #fff;
+            color: var(--text-color);
             line-height: 6.125rem;
             text-align: center;
             margin-bottom: 0.75rem;
@@ -253,18 +252,18 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 width: 50%;
                 height: 100%;
                 font-size: 1.125rem;
-                color: #023217;
+                color: var(--text-color);
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
 
             .btn.cancel {
-                background-color: #fcc660;
+                background-color: var(--cancel-bg-color);
             }
 
             .btn.confirm {
-                background-color: #29965a;
+                background-color: var(--confirm-bg-color);
             }
         }
     }
@@ -278,7 +277,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
             .profile-item {
                 width: 100%;
-                background-color: #678633;
+                background-color: var(--primary-text-color);
                 border-radius: 0.75rem;
                 padding: 0.75rem;
                 margin-bottom: 0.75rem;
@@ -288,7 +287,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                     justify-content: space-between;
                     align-items: center;
                     font-size: 1rem;
-                    color: #fff;
+                    color: var(--text-color);
                     padding: 0.625rem 0.875rem;
                     border-bottom: 0.0625rem solid #126939;
                     width: 100%;
@@ -339,7 +338,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                             align-items: center;
                             justify-content: flex-start;
                             font-size: 1.16rem;
-                            color: #fff;
+                            color: var(--text-color);
 
                             uni-image {
                                 width: 1rem;
@@ -350,7 +349,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                         .user-id {
                             font-size: 1.16rem;
-                            color: #fff;
+                            color: var(--text-color);
                             margin-top: 0.3125rem;
                         }
 
@@ -359,7 +358,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                             align-items: center;
                             justify-content: flex-start;
                             font-size: 1.16rem;
-                            color: #fff;
+                            color: var(--text-color);
                             padding-left: 0.25rem;
                             margin-top: 0.3125rem;
 
@@ -396,7 +395,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
                         .text {
                             font-size: 0.75rem;
-                            color: #fff;
+                            color: var(--text-color);
                             margin-top: 0.625rem;
                         }
                     }

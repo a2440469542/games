@@ -1,5 +1,5 @@
 <template>
-    <view class="rewards">
+    <view class="rewards" :class="[currentTheme + '-theme']">
         <sub-nav :title="title"></sub-nav>
         <scroll-view scroll-y class="rewards-content">
             <view v-if="rewardsList.length > 0" >
@@ -37,6 +37,8 @@
 <script>
 import NavgationBar from '../../components/navbar/index.vue'
 import empty from '../../components/common/empty.vue';
+import { mapGetters } from "vuex";
+
 export default {
     components: { NavgationBar, empty },
     data() {
@@ -45,6 +47,9 @@ export default {
             rewardsList: []
         }
     },
+  computed:{
+    ...mapGetters(["currentTheme"]),  
+  },
     onLoad() {
         this.loadBoxList()
     },
@@ -84,7 +89,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rgba(247, 201, 111, 1);
+    background-color: var(--primary-color);
     height: 100vh;
 
     .rewards-content {
@@ -112,7 +117,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 .treasure-content {
                     font-size: 0.75rem;
                     flex: 1;
-                    color: #fff;
+                    color: var(--text-color);
 
                     .treasure-desc {
                         width: 100%;
@@ -125,7 +130,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                             position: absolute;
                             right: 0;
                             bottom: 0;
-                            color: #ffe2c1;
+                            color: var(--rewards-box-amount-color);
                             font-size: .75rem;
                         }
                     }
@@ -154,13 +159,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                         line-height: 2.3125rem;
                         text-align: center;
                         background-color: #ffe75f;
-                        color: #678633;
+                        color: var(--primary-text-color);
                         border-radius: 0.3125rem;
                         font-size: 0.75rem;
                     }
                     .cmp-btn.disabled {
-                        background-color: #89ab50;
-                        color: #fff;
+                        background-color: var(--diisabled-bg-color);
+                        color: var(--text-color);
                     }
                 }
             }

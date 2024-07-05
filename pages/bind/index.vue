@@ -1,5 +1,5 @@
 <template>
-    <view class="bind">
+    <view class="bind" :class="[currentTheme + '-theme']">
         <sub-nav :title="title"></sub-nav>
         <view class="bind-content">
             <view class="label-text">Retiradas</view>
@@ -8,14 +8,14 @@
                     <view class="label">Tipo de conta Pix</view>
                     <view class="value" @click="$refs.picker.open()">
                         {{ bankParams.type }}
-                        <uv-icon name="arrow-down" color="#ffffff"></uv-icon>
+                        <uv-icon name="arrow-down" color="var(--text-color)fff"></uv-icon>
                     </view>
                 </view>
                 <!--账户号码-->
                 <view class="form-item" v-if="bankParams.type === 'CPF'">
                     <view class="label">Número da conta pix</view>
                     <view class="value">
-                        <input type="number" style="direction: rtl;" placeholder-style="color: #fff" placeholder="Número do cartão"
+                        <input type="number" style="direction: rtl;" placeholder-style="color: var(--text-color)" placeholder="Número do cartão"
                             v-model="bankParams.pix" />
                     </view>
                 </view>
@@ -23,14 +23,14 @@
                 <view class="form-item" v-if="bankParams.type === 'PHONE'">
                     <view class="label">CPF do Titular</view>
                     <view class="value">
-                        <input type="number" style="direction: rtl;" placeholder-style="color: #fff" placeholder="Número do cartão"
+                        <input type="number" style="direction: rtl;" placeholder-style="color: var(--text-color)" placeholder="Número do cartão"
                             v-model="bankParams.pix" />
                     </view>
                 </view>
                 <view class="form-item" v-if="bankParams.type === 'PHONE'">
                     <view class="label">Pix telefone</view>
                     <view class="value">
-                        <input type="number" style="direction: rtl;" placeholder-style="color: #fff" placeholder="Número de telefone"
+                        <input type="number" style="direction: rtl;" placeholder-style="color: var(--text-color)" placeholder="Número de telefone"
                             v-model="bankParams.mobile" />
                     </view>
                 </view>
@@ -38,7 +38,7 @@
                 <view class="form-item">
                     <view class="label">Nome do titular da conta</view>
                     <view class="value">
-                        <input placeholder="Nome" placeholder-style="color: #fff" style="direction: rtl;"
+                        <input placeholder="Nome" placeholder-style="color: var(--text-color)" style="direction: rtl;"
                             v-model="bankParams.name" />
                     </view>
                 </view>
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
     data() {
         return {
@@ -83,6 +84,9 @@ export default {
             },
             inputValue: ''
         }
+    },
+    computed:{
+      ...mapGetters(['currentTheme'])
     },
     onLoad() {
         this.getBankInfo()
@@ -151,21 +155,21 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rgba(247, 201, 111, 1);
+    background-color: var(--primary-color);
     height: 100vh;
 
     .bind-content {
         padding: 1.25rem 0.9325rem;
 
         .label-text {
-            color: #678633;
+            color: var(--primary-text-color);
             font-size: 1rem;
             margin-bottom: 1.25rem;
             margin-left: 0.625rem;
         }
 
         .form {
-            background-color: #678633;
+            background-color: var(--primary-text-color);
             border-radius: 0.75rem;
             padding: 0.75rem;
 
@@ -177,7 +181,7 @@ export default {
                 height: 2.8125rem;
 
                 .label {
-                    color: #fff;
+                    color: var(--text-color);
                     font-size: 0.875rem;
                     margin-right: 1.25rem;
                 }
@@ -185,7 +189,7 @@ export default {
                 .value {
                     display: flex;
                     align-items: center;
-                    color: #fff;
+                    color: var(--text-color);
                     font-size: 1rem;
 
                     .code {
@@ -194,8 +198,8 @@ export default {
                     }
 
                     .btn {
-                        background-color: #fff;
-                        color: #678633;
+                        background-color: var(--text-color);
+                        color: var(--primary-text-color);
                         border-radius: 0.75rem;
                         padding: 0.5rem 0.375rem;
                         font-size: 1rem;
@@ -208,8 +212,8 @@ export default {
             margin-top: 1.25rem;
 
             .btn {
-                background-color: #fff;
-                color: #678633;
+                background-color: var(--text-color);
+                color: var(--primary-text-color);
                 border-radius: 0.25rem;
                 padding: 0.25rem 0.375rem;
                 font-size: 1rem;

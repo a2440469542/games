@@ -1,5 +1,5 @@
 <template>
-    <view class="record">
+    <view class="record" :class="[currentTheme + '-theme']">
         <sub-nav :title="title"></sub-nav>
         <view class="tabs">
             <scroll-view scroll-x>
@@ -31,6 +31,7 @@
 
 <script>
 import subNav from '../../components/navbar/subNav.vue'
+import { mapGetters } from "vuex";
 
 const rechargeTab = [
     {
@@ -100,6 +101,9 @@ export default {
             }]
         }
     },
+  computed:{
+      ...mapGetters(['currentTheme'])
+  },
     onLoad(options) {
         this.loadApiByIndex(options.index)
     },
@@ -160,7 +164,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: rgba(247, 201, 111, 1);
+    background-color: var(--primary-color);
 
     .tabs {
         width: 100%;
@@ -178,15 +182,15 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 display: inline-block;
                 font-size: 0.875rem;
                 font-weight: 400;
-                color: #678633;
+                color: var(--primary-text-color);
                 padding: 0 0.625rem;
                 text-align: center;
                 margin-right: 0.625rem;
             }
 
             .tab-item.active {
-                color: #013518;
-                background: #FCEA7F;
+                color: var(--tab-text-color);
+                background: var(--tab-bg-color);
                 font-weight: 600;
                 border-radius: 0.9375rem;
                 padding: 0 0.625rem;
@@ -210,13 +214,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
                 .date {
                     font-size: 0.875rem;
                     font-weight: 400;
-                    color: #678633;
+                    color: var(--primary-text-color);
                 }
 
                 .amount {
                     font-size: 1.5rem;
                     font-weight: 500;
-                    color: #678633;
+                    color: var(--primary-text-color);
                 }
             }
         }

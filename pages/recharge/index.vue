@@ -102,17 +102,16 @@ export default {
         },
         switchTypeTab(index) {
             this.typeIndex = index
-            this.chargeValue = 0,
-                this.withdrawValue = ''
+            this.chargeValue = 0
+            this.withdrawValue = ''
         },
         async loadRechargeList() {
-            const res = await this.$api.user.getRechargeList();
-            this.amountList = res;
+          this.amountList = await this.$api.user.getRechargeList();
         },
         async setRecharge() {
             const { chargeItemIndex, chargeValue } = this;
             const res = await this.$api.user.recharge({ rid: chargeItemIndex, money: chargeValue });
-            this.$store.dispatch('setPayPath', res.url)
+            await this.$store.dispatch('setPayPath', res.url)
             uni.navigateTo({
                 url: `/pages/webview/index?url=${res.url}`
             });
@@ -200,7 +199,7 @@ export default {
                     align-items: center;
                     font-size: 1rem;
                     color: var(--primary-text-color);
-                    font-size: 600;
+                    font-weight: 600;
                     transition: .3s;
                 }
 
@@ -219,7 +218,7 @@ export default {
                     display: flex;
                     align-items: center;
                     color: var(--text-color);
-                    font-size: 600;
+                    font-weight: 600;
                     height: 6rem;
                     padding: .5rem .75rem;
 
@@ -247,7 +246,7 @@ export default {
                             align-items: center;
                             font-size: 1.125rem;
                             color: var(--text-color);
-                            font-size: 600;
+                            font-weight: 600;
                             transition: .3s;
                             background-color: var(--primary-text-color);
                             border: .1rem solid var(--text-color);
@@ -267,7 +266,7 @@ export default {
                         align-items: center;
                         font-size: 0.875rem;
                         color: var(--text-color);
-                        font-size: 600;
+                        font-weight: 600;
                         background-color: var(--primary-text-color);
                         border: .1rem solid var(--text-color);
                         border-radius: 0.625rem;
@@ -298,7 +297,7 @@ export default {
                             align-items: center;
                             font-size: 1rem;
                             color: var(--text-color);
-                            font-size: 600;
+                            font-weight: 600;
                             background-color: var(--primary-text-color);
                             border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
@@ -319,8 +318,8 @@ export default {
                             align-items: center;
                             font-size: 1.125rem;
                             font-weight: 600;
-                            background-color: var(--text-color)3f1;
-                            color: #516d21;
+                            background-color: var(--text-color);
+                            color: var(--pg-ttext-color);
                             border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
                         }
@@ -334,8 +333,8 @@ export default {
                         height: 5.69rem;
                         font-size: 0.875rem;
                         color: var(--text-color);
-                        font-size: 600;
-                        background-color: #547320;
+                        font-weight: 600;
+                        background-color: var(--secondary-color);
                         border: .1rem solid var(--text-color);
                         border-radius: 0.625rem;
                         padding: .75rem;
@@ -348,7 +347,7 @@ export default {
 
                     .tips {
                         font-size: .75rem;
-                        color: #516d21;
+                        color: var(--pg-ttext-color);
                         margin-top: 0.625rem;
                         margin-left: 0.625rem;
 
@@ -360,16 +359,15 @@ export default {
 
                     .btns {
                         margin-top: 1.25rem;
-
                         .remove-btn {
                             height: 3rem;
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             font-size: 1.125rem;
-                            font-size: 600;
-                            background-color: var(--text-color)3f1;
-                            color: #516d21;
+                            font-weight: 600;
+                            background-color: var(--text-color);
+                            color: var(--pg-ttext-color);
                             border: .1rem solid var(--text-color);
                             border-radius: 0.625rem;
                         }

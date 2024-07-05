@@ -1,7 +1,7 @@
 <template>
     <view>
         <uni-drawer ref="showRight" mode="left" :mask-click="true" :width="120" @change="onDrawerChange">
-            <view class="left-menu secondaryBgColor">
+            <view class="left-menu" :class="[currentTheme + '-theme']">
                 <view class="setting-list">
                     <view class="setting-item" @click="navigateTo(item)" v-for="(item, index) in list" :key="index">
                         <view>
@@ -70,7 +70,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['isLogin', 'config'])
+        ...mapGetters(['isLogin', 'config', 'currentTheme'])
     },
     mounted() {
         console.log('store', this.isLogin, this.config)
@@ -155,14 +155,14 @@ export default {
     height: 100%;
     width: 100%;
     padding: 0.625rem 0.75rem;
-
+    background-color: var(--secondary-color);
     .setting-list {
         width: 100%;
         display: flex;
         align-items: center;
         flex-direction: column;
         padding: 0.625rem 0.75rem;
-        background-color: #678633;
+        background-color: var(--primary-text-color);
         border-radius: 0.3125rem;
 
         .setting-item {
@@ -177,7 +177,7 @@ export default {
 
             .setting-name {
                 font-size: 0.75rem;
-                color: #fff;
+                color: var(--text-color);
                 display: flex;
                 align-items: center;
             }

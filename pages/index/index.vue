@@ -14,7 +14,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="jackpot">
+			<view class="jackpot" v-if="currentTheme === 'green'">
 				<view class="jackpot-content">
 					<!-- <text class="counter">{{ formattedNumber }}</text> -->
 					<text ref="counter">{{ formattedNumber }}</text>
@@ -22,6 +22,11 @@
 					<!-- <text id="counter">{{ initialNum }}</text> -->
 				</view>
 			</view>
+      <view class="jackpot-purple" v-if="currentTheme === 'purple'">
+        <view class="jackpot-content">
+          <text ref="counter">{{ formattedNumber }}</text>
+        </view>
+      </view>
 			<view class="game-title">
 				<view class="game-title-content">
 					<view class="title-img">
@@ -85,7 +90,7 @@ export default {
 				pid: ''
 			},
 			inv_code: '',
-			bannerList: []		
+			bannerList: []
 		}
 	},
 	computed: {
@@ -103,7 +108,7 @@ export default {
 	},
 
 	onLoad(options) {
-		
+
 		//console.log(options, window.location.href)
 		if (options.inv_code) {
 			this.inv_code = options.inv_code
@@ -115,7 +120,7 @@ export default {
 			}
 		})
 	},
-	onShow() {		
+	onShow() {
 		if (this.isLogin) {
 			this.getUserInfo()
 		}
@@ -129,6 +134,7 @@ export default {
 			this.$api.home.getChannel({ url: currentPath })
 				.then(res => {
 					this.$store.dispatch('setChannelInfo', res);
+          this.$store.dispatch('setTheme', res.tema);
 					uni.setStorage({
 						key: 'cid',
 						data: res.cid,
@@ -325,7 +331,31 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				}
 			}
 		}
+    .jackpot-purple{
+      padding: 0 .75rem;
+      // height: 205rpx;
+      width: 100%;
+      aspect-ratio: 1003/292;
 
+      .jackpot-content {
+        width: 100%;
+        height: 100%;
+        background-image: url('../../static/images/jackpot-purple.png');
+        background-size: 100% 100%;
+        position: relative;
+        uni-text {
+          position: absolute;
+          font-weight: 600;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #5D1E67;
+          font-size: 2rem;
+          letter-spacing: .2rem;
+
+        }
+      }
+    }
 		.game-title {
 			.game-title-content {
 				display: flex;
@@ -343,8 +373,8 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				}
 
 				.pg-text {
-					color: var(--text-color);
-					font-size: 2rem;
+					color: var(--pg-ttext-color);
+					font-size: 1.75rem;
 					letter-spacing: .1rem;
 					margin-top: 1rem;
 				}

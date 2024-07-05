@@ -1,5 +1,5 @@
 <template>
-    <view class="webview">
+    <view class="webview" :class="[currentTheme + '-theme']">
         <view class="back-to" @click="backTo">
             <image src="../../static/images/back.png" />
         </view>
@@ -21,7 +21,7 @@ export default {
         this.url = encodeURI(options.url)
     },
     computed: {
-        ...mapGetters(['payPath'])
+        ...mapGetters(['payPath', 'currentTheme'])
     },
     methods: {
         backTo() {
@@ -38,7 +38,7 @@ web-view {
     width: 100%;
 	display: flex;
 	flex-direction: column;
-	background-color: rgba(247, 201, 111, 1);
+	background-color: var(--primary-color);
 	height: 100vh;
     position: relative;
     .back-to {
@@ -52,7 +52,7 @@ web-view {
         align-items: center;
         justify-content: center;
         border-radius: 2.875rem;
-    background-color: #0000004d;
+        background-color: var(--back-btn-bg-color);
         uni-image {
             width: 1.156rem;
             height: 1.4375rem;
