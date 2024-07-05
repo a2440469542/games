@@ -1,9 +1,11 @@
 <template>
   <view class="navgation-bar secondaryBgColor">
     <view class="nav-left">
-      <view :class="isOpen ? 'menu open' : 'menu'" @click="openDrawer"></view>
+      <view :class="isOpen ? 'menu open' : 'menu'" @click="openDrawer">
+        <image mode="widthFix" src="../../static/images/menu.png"></image>
+      </view>
       <view class="logo" @click="toIndex">
-        <image mode="heightFix" :src="channel.logo"></image>
+        <image mode="widthFix" :src="channel.logo"></image>
         <text class="logo-text">{{channel.name}}</text>
       </view>
     </view>
@@ -83,12 +85,18 @@ export default {
     width: 50%;
 
     .menu {
-      width: 2rem;
-      height: 2rem;
-      background-image: url("../../static/images/menu.png");
-      background-size: 100% 100%;
+      width: 20%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      // height: 2rem;
+      // background-image: url("../../static/images/menu.png");
+      // background-size: 100% 100%;
       margin-right: .5rem;
-      transition: transform 0.5s;    
+      transition: transform 0.5s; 
+      uni-image {
+        width: 2rem;
+      }   
     }
 
     .menu.open {
@@ -96,16 +104,16 @@ export default {
     }
 
     .logo {
-      // width: calc(100% - 2rem);
+      width: 80%;
       height: 100%;
       display: flex;
       align-items: center;
       uni-image {
-        height: 2rem;
+        width: 2rem;
       }
       .logo-text {
         max-width: 5rem;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         color: #f9f36d;
         margin-left: 5px;
         font-weight: bold;
