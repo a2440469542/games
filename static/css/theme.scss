@@ -20,9 +20,34 @@
     --input-border-color: #FFD8AD;
     --progress-bar-color: #89ab50;
     --progress-active-bar-color: #fcea7f;
+    --jackpot-text-color: #ffffff;
     /* 更多样式... */
   }
-  
+  .green2-theme {
+    --primary-color: #163B00;
+    --secondary-color: #4B7407;
+    --text-color: #9FC479;
+    --primary-text-color: #678633;
+    --light-text-color: #D9D561;
+    --amount-text-color: #fbf68a;
+    --amount-border-color: #F8C15A;
+    --active-btn-color: #fcea7f;
+    --active-btn-text-color: #064a25;
+    --pg-ttext-color: #1A6F23;
+    --cancel-bg-color: #fcc660;
+    --confirm-bg-color: #29965a;
+    --back-btn-bg-color: #0000004d;
+    --rewards-box-amount-color: #ffe2c1;
+    --diisabled-bg-color: #89ab50;
+    --tab-text-color: #013518;
+    --tab-bg-color: #FCEA7F;
+    --input-border-color: #FFD8AD;
+    --progress-bar-color: #89ab50;
+    --progress-active-bar-color: #fcea7f;
+    --jackpot-text-color: #1A6F23;
+    /* 更多样式... */
+  }
+
   /* Purple theme */
 .purple-theme {
   --primary-color: #300837;
@@ -45,5 +70,133 @@
   --input-border-color: #AD6EB7;
   --progress-bar-color: #eee;
   --progress-active-bar-color: #FFEF5F;
+  --jackpot-text-color: #5D1E67;
+  /* 更多样式... */
+}
+
+/* Purple theme */
+.purple2-theme {
+  --primary-color: #F7C96E;
+  --secondary-color: #762E81;
+  --text-color: #EEEEEE;
+  --primary-text-color: #762E81;
+  --light-text-color: #f9f36d;
+  --amount-text-color: #fbf68a;
+  --amount-border-color: #F8C15A;
+  --active-btn-color: #fcea7f;
+  --active-btn-text-color: #064a25;
+  --pg-ttext-color: #762E81;
+  --cancel-bg-color: #fcc660;
+  --confirm-bg-color: #29965a;
+  --back-btn-bg-color: #0000004d;
+  --rewards-box-amount-color: #ffe2c1;
+  --diisabled-bg-color: #89ab50;
+  --tab-text-color: #013518;
+  --tab-bg-color: #FCEA7F;
+  --input-border-color: #AD6EB7;
+  --progress-bar-color: #eee;
+  --progress-active-bar-color: #FFEF5F;
+  --jackpot-text-color: #5D1E67;
+  /* 更多样式... */
+}
+
+.dark-theme {
+  --primary-color: #000000;
+  --secondary-color: #303333;
+  --text-color: #706D2B;
+  --primary-text-color: #ABA74B;
+  --light-text-color: #CFFF80;
+  --amount-text-color: #fbf68a;
+  --amount-border-color: #F8C15A;
+  --active-btn-color: #fcea7f;
+  --active-btn-text-color: #064a25;
+  --pg-ttext-color: #ACA74B;
+  --cancel-bg-color: #fcc660;
+  --confirm-bg-color: #29965a;
+  --back-btn-bg-color: #0000004d;
+  --rewards-box-amount-color: #ffe2c1;
+  --diisabled-bg-color: #89ab50;
+  --tab-text-color: #013518;
+  --tab-bg-color: #FCEA7F;
+  --input-border-color: #FFD8AD;
+  --progress-bar-color: #89ab50;
+  --progress-active-bar-color: #fcea7f;
+  --jackpot-text-color: #33320D;
+  /* 更多样式... */
+}
+
+
+.dark2-theme {
+  --primary-color: #000000;
+  --secondary-color: #303333;
+  --text-color: #3A8185;
+  --primary-text-color: #56ACB1;
+  --light-text-color: #FFEF5F;
+  --amount-text-color: #fbf68a;
+  --amount-border-color: #F8C15A;
+  --active-btn-color: #fcea7f;
+  --active-btn-text-color: #064a25;
+  --pg-ttext-color: #95E0D7;
+  --cancel-bg-color: #fcc660;
+  --confirm-bg-color: #29965a;
+  --back-btn-bg-color: #0000004d;
+  --rewards-box-amount-color: #ffe2c1;
+  --diisabled-bg-color: #89ab50;
+  --tab-text-color: #013518;
+  --tab-bg-color: #FCEA7F;
+  --input-border-color: #FFD8AD;
+  --progress-bar-color: #89ab50;
+  --progress-active-bar-color: #fcea7f;
+  --jackpot-text-color: #274A55;
+  /* 更多样式... */
+}
+
+.cyanBlue-theme {
+  --primary-color: #F7C96E;
+  --secondary-color: #20566D;
+  --text-color: #EEEEEE;
+  --primary-text-color: #20566D;
+  --light-text-color: #FFEF5F;
+  --amount-text-color: #fbf68a;
+  --amount-border-color: #F8C15A;
+  --active-btn-color: #fcea7f;
+  --active-btn-text-color: #064a25;
+  --pg-ttext-color: #20566D;
+  --cancel-bg-color: #fcc660;
+  --confirm-bg-color: #29965a;
+  --back-btn-bg-color: #0000004d;
+  --rewards-box-amount-color: #ffe2c1;
+  --diisabled-bg-color: #89ab50;
+  --tab-text-color: #013518;
+  --tab-bg-color: #FCEA7F;
+  --input-border-color: #FFD8AD;
+  --progress-bar-color: #89ab50;
+  --progress-active-bar-color: #fcea7f;
+  --jackpot-text-color: #274A55;
+  /* 更多样式... */
+}
+
+.aquaGreen-theme {
+  --primary-color: #274A55;
+  --secondary-color: #076D74;
+  --text-color: #57B4BA;
+  --primary-text-color: #69CAD0;
+  --light-text-color: #D9D561;
+  --amount-text-color: #fbf68a;
+  --amount-border-color: #F8C15A;
+  --active-btn-color: #fcea7f;
+  --active-btn-text-color: #064a25;
+  --pg-ttext-color: #95E0D7;
+  --cancel-bg-color: #fcc660;
+  --confirm-bg-color: #29965a;
+  --back-btn-bg-color: #0000004d;
+  --rewards-box-amount-color: #ffe2c1;
+  --diisabled-bg-color: #89ab50;
+  --tab-text-color: #013518;
+  --tab-bg-color: #FCEA7F;
+  --input-border-color: #FFD8AD;
+  --progress-bar-color: #89ab50;
+  --progress-active-bar-color: #fcea7f;
+  --jackpot-text-color: #274A55;
   /* 更多样式... */
 }

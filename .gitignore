@@ -1,0 +1,49 @@
+# macOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Internal cache
+.cache/
+.node_modules/
+
+# Node.js
+node_modules/
+.Yarn/
+.yarn/
+.pnp.*
+yarn.lock   # 可选，取决于你的工作流程
+npm-shrinkwrap.json  # 可选，取决于你的工作流程
+
+# Bundlers
+# Yarn PnP 不需要这些
+npm-debug.log*
+package-lock.json  # 可选，取决于你的工作流程
+bower_components/
+
+# Webpack
+webpack/
+webpack.config.js
+webpack.config.*.js
+
+# Browserslist
+.browserslistrc
+
+# Editor configs often reside in the root
+.editorconfig
+.eslintrc.(json|yaml|yml)
+.prettierrc.(json|yaml|yml)
+.stylelintrc.(json|yaml|yml)
+
+# Misc
+*.sublime-workspace
+.vscode/
+idea/

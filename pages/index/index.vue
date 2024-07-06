@@ -27,6 +27,14 @@
           <text ref="counter">{{ formattedNumber }}</text>
         </view>
       </view>
+	  		<view class="jackpot-purple" v-else>
+				<view class="jackpot-content">
+					<!-- <text class="counter">{{ formattedNumber }}</text> -->
+					<text ref="counter">{{ formattedNumber }}</text>
+
+					<!-- <text id="counter">{{ initialNum }}</text> -->
+				</view>
+			</view>
 			<view class="game-title">
 				<view class="game-title-content">
 					<view class="title-img">
@@ -324,7 +332,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					bottom: .35rem;
 					left: 50%;
 					transform: translate(-50%, 0);
-					color: var(--text-color);
+					color: var(--jackpot-text-color);
 					font-size: 1.75rem;
 					letter-spacing: .1rem;
 
@@ -349,7 +357,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
           bottom: 0;
           left: 50%;
           transform: translate(-50%, -50%);
-          color: #5D1E67;
+          color: var(--jackpot-text-color);
           font-size: 2rem;
           letter-spacing: .2rem;
 
