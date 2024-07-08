@@ -148,18 +148,21 @@ export default {
             }
             this.withdrawFlag = true
             try {
-                await this.$api.user.cash({ money: this.withdrawValue })
+                const res = await this.$api.user.cash({ money: this.withdrawValue })
+                console.log("res", res)
+                if (res.code === 102) {
+                    uni.navigateTo({
+                        url: '/pages/bind/index'
+                    })
+                    return
+                }
                 this.getUserInfo()
                 this.withdrawValue = ''
                 uni.showToast({
                     title: 'Retirada com sucesso'
                 })
             } catch (error) {
-                if (error.code === 102) {
-                    uni.navigateTo({
-                        url: '/pages/bind/index'
-                    })
-                }
+                console.error(error)
             }
         }
     }
