@@ -83,10 +83,10 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 50%;
+    width: 70%;
 
     .menu {
-      width: 20%;
+      width: 2rem;
       height: 100%;
       display: flex;
       align-items: center;
@@ -96,7 +96,7 @@ export default {
       margin-right: .5rem;
       transition: transform 0.5s; 
       uni-image {
-        width: 2rem;
+        width: 100%;
       }   
     }
 
@@ -105,7 +105,7 @@ export default {
     }
 
     .logo {
-      width: 80%;
+      width: calc(100% - 2rem);
       height: 100%;
       display: flex;
       align-items: center;
@@ -113,7 +113,6 @@ export default {
         width: 2rem;
       }
       .logo-text {
-        max-width: 5rem;
         font-size: 1.25rem;
         color: var(--light-text-color);
         margin-left: 5px;
@@ -128,7 +127,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 50%;
+    width: 30%;
     .cou {
       width: 1.5rem;
       height: 1.5rem;
