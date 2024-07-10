@@ -22,12 +22,12 @@
 					<!-- <text id="counter">{{ initialNum }}</text> -->
 				</view>
 			</view>
-      <view class="jackpot-purple" v-if="currentTheme === 'purple'">
-        <view class="jackpot-content">
-          <text ref="counter">{{ formattedNumber }}</text>
-        </view>
-      </view>
-	  		<view class="jackpot-purple" v-else>
+			<view class="jackpot-purple" v-if="currentTheme === 'purple'">
+				<view class="jackpot-content">
+					<text ref="counter">{{ formattedNumber }}</text>
+				</view>
+			</view>
+			<view class="jackpot-purple" v-else>
 				<view class="jackpot-content">
 					<!-- <text class="counter">{{ formattedNumber }}</text> -->
 					<text ref="counter">{{ formattedNumber }}</text>
@@ -37,7 +37,7 @@
 			</view>
 			<view class="game-types-tabs">
 				<view class="game-types-tab" v-for="(item, index) in gameTypes" :key="index"
-					:class="[currentGameType === item.id ? 'active' : '']" @click="changeGameType(item)">	
+					:class="[currentGameType === item.id ? 'active' : '']" @click="changeGameType(item)">
 					{{ item.name }}
 				</view>
 			</view>
@@ -47,7 +47,7 @@
 						<image src="../../static/images/pg-left.png"></image>
 					</view>
 					<view class="pg-text">
-						{{currentGameName}}
+						{{ currentGameName }}
 					</view>
 					<view class="title-img">
 						<image src="../../static/images/pg-right.png"></image>
@@ -57,13 +57,13 @@
 			<view class="game-list">
 				<view class="list-item" v-for="(item, index) in list" :key="index" @click="toGame(item)">
 					<view class="game-cover">
-						<image mode="widthFix" :src="item.img || '../../static/images/null.png'" alt="item.name"></image>
+						<image mode="widthFix" :src="item.img || '../../static/images/null.png'" alt="item.name">
+						</image>
 					</view>
 					<view class="game-name">{{ item.name }}</view>
 				</view>
 			</view>
-			<uv-load-more loadingText="Carregando..." loadmoreText="Carregando" nomoreText=""
-				:status="status" />
+			<uv-load-more loadingText="Carregando..." loadmoreText="Carregando" nomoreText="" :status="status" />
 			<!-- <view class="footer">
 			</view> -->
 		</scroll-view>
@@ -108,7 +108,7 @@ export default {
 			currentGameType: 1,
 			currentGameName: '',
 			gameTypes: [
-				
+
 			]
 		}
 	},
@@ -153,7 +153,7 @@ export default {
 			this.$api.home.getChannel({ url: currentPath })
 				.then(res => {
 					this.$store.dispatch('setChannelInfo', res);
-          this.$store.dispatch('setTheme', res.tema);
+					this.$store.dispatch('setTheme', res.tema);
 					uni.setStorage({
 						key: 'cid',
 						data: res.cid,
@@ -174,7 +174,7 @@ export default {
 		// 获取总额
 		getJackPot() {
 			this.$api.home.getJackPot().then(res => {
-				console.log("ssss",res)
+				console.log("ssss", res)
 				this.randomNumber = res;
 				// 设置目标值为初始值加上一个100万到300万之间的随机数
 				this.targetValue = this.randomNumber + Math.random() * (3000000 - 1000000) + 1000000;
@@ -220,7 +220,8 @@ export default {
 
 		getUserInfo() {
 			this.$api.user.getUserInfo().then(res => {
-				this.$store.dispatch('setUserinfo', res)			})
+				this.$store.dispatch('setUserinfo', res)
+			})
 		},
 
 		async loadBanner() {
@@ -301,12 +302,13 @@ export default {
 
 <style lang="scss" scoped>
 scroll-view ::v-deep ::-webkit-scrollbar {
-    display: none;
-    width: 0 !important;
-    height: 0 !important;
-    -webkit-appearance: none;
-    background: transparent;
+	display: none;
+	width: 0 !important;
+	height: 0 !important;
+	-webkit-appearance: none;
+	background: transparent;
 }
+
 .home-page {
 	width: 100%;
 	display: flex;
@@ -325,6 +327,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 			// height: 325rpx;
 			width: 100%;
 			aspect-ratio: 29 / 16;
+
 			.swiper {
 				width: 100%;
 				height: 100%;
@@ -355,6 +358,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				background-image: url('../../static/images/jackpot.png');
 				background-size: 100% 100%;
 				position: relative;
+
 				uni-text {
 					position: absolute;
 					bottom: .35rem;
@@ -367,61 +371,69 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				}
 			}
 		}
-    .jackpot-purple{
-      padding: 0 .75rem;
-      // height: 205rpx;
-      width: 100%;
-      aspect-ratio: 1003/292;
 
-      .jackpot-content {
-        width: 100%;
-        height: 100%;
-        background-image: url('../../static/images/jackpot-purple.png');
-        background-size: 100% 100%;
-        position: relative;
-        uni-text {
-          position: absolute;
-          font-weight: 600;
-          bottom: 0;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          color: var(--jackpot-text-color);
-          font-size: 2rem;
-          letter-spacing: .2rem;
+		.jackpot-purple {
+			padding: 0 .75rem;
+			// height: 205rpx;
+			width: 100%;
+			aspect-ratio: 1003/292;
 
-        }
-      }
-    }
-	.game-types-tabs {
-		width: 100%;
-		background-color: var(--secondary-color);
-		color: var(--text-color);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-direction: row;
-		flex-wrap: wrap;
-		padding: .5rem .75rem;
-		box-sizing: border-box;
-		.game-types-tab.active {
-			color: var(--light-text-color);
+			.jackpot-content {
+				width: 100%;
+				height: 100%;
+				background-image: url('../../static/images/jackpot-purple.png');
+				background-size: 100% 100%;
+				position: relative;
+
+				uni-text {
+					position: absolute;
+					font-weight: 600;
+					bottom: 0;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					color: var(--jackpot-text-color);
+					font-size: 2rem;
+					letter-spacing: .2rem;
+
+				}
+			}
 		}
-		.game-types-tab {
-			flex: 1;
+
+		.game-types-tabs {
+			width: 100%;
+			background-color: var(--secondary-color);
+			color: var(--text-color);
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
 			align-items: center;
-			flex-direction: column;
-			uni-image {
-				width: 2.5rem;
-				height: 2.5rem;
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding: .5rem .75rem;
+			box-sizing: border-box;
+
+			.game-types-tab.active {
+				color: var(--light-text-color);
 			}
-			uni-text {
-				font-size: 1rem;
-				margin-top: .5rem;
+
+			.game-types-tab {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+
+				uni-image {
+					width: 2.5rem;
+					height: 2.5rem;
+				}
+
+				uni-text {
+					font-size: 1rem;
+					margin-top: .5rem;
+				}
 			}
 		}
-	}
+
 		.game-title {
 			.game-title-content {
 				display: flex;
