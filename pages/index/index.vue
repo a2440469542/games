@@ -35,13 +35,19 @@
 					<!-- <text id="counter">{{ initialNum }}</text> -->
 				</view>
 			</view>
+			<view class="game-types-tabs">
+				<view class="game-types-tab" v-for="(item, index) in gameTypes" :key="index"
+					:class="[currentGameType === item.id ? 'active' : '']" @click="changeGameType(item)">	
+					{{ item.name }}
+				</view>
+			</view>
 			<view class="game-title">
 				<view class="game-title-content">
 					<view class="title-img">
 						<image src="../../static/images/pg-left.png"></image>
 					</view>
 					<view class="pg-text">
-						SLOTS
+						{{currentGameName}}
 					</view>
 					<view class="title-img">
 						<image src="../../static/images/pg-right.png"></image>
@@ -98,7 +104,12 @@ export default {
 				pid: ''
 			},
 			inv_code: '',
-			bannerList: []
+			bannerList: [],
+			currentGameType: 1,
+			currentGameName: '',
+			gameTypes: [
+				
+			]
 		}
 	},
 	computed: {
@@ -148,9 +159,17 @@ export default {
 						data: res.cid,
 					});
 					this.loadBanner()
-					this.loadGame()
+					this.loadGamePlateList()
 					this.getJackPot()
 				});
+		},
+		changeGameType(item) {
+			this.list = []
+			this.gameParam.page = 1
+			this.currentGameType = item.id
+			this.currentGameName = item.name
+			this.gameParam.pid = item.id
+			this.loadGame()
 		},
 		// 获取总额
 		getJackPot() {
@@ -207,6 +226,15 @@ export default {
 		async loadBanner() {
 			console.log('loadBanner')
 			this.bannerList = await this.$api.home.getAd();
+		},
+		async loadGamePlateList() {
+			const res = await this.$api.home.getGamePlateList();
+			this.gameTypes = res;
+			this.gameTypes.unshift({ id: 0, name: 'HOT' })
+			this.currentGameType = this.gameTypes[0].id
+			this.currentGameName = this.gameTypes[0].name
+			this.gameParam.pid = this.currentGameType
+			this.loadGame()
 		},
 		async loadGame() {
 			const res = await this.$api.home.getGameList(this.gameParam);
@@ -364,6 +392,36 @@ scroll-view ::v-deep ::-webkit-scrollbar {
         }
       }
     }
+	.game-types-tabs {
+		width: 100%;
+		background-color: var(--secondary-color);
+		color: var(--text-color);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+		flex-wrap: wrap;
+		padding: .5rem .75rem;
+		box-sizing: border-box;
+		.game-types-tab.active {
+			color: var(--light-text-color);
+		}
+		.game-types-tab {
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			uni-image {
+				width: 2.5rem;
+				height: 2.5rem;
+			}
+			uni-text {
+				font-size: 1rem;
+				margin-top: .5rem;
+			}
+		}
+	}
 		.game-title {
 			.game-title-content {
 				display: flex;

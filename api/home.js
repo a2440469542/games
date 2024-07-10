@@ -2,7 +2,7 @@ import request from '../utils/request.js'
 
 const AD = '/api/Index/ad'
 const CHANNEL = '/api/Index/channel'
-const PLATE = '/api/Game/get_plate'
+const PLATE = '/api/Game/plate'
 const GAME = '/api/Game/get_game_list'
 const GAMELOG = '/api/Game/get_game_log'
 const GETWAGES = '/api/Wages/get_wages'
