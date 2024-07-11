@@ -38,7 +38,10 @@
 			<view class="game-types-tabs">
 				<view class="game-types-tab" v-for="(item, index) in gameTypes" :key="index"
 					:class="[currentGameType === item.id ? 'active' : '']" @click="changeGameType(item)">
-					{{ item.name }}
+					<view class="item-text">		
+						{{ item.name }}
+					</view>
+					<view class="line" :class="[currentGameType === item.id ? 'active' : '']"></view>
 				</view>
 			</view>
 			<view class="game-title">
@@ -408,11 +411,19 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 			align-items: center;
 			flex-direction: row;
 			flex-wrap: wrap;
-			padding: .5rem .75rem;
 			box-sizing: border-box;
 
 			.game-types-tab.active {
 				color: var(--light-text-color);
+
+				.line.active {
+					display: block;
+					background-color: var(--light-text-color);
+					width: 3rem;
+					height: 0.2rem;
+					border-radius: 0.25rem;
+					
+				}
 			}
 
 			.game-types-tab {
@@ -421,7 +432,12 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				justify-content: center;
 				align-items: center;
 				flex-direction: column;
-
+				.item-text{
+					padding: .5rem .75rem;
+				}
+				.line {
+					display: none;
+				}
 				uni-image {
 					width: 2.5rem;
 					height: 2.5rem;
