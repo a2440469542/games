@@ -83,7 +83,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 70%;
+    width: 65%;
 
     .menu {
       width: 2rem;
@@ -127,16 +127,17 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 30%;
+    width: 35%;
     .cou {
       width: 1.5rem;
       height: 1.5rem;
       background-image: url("../../static/images/country.png");
-      background-size: 100% 105%;
+      background-size: 100% 100%;
       margin-right: 0.5rem;
     }
 
     .amount {
+      width: calc(100% - 1.5rem);
       font-size: 1rem;
       padding: .25rem .5rem;
       border: .1rem solid var(--amount-border-color);
@@ -144,6 +145,7 @@ export default {
       color: var(--amount-text-color);
     }
     .login-text {
+      width: calc(100% - 1.5rem);
       font-size: .75rem;
       color: var(--text-color);
     }

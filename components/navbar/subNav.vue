@@ -1,10 +1,10 @@
 <template>
     <view class="sub-nav" :class="[currentTheme + '-theme']">
-        <view class="left" @click="back">
+        <view class="left" @click="back" v-if="isShowBack">
             <image src="../../static/images/back.png"></image>
         </view>
         <view class="sub-nav-title">{{ title }}</view>
-        <view class="right"></view>
+        <view class="right" v-if="isShowRight"></view>
     </view>
 </template>
 
@@ -16,6 +16,14 @@ export default {
         title: {
             type: String,
             default: ''
+        },
+        isShowBack: {
+            type: Boolean,
+            default: true
+        },
+        isShowRight: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {

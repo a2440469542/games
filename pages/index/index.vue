@@ -22,11 +22,6 @@
 					<!-- <text id="counter">{{ initialNum }}</text> -->
 				</view>
 			</view>
-			<view class="jackpot-purple" v-if="currentTheme === 'purple'">
-				<view class="jackpot-content">
-					<text ref="counter">{{ formattedNumber }}</text>
-				</view>
-			</view>
 			<view class="jackpot-purple" v-else>
 				<view class="jackpot-content">
 					<!-- <text class="counter">{{ formattedNumber }}</text> -->
@@ -35,15 +30,17 @@
 					<!-- <text id="counter">{{ initialNum }}</text> -->
 				</view>
 			</view>
-			<view class="game-types-tabs">
-				<view class="game-types-tab" v-for="(item, index) in gameTypes" :key="index"
-					:class="[currentGameType === item.id ? 'active' : '']" @click="changeGameType(item)">
-					<view class="item-text">		
-						{{ item.name }}
+			<uv-sticky :customNavHeight="'3.5rem'" offset-top="0">
+				<view class="game-types-tabs">
+					<view class="game-types-tab" v-for="(item, index) in gameTypes" :key="index"
+						:class="[currentGameType === item.id ? 'active' : '']" @click="changeGameType(item)">
+						<view class="item-text">
+							{{ item.name }}
+						</view>
+						<view class="line" :class="[currentGameType === item.id ? 'active' : '']"></view>
 					</view>
-					<view class="line" :class="[currentGameType === item.id ? 'active' : '']"></view>
 				</view>
-			</view>
+			</uv-sticky>
 			<view class="game-title">
 				<view class="game-title-content">
 					<view class="title-img">
@@ -422,7 +419,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					width: 3rem;
 					height: 0.2rem;
 					border-radius: 0.25rem;
-					
+
 				}
 			}
 
@@ -432,12 +429,15 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				justify-content: center;
 				align-items: center;
 				flex-direction: column;
-				.item-text{
+
+				.item-text {
 					padding: .5rem .75rem;
 				}
+
 				.line {
 					display: none;
 				}
+
 				uni-image {
 					width: 2.5rem;
 					height: 2.5rem;

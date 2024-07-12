@@ -1,7 +1,7 @@
 <script>
 import store from '@/store/index.js'
 export default {
-	onLaunch: function () {
+	onLaunch: function (options) {
 		console.log('App Launch')
 		const windowResizeCallback = (res) => {
 			this.updateBodyStyles(res.size.windowHeight * 3 / 5)
@@ -16,7 +16,7 @@ export default {
 				// this.setPageHeight(windowHeight);
 			}
 		});
-		this.getConfig()
+		this.getConfig(options)
 	},
 	onShow: function () {
 		console.log('App Show')
@@ -37,9 +37,24 @@ export default {
 			document.documentElement.style.setProperty('--body-width', `${width}px`);
 			document.body.style.width = `${width}px`;
 		},
-		async getConfig() {
+		async getConfig(options) {
+			console.log('options', options.query.isTest)
+			const isTest = options.query.isTest
 			const config = await this.$api.user.getConfig();
 			store.dispatch('setConfig', config);
+			if (isTest == 1) {
+				return
+			} 
+			if (config.is_maintain === "1") {
+					uni.redirectTo({
+						url: '/pages/maintain/index'
+					})
+				} else {
+					uni.switchTab({
+						url: '/pages/index/index'
+					})
+				}
+
 		},
 		setPageHeight(height) {
 			const styleTag = document.createElement('style');
@@ -57,5 +72,4 @@ export default {
 <style lang="scss">
 /*每个页面公共css */
 @import '/static/css/theme.scss'
-
 </style>

@@ -2,7 +2,7 @@
 import config from "../config/index.js";
 const BASE_URL = config.baseUrl; // 替换成你的API的基本URL
 import store from '@/store'; // 引入 Vuex store
-
+let isRefresh = true;
 // 创建loading实例
 let globalLoading = null;
 function showLoading() {
@@ -44,13 +44,19 @@ function request(url, method = "GET", data = {}, header = {}) {
           }
           resolve(res.data.data);
         } else if (res.statusCode == 401) {
-          uni.removeStorageSync("token");
-          uni.removeStorageSync("channelInfo");
-          store.dispatch('setIsLogin', false)
-          store.dispatch('setUserinfo', {})
-          uni.reLaunch({
-            url: "/pages/index/index",
-          });
+          if (isRefresh) {
+            uni.removeStorageSync("token");
+            uni.removeStorageSync("channelInfo");
+            store.dispatch('setIsLogin', false)
+            store.dispatch('setUserinfo', {})
+            isRefresh = false;
+            uni.reLaunch({
+              url: "/pages/index/index",
+            });
+          } else {
+            reject(new Error("Request failed"));
+          }
+         
         } else if (code == 102) {
           resolve(res.data);
         } else {
