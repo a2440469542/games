@@ -552,7 +552,6 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
-					margin-top: 10rpx;
 				}
 			}
 		}
