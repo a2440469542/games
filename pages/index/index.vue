@@ -43,14 +43,30 @@
 			</uv-sticky>
 			<view class="game-title">
 				<view class="game-title-content">
-					<view class="title-img">
+					<view class="title-img" v-if="currentTheme === 'green'">
 						<image src="../../static/images/pg-left.png"></image>
 					</view>
+					<view class="title-svg" v-else>
+						<svg width="58" height="16" viewBox="0 0 58 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path class="icon" fill-rule="evenodd" clip-rule="evenodd"
+								d="M48.1171 1.19741C49.0717 0.242791 50.6195 0.242792 51.5741 1.19741L56.7595 6.38286C57.7142 7.33747 57.7142 8.88521 56.7595 9.83982L51.5741 15.0253C50.6195 15.9799 49.0717 15.9799 48.1171 15.0253L42.9317 9.83982C41.9771 8.88521 41.9771 7.33747 42.9317 6.38286L48.1171 1.19741ZM22.9741 3.29213C23.6395 2.62674 24.7184 2.62674 25.3837 3.29213L28.9981 6.90654C29.6635 7.57193 29.6635 8.65075 28.9982 9.31614L25.3837 12.9305C24.7184 13.5959 23.6395 13.5959 22.9741 12.9305L19.3597 9.31614C18.6943 8.65075 18.6943 7.57193 19.3597 6.90654L22.9741 3.29213ZM4.0648 5.10828C3.65017 4.69364 2.97791 4.69364 2.56327 5.10828L0.310977 7.36057C-0.103659 7.77521 -0.103659 8.44747 0.310977 8.8621L2.56327 11.1144C2.97791 11.529 3.65017 11.529 4.0648 11.1144L6.3171 8.8621C6.73173 8.44747 6.73173 7.77521 6.3171 7.36058L4.0648 5.10828Z"
+								fill="#4D1A65" />
+						</svg>
+					</view>
+
 					<view class="pg-text">
 						{{ currentGameName }}
 					</view>
-					<view class="title-img">
+					<view class="title-img" v-if="currentTheme === 'green'">
 						<image src="../../static/images/pg-right.png"></image>
+					</view>
+					<view class="title-svg2" v-else>
+						<svg width="58" height="16" viewBox="0 0 58 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path class="icon" fill-rule="evenodd" clip-rule="evenodd"
+								d="M9.35943 1.19741C8.40482 0.242791 6.85708 0.242792 5.90247 1.19741L0.717014 6.38286C-0.237602 7.33747 -0.237602 8.88521 0.717014 9.83982L5.90247 15.0253C6.85708 15.9799 8.40482 15.9799 9.35943 15.0253L14.5449 9.83982C15.4995 8.88521 15.4995 7.33747 14.5449 6.38286L9.35943 1.19741ZM34.5024 3.29213C33.837 2.62674 32.7582 2.62674 32.0928 3.29213L28.4784 6.90654C27.813 7.57193 27.813 8.65075 28.4784 9.31614L32.0928 12.9305C32.7582 13.5959 33.837 13.5959 34.5024 12.9305L38.1168 9.31614C38.7822 8.65075 38.7822 7.57193 38.1168 6.90654L34.5024 3.29213ZM53.4118 5.10828C53.8264 4.69364 54.4987 4.69364 54.9133 5.10828L57.1656 7.36057C57.5802 7.77521 57.5802 8.44747 57.1656 8.8621L54.9133 11.1144C54.4987 11.529 53.8264 11.529 53.4118 11.1144L51.1595 8.8621C50.7448 8.44747 50.7448 7.77521 51.1595 7.36058L53.4118 5.10828Z"
+								fill="#293562" />
+						</svg>
+
 					</view>
 				</view>
 			</view>
@@ -455,11 +471,40 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				margin-top: 1rem;
+
+				.title-svg {
+					width: 40%;
+					display: flex;
+					align-items: center;
+					justify-content: flex-end;
+					svg {
+						width: 3.625rem;
+						height: 1rem;
+						.icon {
+							fill: var(--pg-ttext-color);
+						}
+					}
+				}
+				.title-svg2 {
+					width: 40%;
+					display: flex;
+					align-items: center;
+					justify-content: flex-start;
+					svg {
+						width: 3.625rem;
+						height: 1rem;
+						.icon {
+							fill: var(--pg-ttext-color);
+						}
+					}
+				}
 
 				.title-img {
 					height: .5rem;
 					width: 40%;
-
+					display: flex;
+					align-items: center;
 					uni-image {
 						width: 100%;
 						height: 100%;
@@ -467,10 +512,13 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 				}
 
 				.pg-text {
+					width: 20%;
 					color: var(--pg-ttext-color);
 					font-size: 1.75rem;
 					letter-spacing: .1rem;
-					margin-top: 1rem;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 				}
 			}
 		}
@@ -486,7 +534,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 			box-sizing: border-box;
 
 			.list-item {
-				width: calc(25% - .5rem);
+				width: calc(25% - .4rem);
 
 				.game-cover {
 					width: 100%;
@@ -499,9 +547,8 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 
 				.game-name {
 					color: var(--text-color);
-					text-align: center;
+					// text-align: center;
 					font-size: .75rem;
-					color: var(--primary-text-color);
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;

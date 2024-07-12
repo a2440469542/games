@@ -129,25 +129,28 @@ export default {
     align-items: center;
     width: 35%;
     .cou {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 2rem;
+      // height: 1.5rem;
+      aspect-ratio: 1/1;
       background-image: url("../../static/images/country.png");
       background-size: 100% 100%;
       margin-right: 0.5rem;
+      display: flex;
     }
 
     .amount {
-      width: calc(100% - 1.5rem);
+      width: calc(100% - 2.5rem);
       font-size: 1rem;
-      padding: .25rem .5rem;
+      padding: .125rem .25rem;
       border: .1rem solid var(--amount-border-color);
       border-radius: .5rem;
       color: var(--amount-text-color);
     }
     .login-text {
-      width: calc(100% - 1.5rem);
+      width: calc(100% - 4rem);
       font-size: .75rem;
       color: var(--text-color);
+      text-align: right;
     }
   }
 }
