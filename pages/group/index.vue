@@ -227,7 +227,7 @@ export default {
         this.loadGroupTotal()
         this.loadingChargeList()
         this.getWages()
-        this.copyUrl = `${this.channelInfo.url}#/?cid=${this.cid}&inv_code=${this.userInfo.inv_code}`
+        this.copyUrl = `${this.channelInfo.url}?cid=${this.cid}&inv_code=${this.userInfo.inv_code}`
     },
     onShow() {
         console.log('团队onshow', this.$store.state.SystemStore.isLogin, this.isLogin, this.userInfo)

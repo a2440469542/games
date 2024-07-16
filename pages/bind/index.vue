@@ -15,25 +15,32 @@
                 <view class="form-item" v-if="bankParams.type === 'CPF'">
                     <view class="label">Número da conta pix</view>
                     <view class="value">
-                        <input type="number" style="direction: rtl;" placeholder-style="color: var(--text-color)" placeholder="Número do cartão"
+                        <input type="number" @input="handleInput" style="direction: rtl;"
+                            placeholder-style="color: var(--text-color)" placeholder="Número do cartão"
                             v-model="bankParams.pix" />
                     </view>
                 </view>
+                <view v-if="showError && bankParams.type === 'CPF'" class="error-tip">{{ errorMessage }}</view>
+
                 <!--手机号码-->
                 <view class="form-item" v-if="bankParams.type === 'PHONE'">
                     <view class="label">CPF do Titular</view>
                     <view class="value">
-                        <input type="number" style="direction: rtl;" placeholder-style="color: var(--text-color)" placeholder="Número do cartão"
+                        <input type="number" @input="handleInput" style="direction: rtl;"
+                            placeholder-style="color: var(--text-color)" placeholder="Número do cartão"
                             v-model="bankParams.pix" />
                     </view>
                 </view>
+                <view v-if="showError && bankParams.type === 'PHONE'" class="error-tip">{{ errorMessage }}</view>
+
                 <view class="form-item" v-if="bankParams.type === 'PHONE'">
-                    <view class="label">Pix telefone</view>
+                    <view class="label">Pix telefone <view class="area">+55</view></view>
                     <view class="value">
-                        <input type="number" style="direction: rtl;" placeholder-style="color: var(--text-color)" placeholder="Número de telefone"
-                            v-model="bankParams.mobile" />
+                        <input type="number" @input="checkPhone" style="direction: rtl;" placeholder-style="color: var(--text-color)"
+                            placeholder="Número de telefone" v-model="bankParams.mobile" />
                     </view>
                 </view>
+                <view v-if="isPhone && bankParams.type === 'PHONE'" class="error-tip">{{ phoneMsg }}</view>
                 <!--账户持有人姓名-->
                 <view class="form-item">
                     <view class="label">Nome do titular da conta</view>
@@ -66,6 +73,8 @@ export default {
     data() {
         return {
             title: 'Vinculação de Saque',
+            showError: false,
+            errorMessage: 'Por favor insira o CPF correto',
             columns: [[
                 {
                     label: 'CPF',
@@ -82,11 +91,13 @@ export default {
                 pix: '',
                 name: ''
             },
-            inputValue: ''
+            inputValue: '',
+            isPhone: false,
+            phoneMsg: 'Por favor insira o telefone correto'
         }
     },
-    computed:{
-      ...mapGetters(['currentTheme'])
+    computed: {
+        ...mapGetters(['currentTheme'])
     },
     onLoad() {
         this.getBankInfo()
@@ -106,7 +117,31 @@ export default {
     methods: {
         phoneInput(e) {
             console.log(e)
-            this.inputValue = e.detail.value   
+            this.inputValue = e.detail.value
+        },
+        handleInput(event) {
+            let value = event.target.value;
+            // 使用正则表达式来检查是否为11位数字
+            let regex = /^(\d{11})$/;
+            if (!regex.test(value)) {
+                this.showError = true;
+                this.errorMessage = 'Por favor insira o CPF correto';
+            } else {
+                this.showError = false;
+                this.errorMessage = '';
+            }
+        },
+        checkPhone(event) {
+            let value = event.target.value;
+            // 使用正则表达式来检查是否为11位数字
+            let regex = /^(\d{11})$/;
+            if (!regex.test(value)) {
+                this.isPhone = true;
+                this.phoneMsg = 'Por favor insira o telefone correto';
+            } else {
+                this.isPhone = false;
+                this.phoneMsg = '';
+            }
         },
         getBankInfo() {
             this.$api.user.userBank().then(res => {
@@ -118,25 +153,25 @@ export default {
                     this.bankParams.mobile = res.mobile
                     this.bankParams.name = res.name
                     this.bankParams.pix = res.pix
+                    if (this.bankParams.type === 'PHONE') {
+                        this.$refs.picker.setIndexs([1],true)
+                    } else {
+                        this.$refs.picker.setIndexs([0],true)
+                    }
                 }
             })
         },
         confirm(e) {
-            if (e.value[0].value === 'CPF') {
-                this.bankParams.mobile = ""
-            }
             this.bankParams.type = e.value[0].value
         },
         cancel(e) {
             console.log(e)
         },
         submit() {
-            let params = {}
-            params = this.bankParams
-            if (this.bankParams.type === 'PHONE') {
-                params.mobile = 55 + this.bankParams.mobile
+            if(this.showError){
+                return
             }
-            this.$api.user.bindBank(params).then(res => {
+            this.$api.user.bindBank(this.bankParams).then(res => {
                 this.getBankInfo()
                 uni.showToast({
                     title: 'Vinculação bem-sucedida',
@@ -173,25 +208,42 @@ export default {
             border-radius: 0.75rem;
             padding: 0.75rem;
 
+            .error-tip {
+                color: red;
+                font-size: 0.5rem;
+                margin-left: 0.625rem;
+                width: 100%;
+                text-align: right;
+                padding: 0 1rem;
+            }
+
             .form-item {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 0.625rem;
-                height: 2.8125rem;
+                height: 2.5rem;
 
                 .label {
                     color: var(--text-color);
                     font-size: 0.875rem;
                     margin-right: 1.25rem;
+                    width: 40%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .area {
+                        
+                    }
                 }
 
                 .value {
                     display: flex;
                     align-items: center;
+                    justify-content: flex-end;
                     color: var(--text-color);
                     font-size: 1rem;
-
+                    width: 60%;
                     .code {
                         width: 5.8125rem;
                         margin-right: 0.25rem;

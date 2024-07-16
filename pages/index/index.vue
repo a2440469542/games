@@ -143,10 +143,14 @@ export default {
 	},
 
 	onLoad(options) {
-
-		//console.log(options, window.location.href)
-		if (options.inv_code) {
-			this.inv_code = options.inv_code
+		// console.log("options", options, window.location.href)
+		// if (options.inv_code) {
+		// 	this.inv_code = options.inv_code
+		// }
+		let inv_code = this.getParameterByName('inv_code');
+		console.log("inv_code", inv_code)
+		if (inv_code) {
+			this.inv_code = inv_code
 		}
 		this.getChannelByUrl()
 		nextTick(() => {
@@ -161,6 +165,15 @@ export default {
 		}
 	},
 	methods: {
+		getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&'); // Escape brackets for regex
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		},
 		// 获取渠道
 		getChannelByUrl() {
 			const { origin, pathname } = location;
@@ -478,22 +491,27 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					display: flex;
 					align-items: center;
 					justify-content: flex-end;
+
 					svg {
 						width: 3.625rem;
 						height: 1rem;
+
 						.icon {
 							fill: var(--pg-ttext-color);
 						}
 					}
 				}
+
 				.title-svg2 {
 					width: 40%;
 					display: flex;
 					align-items: center;
 					justify-content: flex-start;
+
 					svg {
 						width: 3.625rem;
 						height: 1rem;
+
 						.icon {
 							fill: var(--pg-ttext-color);
 						}
@@ -505,6 +523,7 @@ scroll-view ::v-deep ::-webkit-scrollbar {
 					width: 40%;
 					display: flex;
 					align-items: center;
+
 					uni-image {
 						width: 100%;
 						height: 100%;

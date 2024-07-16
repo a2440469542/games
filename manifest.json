@@ -18,25 +18,25 @@
         },
         /* 模块配置 */
         "modules" : {
-                "plugins": {
-                  "postcss-px-to-viewport": {
-                    "unitToConvert": "rpx",
-                    "viewportWidth": 750,
-                    "unitPrecision": 5,
-                    "propList": ["*"],
-                    "viewportUnit": "vw",
-                    "fontViewportUnit": "vw",
-                    "selectorBlackList": [],
-                    "minPixelValue": 1,
-                    "mediaQuery": false,
-                    "replace": true,
-                    "exclude": "/node_modules/i",
-                    "include": "undefined",
-                    "landscape": false,
-                    "landscapeUnit": "vw",
-                    "landscapeWidth": 750
-                  }
+            "plugins" : {
+                "postcss-px-to-viewport" : {
+                    "unitToConvert" : "rpx",
+                    "viewportWidth" : 750,
+                    "unitPrecision" : 5,
+                    "propList" : [ "*" ],
+                    "viewportUnit" : "vw",
+                    "fontViewportUnit" : "vw",
+                    "selectorBlackList" : [],
+                    "minPixelValue" : 1,
+                    "mediaQuery" : false,
+                    "replace" : true,
+                    "exclude" : "/node_modules/i",
+                    "include" : "undefined",
+                    "landscape" : false,
+                    "landscapeUnit" : "vw",
+                    "landscapeWidth" : 750
                 }
+            }
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -89,22 +89,26 @@
         "enable" : false
     },
     "vueVersion" : "2",
-	"h5" : {
-		"devServer" : {
-			"disableHostCheck" : true,
-			"proxy" : {
-				"/api" : {
-					"target" : "https://test.rs6bot.com",
-					"changeOrigin" : true,
-					"secure" : false
-				}
-			}
-		},
-        "dev": {
-            "NODE_ENV": "development"
+    "h5" : {
+        "devServer" : {
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/api" : {
+                    "target" : "https://test.rs6bot.com",
+                    "changeOrigin" : true,
+                    "secure" : false
+                }
+            }
         },
-        "prod": {
-            "NODE_ENV": "production"
+        "router" : {
+            "mode" : "history",
+            "base" : "/"
+        },
+        "dev" : {
+            "NODE_ENV" : "development"
+        },
+        "prod" : {
+            "NODE_ENV" : "production"
         }
-	}
+    }
 }

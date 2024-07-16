@@ -118,6 +118,7 @@ export default {
                 this.onLogin()
             } else {
                 if (this.form.mobile === this.mobile) {
+                    console.log('inv_code::', this.inv_code)
                     this.form.inv_code = this.inv_code
                     this.setRegister()
                 } else {
