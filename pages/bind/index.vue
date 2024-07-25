@@ -34,10 +34,12 @@
                 <view v-if="showError && bankParams.type === 'PHONE'" class="error-tip">{{ errorMessage }}</view>
 
                 <view class="form-item" v-if="bankParams.type === 'PHONE'">
-                    <view class="label">Pix telefone <view class="area">+55</view></view>
+                    <view class="label">Pix telefone <view class="area">+55</view>
+                    </view>
                     <view class="value">
-                        <input type="number" @input="checkPhone" style="direction: rtl;" placeholder-style="color: var(--text-color)"
-                            placeholder="Número de telefone" v-model="bankParams.mobile" />
+                        <input type="number" @input="checkPhone" style="direction: rtl;"
+                            placeholder-style="color: var(--text-color)" placeholder="Número de telefone"
+                            v-model="bankParams.mobile" />
                     </view>
                 </view>
                 <view v-if="isPhone && bankParams.type === 'PHONE'" class="error-tip">{{ phoneMsg }}</view>
@@ -102,23 +104,8 @@ export default {
     onLoad() {
         this.getBankInfo()
     },
-    watch: {
-        // 监听inputValue变化，更新bankParams.mobile  
-        inputValue(newVal) {
-            if (newVal.startsWith('55')) {
-                this.bankParams.mobile = newVal;
-            } else if (newVal.match(/^\d+$/)) { // 确保是数字  
-                this.bankParams.mobile = '55' + newVal;
-            } else {
-                this.bankParams.mobile = ''; // 如果不是数字或已删除55，则显示为空  
-            }
-        }
-    },
+    watch: {},
     methods: {
-        phoneInput(e) {
-            console.log(e)
-            this.inputValue = e.detail.value
-        },
         handleInput(event) {
             let value = event.target.value;
             // 使用正则表达式来检查是否为11位数字
@@ -150,13 +137,13 @@ export default {
                     return
                 } else {
                     this.bankParams.type = res.type
-                    this.bankParams.mobile = res.mobile
+                    this.bankParams.mobile = this.removeLeading55(res.mobile)
                     this.bankParams.name = res.name
                     this.bankParams.pix = res.pix
                     if (this.bankParams.type === 'PHONE') {
-                        this.$refs.picker.setIndexs([1],true)
+                        this.$refs.picker.setIndexs([1], true)
                     } else {
-                        this.$refs.picker.setIndexs([0],true)
+                        this.$refs.picker.setIndexs([0], true)
                     }
                 }
             })
@@ -167,11 +154,30 @@ export default {
         cancel(e) {
             console.log(e)
         },
+        removeLeading55(input) {
+            // 将输入转换为字符串，以确保统一处理
+            const strInput = String(input);
+
+            // 检查前两个字符是否为"55"
+            if (strInput.startsWith("55")) {
+                // 如果是，返回除去前两个字符后的字符串
+                return strInput.substring(2);
+            }
+
+            // 如果不是，返回原始输入
+            return strInput;
+        },
         submit() {
-            if(this.showError){
+            if (this.showError) {
                 return
             }
-            this.$api.user.bindBank(this.bankParams).then(res => {
+            let params = {
+                type: this.bankParams.type,
+                mobile: `55${this.bankParams.mobile}`,
+                pix: this.bankParams.pix,
+                name: this.bankParams.name
+            }
+            this.$api.user.bindBank(params).then(res => {
                 this.getBankInfo()
                 uni.showToast({
                     title: 'Vinculação bem-sucedida',
@@ -232,9 +238,8 @@ export default {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    .area {
-                        
-                    }
+
+                    .area {}
                 }
 
                 .value {
@@ -244,6 +249,7 @@ export default {
                     color: var(--text-color);
                     font-size: 1rem;
                     width: 60%;
+
                     .code {
                         width: 5.8125rem;
                         margin-right: 0.25rem;
