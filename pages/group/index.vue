@@ -3,7 +3,7 @@
         <navgation-bar @openDrawer="openDrawer" :isLogin="isLogin" :is-open="isOpen"
             :userInfo="userInfo" :channel="channelInfo"></navgation-bar>
         <left-menu ref="leftMenu"></left-menu>
-        <scroll-view scroll-y class="group-content">
+        <scroll-view scroll-y class="group-content" @scrolltolower="loadMore">
             <view class="content-box">
                 <view class="group-info">
                     <view class="top">
@@ -98,6 +98,7 @@
                     </view>
                 </view>
             </view>
+            <uv-load-more loadingText="Carregando..." loadmoreText="Carregando" nomoreText="" :status="status" />
         </scroll-view>
         <uv-picker ref="picker" keyName="label" :columns="columns" @confirm="confirm" @cancel="cancel"></uv-picker>
         <tab-bar :current-index="1" @needLogin='toLogin' :isLogin="isLogin"></tab-bar>
@@ -117,9 +118,12 @@ export default {
             currentLabel: 'Todos',
             cid: uni.getStorageSync('cid'),
             invite: 0,
+            status: 'loading',
             chargeObj: {
                 type: 1,
-                date: 5
+                date: 5,
+                page: 1,
+                limit: 20
             },
             columns: [[
                 {
@@ -236,6 +240,13 @@ export default {
         }
     },
     methods: {
+        loadMore() {
+            this.chargeObj.page++
+            console.log('loadMore', this.chargeObj.page)
+            if (this.status !== 'nomore') {
+                this.loadingChargeList()
+            }
+        },
         getWages() {
             this.$api.home.getWages().then(res => {
                 console.log(res)
@@ -277,6 +288,8 @@ export default {
             this.$refs.picker.close();
         },
         onChangeType() {
+            this.chargeObj.page = 1
+            this.dataList = []
             this.$refs.picker.open();
         },
         loadGroupTotal() {
@@ -296,7 +309,8 @@ export default {
         },
         async loadingChargeList() {
             const res = await this.$api.user.getChargeList(this.chargeObj);
-            this.dataList = res;
+            this.dataList =this.dataList.concat(res.data);
+            this.status = res.data.length < this.chargeObj.limit ? 'nomore' : '';
         },
         openDrawer() {
             this.isOpen = !this.isOpen
@@ -307,6 +321,8 @@ export default {
             }
         },
         tabSwitch(index) {
+            this.chargeObj.page = 1
+            this.dataList = []
             this.chargeObj.type = index
             this.currentIndex = index
             this.loadGroupTotal()
